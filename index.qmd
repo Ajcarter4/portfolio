@@ -1,0 +1,36 @@
+---
+title: "portfoliowebsite"
+---
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+```{r}
+#remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
+
+#label load packages & import data
+library(readr)
+library(tidyverse)
+library(lubridate)
+
+hosp <- read_csv("HCAHPS-Hospital.csv"))
+                    
+```
+
+```{r}
+#remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
+
+#label load packages & import data
+library(readr)
+library(tidyverse)
+library(lubridate)
+here::i_am("index.qmd")
+hosp <- read_csv(here::here("HCAHPS-Hospital.csv"))
+```
+
+```{r}
+hosp2<-hosp|>
+select(!(c("State","Telephone Number","Address","parish")))
+
+```

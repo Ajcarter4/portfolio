@@ -1,0 +1,19 @@
+project:
+  type: website
+
+website:
+  title: "portfoliowebsite"
+  navbar:
+    left:
+      - href: Project1.qmd
+        text: Project 1
+      - Project1.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

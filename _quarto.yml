@@ -6,9 +6,9 @@ website:
   navbar:
     left:
       - href: Project1.qmd
-        text: Project 1
+        text: Hospital Data Project
       - href: Project2.qmd
-        text: Project 2
+        text: Encelia Data Project
       
 
 format:

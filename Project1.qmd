@@ -14,6 +14,9 @@ library(readr)
 library(tidyverse)
 library(lubridate)
 library(janitor)
+library(broom)
+library(rsample)
+library(yardstick)
 
 hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
                     
@@ -95,14 +98,142 @@ hmean$`Overall hospital rating - linear mean score` <- as.numeric(
   as.character(hmean$`Overall hospital rating - linear mean score`)
 )
 
-# Step 3: Filter values greater than 60 and exclude NA
-filtered_hmean <- hmean %>%
-  filter(!is.na(`Overall hospital rating - linear mean score`) &
-         `Overall hospital rating - linear mean score` > 80)
+# Step 3: Filter values greater than 60 and =exclude NA
+filtered_hmeanc <- hmeanc|>
+         filter(overall_rating < 80)
 
 
+```
+
+```{r}
+#Cleaning names
+
+hmeanc<-hmean|>
+  mutate(
+   Nurse_comm =`Nurse communication - linear mean score`,
+   Doctor_comm =`Doctor communication - linear mean score`,
+    Staff_resp =`Staff responsiveness - linear mean score`,
+   Med_comm =`Communication about medicines - linear mean score`,
+   disc_info = `Discharge information - linear mean score`,
+   care_trans =`Care transition - linear mean score`,
+   cleanliness = `Cleanliness - linear mean score`,
+   quietness = `Quietness - linear mean score`,
+   overall_rating = `Overall hospital rating - linear mean score`,
+   rec_rating = `Recommend hospital - linear mean score`
+   
+  )
+
+hmeanc$`Nurse communication - linear mean score` <- NULL
+hmeanc$`Doctor communication - linear mean score` <- NULL
+hmeanc$`Staff responsiveness - linear mean score` <- NULL
+hmeanc$`Communication about medicines - linear mean score` <- NULL
+hmeanc$`Discharge information - linear mean score` <- NULL
+hmeanc$`Care transition - linear mean score` <- NULL
+hmeanc$`Cleanliness - linear mean score` <- NULL
+hmeanc$`Quietness - linear mean score` <- NULL
+hmeanc$`Overall hospital rating - linear mean score` <- NULL
+hmeanc$`Recommend hospital - linear mean score` <- NULL
+```
+
+```{r}
+lmall <-glm(
+    overall_rating~ Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness,
+    data = hmeanc_training,
+     family = "gaussian"
+  )
+
+tidy(lmall)
+```
+
+```{r}
+ggplot(data = hmean,
+       mapping = aes(
+         x = `Overall hospital rating - linear mean score`,
+         y = `Quietness - linear mean score`
+
+       )) +
+  geom_point() +
+  labs(
+    title = "Overall vs Quietness",
+    x = "Quietness",
+    y = "Overall"
+  )
+
+
+```
+
+```{r}
+set.seed(17)
+hmeanc_split <- hmeanc |>
+  initial_split(
+    prop=0.50
+  )  
+
+  hmeanc_training<- training(hmeanc_split)
+  hmean_test <- testing(hmeanc_split)
+```
+
+```{r}
+
+lmcomm <-glm(
+    overall_rating~Nurse_comm + Doctor_comm ,
+    data = hmeanc_training ,
+    family = "gaussian"
+  )
+
+lmall <-glm(
+    overall_rating~Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness  ,
+    data = hmeanc_training,
+     family = "gaussian"
+  )
+
+lmnull <-glm(
+    overall_rating~1 ,
+    data = hmeanc_training,
+     family = "gaussian"
+  )
+
+tidy(lmcomm)
+tidy (lmall)
+tidy(lmnull)
+```
+
+```{r}
+set.seed(4)
+hmeanc_fold <- hmeanc_training |>
+  vfold_cv(
+    v=10, #10 folds
+    repeats=1 #make a prediction for each observation
+  )
+
+hmeanc_fold
+```
+
+```{r}
+hmeanc_prediction <- function(split){
+  train <- analysis(split)
+  valid <- assessment(split) }
+
+```
+
+```{r}
+valid_pred <- valid |>
+    mutate(
+      pred1 = predict(lmcomm, newdata = valid),
+      pred2 = predict(lmall, newdata = valid),
+      prednull = predict(lmnull, newdata = valid)
+        
+    )
+  return(valid_pred)
+
+hmeanc_prediction(hmeanc_fold$splits[[1]])
+```
+
+```         
 ```
 
 overall is what it should
 
 recommended is what you want it to be
+
+Testing Testing

@@ -287,7 +287,7 @@ plot8<-ggplot(data = hmeanc,
 
 ```
 
-# Data Wrangling/Model Selection
+# Predicitive Model/Model Selection
 
 section explanation
 
@@ -427,7 +427,7 @@ ggplot(data = hmeanc_pred3,
   )
 ```
 
-# Limitations
+# Project Limitations & Constraints
 
 This subsection should describe potential limitations of the conclusion and/or future work that someone might consider doing to expand on your analysis. Some limitations to discuss might include:
 

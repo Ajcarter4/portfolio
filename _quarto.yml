@@ -4,18 +4,19 @@ project:
 website:
   title: "portfoliowebsite"
   navbar:
-    left:
+    left: 
+      - href: about.qmd
+        text: About Section
       - href: Project1.qmd
         text: Hospital Data Project
       - href: Project2.qmd
         text: Encelia Data Project
-      
-
+     
 format:
   html:
-    theme: cosmo
+    theme:  sandstone
+    backgroundcolor: "lightblue"
     css: styles.css
     toc: true
-
 editor: visual
 

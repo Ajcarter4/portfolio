@@ -2,12 +2,9 @@
 title: "portfoliowebsite"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r echo: false}
+```{r}
 #| message: false
+#| warning: false
 #| echo: false
 #remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
 
@@ -19,13 +16,15 @@ library(janitor)
 library(broom)
 library(rsample)
 library(yardstick)
+library(patchwork)
 
 hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
                     
 ```
 
 ```{r}
-#|echo: false
+#| message: false
+#| warning: false
 #remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
 
 #label load packages & import data
@@ -39,13 +38,16 @@ hosp <- read_csv(here::here("HCAHPS-Hospital.csv"),na=c("Not Available","Not App
 
 # Data Wrangling
 
+section explanation
+
 ```{r}
 
 #Taking out stuff we don't want
 hosp2<-hosp|>
 select(!(c("State","Telephone Number","Address","County/Parish","Number of Completed Surveys","Number of Completed Surveys Footnote","Survey Response Rate Percent","Start Date","End Date"))) 
+```
 
-
+```{r}
 #patient star rating 
 hstar<-hosp2|>
 select(!(c("HCAHPS Answer Percent","HCAHPS Linear Mean Value")))|>
@@ -63,12 +65,9 @@ select(!(c("Patient Survey Star Rating","HCAHPS Linear Mean Value")))|>
 hmean<-hosp2|>
 select(!(c("HCAHPS Answer Percent","Patient Survey Star Rating")))|>
   filter(!is.na(`HCAHPS Linear Mean Value`))
+```
 
-
-
-
-
-
+```{r}
 #pivot our HCAHPS COL to get less rows 
 hstar<-hstar|>
   pivot_wider(
@@ -136,7 +135,9 @@ hmeanc$`Overall hospital rating - linear mean score` <- NULL
 hmeanc$`Recommend hospital - linear mean score` <- NULL
 ```
 
-# EDA SECTION
+# Eda
+
+section explanation
 
 ```{r echo=FALSE}
 #|echo: false
@@ -153,7 +154,9 @@ plot1<- ggplot(data = hmeanc,
     title = "Explanatory vs Overall rating",
     x = "Staff Responsiveness",
     y = "Overall Rating"
-  )
+  )+theme(plot.title = element_text(size = 7))+ theme(
+  axis.title.x = element_text(size = 7),
+  axis.title.y = element_text(size = 7) )
 plot2<-ggplot(data = hmeanc,
        mapping = aes(
          x = Nurse_comm,
@@ -167,7 +170,9 @@ plot2<-ggplot(data = hmeanc,
     title = "Explanatory vs Overall rating",
     x = "Nurse Communication",
     y = "Overall Rating"
-  )
+  )+theme(plot.title = element_text(size = 7))+ theme(
+  axis.title.x = element_text(size = 7),
+  axis.title.y = element_text(size = 7) )
 
 plot3<-ggplot(data = hmeanc,
        mapping = aes(
@@ -182,7 +187,9 @@ plot3<-ggplot(data = hmeanc,
     title = "Explanatory vs Overall rating",
     x = "Doctor Communication",
     y = "Overall Rating"
-  )
+  )+theme(plot.title = element_text(size = 7))+ theme(
+  axis.title.x = element_text(size = 7),
+  axis.title.y = element_text(size = 7) )
 
 plot4<-ggplot(data = hmeanc,
        mapping = aes(
@@ -197,7 +204,9 @@ plot4<-ggplot(data = hmeanc,
     title = "Explanatory vs Overall rating",
     x = "Medicine Communication",
     y = "Overall Rating"
-  )
+  )+theme(plot.title = element_text(size = 7))+ theme(
+  axis.title.x = element_text(size = 7),
+  axis.title.y = element_text(size = 7) )
 
 plot5<-ggplot(data = hmeanc,
        mapping = aes(
@@ -212,7 +221,9 @@ plot5<-ggplot(data = hmeanc,
     title = "Explanatory vs Overall rating",
     x = "Discharge Information",
     y = "Overall Rating"
-  )
+  )+theme(plot.title = element_text(size = 7))+ theme(
+  axis.title.x = element_text(size = 7),
+  axis.title.y = element_text(size = 7) )
 plot6<-ggplot(data = hmeanc,
        mapping = aes(
          x = care_trans,
@@ -226,7 +237,9 @@ plot6<-ggplot(data = hmeanc,
     title = "Explanatory vs Overall rating",
     x = "Care Transition",
     y = "Overall Rating"
-  )
+  )+theme(plot.title = element_text(size = 7))+ theme(
+  axis.title.x = element_text(size = 7),
+  axis.title.y = element_text(size = 7) )
 
 plot7<-ggplot(data = hmeanc,
        mapping = aes(
@@ -241,7 +254,9 @@ plot7<-ggplot(data = hmeanc,
     title = "Explanatory vs Overall rating",
     x = "cleanliness",
     y = "Overall Rating"
-  )
+  )+theme(plot.title = element_text(size = 7))+ theme(
+  axis.title.x = element_text(size = 7),
+  axis.title.y = element_text(size = 7) )
 
 plot8<-ggplot(data = hmeanc,
        mapping = aes(
@@ -256,18 +271,25 @@ plot8<-ggplot(data = hmeanc,
     title = "Explanatory vs Overall rating",
     x = "Medicine Communication",
     y = "Overall Rating"
-  )
-print(plot1)
-print(plot2)
-print(plot3)
-print(plot4)
-print(plot5)
-print(plot6)
-print(plot7)
-print(plot8)
+  )+theme(plot.title = element_text(size = 7)) + theme(
+  axis.title.x = element_text(size = 7),
+  axis.title.y = element_text(size = 7) )
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| label: show lightbox
+#| lightbox: 
+#|   match: auto
+
+(plot1+plot2+plot3+plot4+plot5+plot6+plot7+plot8)
+
 ```
 
 # Data Wrangling/Model Selection
+
+section explanation
 
 ```{r}
 set.seed(17)
@@ -277,7 +299,7 @@ hmeanc_split <- hmeanc |>
   )  
 
   hmeanc_training<- training(hmeanc_split)
-  hmean_test <- testing(hmeanc_split)
+  hmeanc_test <- testing(hmeanc_split)
 ```
 
 ```{r}
@@ -311,7 +333,7 @@ tidy (lmall)
 tidy(lmnull)
 
 hmeanc_pred1<- lmall |>
-  augment( newdata = hmeanc_testing
+  augment( newdata = hmeanc_test
   )
 head(hmeanc_pred1)
 
@@ -344,7 +366,7 @@ ggplot(data = hmeanc_pred1,
 
 ```{r}
 hmeanc_pred2<- lmcomm |>
-  augment( newdata = hmeanc_testing)
+  augment( newdata = hmeanc_test)
 head(hmeanc_pred2)
 
 hmeanc_pred2<-hmeanc_pred2|>
@@ -377,7 +399,7 @@ ggplot(data = hmeanc_pred2,
 ```{r}
 
 hmeanc_pred3<- lmnull |>
-  augment( newdata = hmeanc_testing
+  augment( newdata = hmeanc_test
   )
 head(hmeanc_pred3)
 
@@ -405,7 +427,7 @@ ggplot(data = hmeanc_pred3,
   )
 ```
 
-# Limitations 
+# Limitations
 
 This subsection should describe potential limitations of the conclusion and/or future work that someone might consider doing to expand on your analysis. Some limitations to discuss might include:
 

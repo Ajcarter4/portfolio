@@ -6,7 +6,9 @@ This is a Quarto website.
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 
-```{r}
+```{r echo: false}
+#| message: false
+#| echo: false
 #remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
 
 #label load packages & import data
@@ -23,6 +25,7 @@ hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
 ```
 
 ```{r}
+#|echo: false
 #remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
 
 #label load packages & import data
@@ -33,6 +36,8 @@ here::i_am("Project1.qmd")
 hosp <- read_csv(here::here("HCAHPS-Hospital.csv"),na=c("Not Available","Not Applicable"))
 
 ```
+
+# Data Wrangling
 
 ```{r}
 
@@ -98,10 +103,6 @@ hmean$`Overall hospital rating - linear mean score` <- as.numeric(
   as.character(hmean$`Overall hospital rating - linear mean score`)
 )
 
-# Step 3: Filter values greater than 60 and =exclude NA
-filtered_hmeanc <- hmeanc|>
-         filter(overall_rating < 80)
-
 
 ```
 
@@ -135,32 +136,138 @@ hmeanc$`Overall hospital rating - linear mean score` <- NULL
 hmeanc$`Recommend hospital - linear mean score` <- NULL
 ```
 
-```{r}
-lmall <-glm(
-    overall_rating~ Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness,
-    data = hmeanc_training,
-     family = "gaussian"
-  )
+# EDA SECTION
 
-tidy(lmall)
-```
-
-```{r}
-ggplot(data = hmean,
+```{r echo=FALSE}
+#|echo: false
+plot1<- ggplot(data = hmeanc,
        mapping = aes(
-         x = `Overall hospital rating - linear mean score`,
-         y = `Quietness - linear mean score`
-
+         x = Staff_resp,
+         y = overall_rating 
        )) +
   geom_point() +
+  geom_smooth(method = "lm", color = "darkblue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
   labs(
-    title = "Overall vs Quietness",
-    x = "Quietness",
-    y = "Overall"
+    title = "Explanatory vs Overall rating",
+    x = "Staff Responsiveness",
+    y = "Overall Rating"
+  )
+plot2<-ggplot(data = hmeanc,
+       mapping = aes(
+         x = Nurse_comm,
+         y = overall_rating 
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "darkblue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+  labs(
+    title = "Explanatory vs Overall rating",
+    x = "Nurse Communication",
+    y = "Overall Rating"
   )
 
+plot3<-ggplot(data = hmeanc,
+       mapping = aes(
+         x = Doctor_comm,
+         y = overall_rating 
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "darkblue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+  labs(
+    title = "Explanatory vs Overall rating",
+    x = "Doctor Communication",
+    y = "Overall Rating"
+  )
 
+plot4<-ggplot(data = hmeanc,
+       mapping = aes(
+         x = Med_comm,
+         y = overall_rating 
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "darkblue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+  labs(
+    title = "Explanatory vs Overall rating",
+    x = "Medicine Communication",
+    y = "Overall Rating"
+  )
+
+plot5<-ggplot(data = hmeanc,
+       mapping = aes(
+         x = disc_info,
+         y = overall_rating 
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "darkblue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+  labs(
+    title = "Explanatory vs Overall rating",
+    x = "Discharge Information",
+    y = "Overall Rating"
+  )
+plot6<-ggplot(data = hmeanc,
+       mapping = aes(
+         x = care_trans,
+         y = overall_rating 
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "darkblue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+  labs(
+    title = "Explanatory vs Overall rating",
+    x = "Care Transition",
+    y = "Overall Rating"
+  )
+
+plot7<-ggplot(data = hmeanc,
+       mapping = aes(
+         x = cleanliness,
+         y = overall_rating 
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "darkblue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+  labs(
+    title = "Explanatory vs Overall rating",
+    x = "cleanliness",
+    y = "Overall Rating"
+  )
+
+plot8<-ggplot(data = hmeanc,
+       mapping = aes(
+         x = quietness,
+         y = overall_rating 
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "darkblue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+  labs(
+    title = "Explanatory vs Overall rating",
+    x = "Medicine Communication",
+    y = "Overall Rating"
+  )
+print(plot1)
+print(plot2)
+print(plot3)
+print(plot4)
+print(plot5)
+print(plot6)
+print(plot7)
+print(plot8)
 ```
+
+# Data Wrangling/Model Selection
 
 ```{r}
 set.seed(17)
@@ -174,66 +281,134 @@ hmeanc_split <- hmeanc |>
 ```
 
 ```{r}
+lmall <-lm(
+    overall_rating~ Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness,
+    data = hmeanc_training
+  )
+
+tidy(lmall)
+```
+
+```{r}
 
 lmcomm <-glm(
     overall_rating~Nurse_comm + Doctor_comm ,
-    data = hmeanc_training ,
-    family = "gaussian"
+    data = hmeanc_training 
   )
 
 lmall <-glm(
     overall_rating~Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness  ,
-    data = hmeanc_training,
-     family = "gaussian"
+    data = hmeanc_training
   )
 
 lmnull <-glm(
     overall_rating~1 ,
-    data = hmeanc_training,
-     family = "gaussian"
+    data = hmeanc_training
   )
 
 tidy(lmcomm)
 tidy (lmall)
 tidy(lmnull)
-```
 
-```{r}
-set.seed(4)
-hmeanc_fold <- hmeanc_training |>
-  vfold_cv(
-    v=10, #10 folds
-    repeats=1 #make a prediction for each observation
+hmeanc_pred1<- lmall |>
+  augment( newdata = hmeanc_testing
   )
+head(hmeanc_pred1)
 
-hmeanc_fold
+hmeanc_pred1<-hmeanc_pred1|>
+  mutate(.resid=overall_rating-.fitted)
+
+
+ggplot(
+  data = hmeanc_pred1,
+  mapping= aes(x=.resid)
+)+
+geom_histogram()
+
+ggplot(data = hmeanc_pred1,
+       mapping = aes(
+         x = .fitted,
+         y = .resid
+
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "blue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "red", se = FALSE) +
+  labs(
+    title = "residual vs fit",
+    x = "fitted",
+    y = "resdidual")
+  
 ```
 
 ```{r}
-hmeanc_prediction <- function(split){
-  train <- analysis(split)
-  valid <- assessment(split) }
+hmeanc_pred2<- lmcomm |>
+  augment( newdata = hmeanc_testing)
+head(hmeanc_pred2)
 
+hmeanc_pred2<-hmeanc_pred2|>
+  mutate(.resid=overall_rating-.fitted)
+
+
+ggplot(
+  data = hmeanc_pred2,
+  mapping= aes(x=.resid)
+)+
+geom_histogram()
+
+ggplot(data = hmeanc_pred2,
+       mapping = aes(
+         x = .fitted,
+         y = .resid
+
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "blue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "red", se = FALSE) +
+  labs(
+    title = "residual vs fit",
+    x = "fitted",
+    y = "resdidual"
+  )
 ```
 
 ```{r}
-valid_pred <- valid |>
-    mutate(
-      pred1 = predict(lmcomm, newdata = valid),
-      pred2 = predict(lmall, newdata = valid),
-      prednull = predict(lmnull, newdata = valid)
-        
-    )
-  return(valid_pred)
 
-hmeanc_prediction(hmeanc_fold$splits[[1]])
+hmeanc_pred3<- lmnull |>
+  augment( newdata = hmeanc_testing
+  )
+head(hmeanc_pred3)
+
+hmeanc_pred3<-hmeanc_pred3|>
+  mutate(.resid=overall_rating-.fitted)
+
+
+ggplot(
+  data = hmeanc_pred3,
+  mapping= aes(x=.resid)
+)+
+geom_histogram()
+
+ggplot(data = hmeanc_pred3,
+       mapping = aes(
+         x = overall_rating,
+         y = .resid
+
+       )) +
+  geom_point() +
+  labs(
+    title = "residual vs fit",
+    x = "overall rating",
+    y = "resdidual"
+  )
 ```
 
-```         
-```
+# Limitations 
 
-overall is what it should
+This subsection should describe potential limitations of the conclusion and/or future work that someone might consider doing to expand on your analysis. Some limitations to discuss might include:
 
-recommended is what you want it to be
+-   What are the real-world consequences of using your data or models? What are the consequences of an incorrect conclusion or prediction?
 
-Testing Testing
+-   How appropriate was the data you used to answer your question? Consider aspects of validity (variables actually measure what you think they describe) and reliability (variable values would likely be similar if they were measured again).

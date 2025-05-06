@@ -287,7 +287,7 @@ plot8<-ggplot(data = hmeanc,
 
 ```
 
-# Predicitive Model/Model Selection
+# Model Selection
 
 section explanation
 
@@ -305,7 +305,7 @@ hmeanc_split <- hmeanc |>
 ```{r}
 lmall <-lm(
     overall_rating~ Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness,
-    data = hmeanc_training
+    data = hmeanc_test
   )
 
 tidy(lmall)
@@ -315,17 +315,17 @@ tidy(lmall)
 
 lmcomm <-glm(
     overall_rating~Nurse_comm + Doctor_comm ,
-    data = hmeanc_training 
+    data = hmeanc_test
   )
 
 lmall <-glm(
     overall_rating~Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness  ,
-    data = hmeanc_training
+    data = hmeanc_test
   )
 
 lmnull <-glm(
     overall_rating~1 ,
-    data = hmeanc_training
+    data = hmeanc_test
   )
 
 tidy(lmcomm)

@@ -139,8 +139,7 @@ hmeanc$`Recommend hospital - linear mean score` <- NULL
 
 section explanation
 
-```{r echo=FALSE}
-#|echo: false
+```{r}
 plot1<- ggplot(data = hmeanc,
        mapping = aes(
          x = Staff_resp,
@@ -157,6 +156,12 @@ plot1<- ggplot(data = hmeanc,
   )+theme(plot.title = element_text(size = 7))+ theme(
   axis.title.x = element_text(size = 7),
   axis.title.y = element_text(size = 7) )
+```
+
+Made plot 1, repeated same steps for plots 2-8 only changing my y variable, cycling
+
+```{r echo=FALSE}
+#|echo: false
 plot2<-ggplot(data = hmeanc,
        mapping = aes(
          x = Nurse_comm,

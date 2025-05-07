@@ -452,13 +452,14 @@ ggplot(data = hmeanc_pred3,
 ```
 
 ```{r}
-rmse1 <- hmeanc_pred1 |> 
-  summarize(rmse = sqrt(mean(.resid^2))) |> 
-  pull(rmse)
+ hmeanc_pred1 |> 
+  mutate(rmse1 = sqrt(mean(.resid^2)))|>
+   select(rmse1)
 
-rmse2 <- hmeanc_pred2 |> 
-  summarize(rmse = sqrt(mean(.resid^2))) |> 
-  pull(rmse)
+ hmeanc_pred2 |> 
+  mutate(rmse2 = sqrt(mean(.resid^2)))|>
+   select(rmse2)
+
 ```
 
 # Project Limitations & Constraints

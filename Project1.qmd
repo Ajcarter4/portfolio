@@ -25,12 +25,14 @@ hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
 ```{r}
 #| message: false
 #| warning: false
+#| echo: false
 #remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
 
 #label load packages & import data
 library(readr)
 library(tidyverse)
 library(lubridate)
+library(dplyr)
 here::i_am("Project1.qmd")
 hosp <- read_csv(here::here("HCAHPS-Hospital.csv"),na=c("Not Available","Not Applicable"))
 
@@ -38,15 +40,15 @@ hosp <- read_csv(here::here("HCAHPS-Hospital.csv"),na=c("Not Available","Not App
 
 # Context and Question
 
-The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This inludes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital.
+The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This inludes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital. Initially what I wanted to explore with this hospital data set was
 
 # Data Wrangling
 
-The data set starting off was very messy and hard to work with. To start off looking into this Hospital data set, I took out the unnecessary data for what I was looking into. I used the select function for this taking out columns in my data set such as State, Address and completion Dates. I then separated out the ways of rating the hospitals into their 3 categories/data sets. With the 3 data sets being linear mean scores out of 100 for specific attributes of the hospital, star ratings out of 5 which are rates similarly to linear mean score and answer percent which tracks what percentages of responses tracked to which specific answers.
+The data set starting off was very messy and hard to work with. To start off looking into this Hospital data set, I took out the unnecessary data for what I was looking into. I used the select function for this, taking out columns in my data set such as State, Address and completion Dates. I then separated out the ways of rating the hospitals into their 3 categories/data sets. With the 3 data sets being linear mean scores out of 100 for specific attributes of the hospital, star ratings out of 5 which are rates similarly to linear mean score and answer percent which tracks what percentages of responses tracked to which specific answers.
 
 ```{r}
 
-#Taking out stuff we don't want
+
 hosp2<-hosp|>
 select(!(c("State","Telephone Number","Address","County/Parish","Number of Completed Surveys","Number of Completed Surveys Footnote","Survey Response Rate Percent","Start Date","End Date"))) 
 ```
@@ -59,7 +61,6 @@ select(!(c("HCAHPS Answer Percent","HCAHPS Linear Mean Value")))|>
 
 
 #Answer percent
-
 hpercent<-hosp2|>
 select(!(c("Patient Survey Star Rating","HCAHPS Linear Mean Value")))|>
   filter(!is.na(`HCAHPS Answer Percent`))
@@ -70,6 +71,10 @@ hmean<-hosp2|>
 select(!(c("HCAHPS Answer Percent","Patient Survey Star Rating")))|>
   filter(!is.na(`HCAHPS Linear Mean Value`))
 ```
+
+## Data Wrangling (Continued)
+
+Separating the rating types wasn't the end of my data wrangling though. My data was still unworkable in its current state. Each thing being rated such as doctor communication or staff responsiveness had its own row. I used the pivot wider function, to widen my data set and give each thing being rated its own column. I then had to as.numeric function to change the data in my linear mean score data set from characters to numbers. Finally I shortened the names in my linear mean value data set, and deleted the old names to make it easier to code and do my eda/model selection.
 
 ```{r}
 #pivot our HCAHPS COL to get less rows 
@@ -165,8 +170,7 @@ plot1<- ggplot(data = hmeanc,
 
 Made plot 1, repeated same steps for plots 2-8 only changing my y variable, cycling
 
-```{r}
-#|echo: false
+```{r echo=false}
 #| label: plot 2-8 chunk
 plot2<-ggplot(data = hmeanc,
        mapping = aes(
@@ -445,6 +449,23 @@ ggplot(data = hmeanc_pred3,
     x = "overall rating",
     y = "resdidual"
   )
+```
+
+```{r}
+hmeanc_pred1|>
+mutate(rmse = sqrt(mean(.resid^2)))|>
+  select(rmse)|>
+print(rmse)
+
+hmeanc_pred2|>
+mutate(rmse = sqrt(mean(.resid^2)))|>
+select(rmse)|>
+print(rmse)
+
+hmeanc_pred3|>
+mutate(rmse = sqrt(mean(.resid^2)))|>
+select(rmse)|>
+print(rmse)
 ```
 
 # Project Limitations & Constraints

@@ -172,6 +172,7 @@ Made plot 1, repeated same steps for plots 2-8 only changing my y variable, cycl
 
 ```{r}
 #| label: plot 2-8 chunk
+#| echo: false
 plot2<-ggplot(data = hmeanc,
        mapping = aes(
          x = Nurse_comm,
@@ -180,7 +181,7 @@ plot2<-ggplot(data = hmeanc,
   geom_point() +
   geom_smooth(method = "lm", color = "darkblue", 
               linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+  geom_smooth(method = "loess", color = "darkred",se = FALSE) +
   labs(
     title = "Explanatory vs Overall rating",
     x = "Nurse Communication",

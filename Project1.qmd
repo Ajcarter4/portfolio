@@ -38,9 +38,22 @@ hosp <- read_csv(here::here("HCAHPS-Hospital.csv"),na=c("Not Available","Not App
 
 ```
 
+|     |     |
+|-----|-----|
+|     |     |
+|     |     |
+|     |     |
+|     |     |
+|     |     |
+|     |     |
+|     |     |
+|     |     |
+
+: Packages used
+
 # Context and Question
 
-The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This inludes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital. Initially what I wanted to explore with this hospital data set was
+The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This inludes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital. Initially what I wanted to explore with this hospital data set was ...
 
 # Data Wrangling
 
@@ -170,7 +183,7 @@ plot1<- ggplot(data = hmeanc,
 
 Made plot 1, repeated same steps for plots 2-8 only changing my y variable, cycling
 
-```{r echo=false}
+```{r}
 #| label: plot 2-8 chunk
 plot2<-ggplot(data = hmeanc,
        mapping = aes(

@@ -348,22 +348,24 @@ tidy(lmnull)|>
 
 Looking at the intercept and slope of my models gives interesting results. The slopes of the Nurse_comm and Doctor_comm variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn't make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get, so if a hospital had a zero on Doctor_comm and Nurse_comm it would be expected to have a negative score from our model, which isn't possible. Our 2nd model with all similarly has a negative intercept which doesn't fit our context, along with having a positive slope for most of the variables but our med_comm variable is a bit of an outline. It has a negative slope, meaning holding the other variables constant, in this model as our med_comm score increases the overall hospital rating is actually expected to decrease.
 
-```{r}
+```{r echo=FALSE}
 hmeanc_pred1<- lmall |>
   augment( newdata = hmeanc_test
   )
-gt(hmeanc_pred1)
+
 
 
 hmeanc_pred2<- lmcomm |>
   augment( newdata = hmeanc_test)
-gt(hmeanc_pred2)
+
 
 hmeanc_pred3<- lmnull |>
   augment( newdata = hmeanc_test)
-gt(hmeanc_pred3)
+
 
 ```
+
+Continuing on my model selection, I used the argument function to produce some predictions based off of my testing set, which gave me my .fitted, variable which is my predictions. I then made the .resid variable by subtracting the actual overall score from the predicted overall score to find the difference.
 
 ```{r}
 #| label: big chunk2
@@ -378,8 +380,10 @@ hmeanc_pred3<-hmeanc_pred3|>
   mutate(.resid=overall_rating-.fitted)
 ```
 
+Plotting the results of .resid against .fitted as both a scatter plot and .resid alone as histogram gives some good insight into how well our models predicted overall score.
+
 ```{r}
-splot1<-ggplot(data = hmeanc_pred1,
+ggplot(data = hmeanc_pred1,
        mapping = aes(
          x = .fitted,
          y = .resid
@@ -395,7 +399,13 @@ splot1<-ggplot(data = hmeanc_pred1,
     y = "resdidual"
   ) 
 
-splot2<-ggplot(data = hmeanc_pred2,
+
+```
+
+I made a similar scatter plot for all 3 over my models, only changing the data in my code.
+
+```{r echo=FALSE}
+ggplot(data = hmeanc_pred2,
        mapping = aes(
          x = .fitted,
          y = .resid
@@ -412,7 +422,7 @@ splot2<-ggplot(data = hmeanc_pred2,
   )
 
 
-splot3<-ggplot(data = hmeanc_pred3,
+ggplot(data = hmeanc_pred3,
        mapping = aes(
          x = .fitted,
          y = .resid
@@ -427,7 +437,6 @@ splot3<-ggplot(data = hmeanc_pred3,
     x = "fitted",
     y = "resdidual"
   )
-
 
 ```
 
@@ -440,7 +449,11 @@ ggplot(
 )+
 geom_histogram()+
   labs(title = "Histogram with Count Labels") 
+```
 
+I also made a similar histograms for all 3 over my models, only changing the data in my code for each.
+
+```{r echo=FALSE}
 ggplot(
   data = hmeanc_pred2,
   mapping= aes(x=.resid)
@@ -455,8 +468,6 @@ ggplot(
 geom_histogram()+
    labs(title = "Histogram with Count Labels") 
   
-
-
 ```
 
 ```{r}

@@ -7,10 +7,10 @@ title: "Hospital Project"
 #| warning: false
 #| echo: false
 #remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
-
+ 
 #label load packages & import data
 library(readr)
-library(tidyverse)
+library(tidyverse) 
 library(lubridate)
 library(janitor)
 library(broom)

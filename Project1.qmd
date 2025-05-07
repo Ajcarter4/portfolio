@@ -155,7 +155,7 @@ plot1<- ggplot(data = hmeanc,
               linetype = "dashed", se = FALSE) +
   geom_smooth(method = "loess", color = "darkred", se = FALSE) +
   labs(
-    title = "Explanatory vs Overall rating",
+    title = "Staff Responsiveness vs Overall rating",
     x = "Staff Responsiveness",
     y = "Overall Rating"
   )+theme(plot.title = element_text(size = 7))+ theme(
@@ -178,7 +178,7 @@ plot2<-ggplot(data = hmeanc,
               linetype = "dashed", se = FALSE) +
   geom_smooth(method = "loess", color = "darkred",se = FALSE) +
   labs(
-    title = "Explanatory vs Overall rating",
+    title = "Nurse Communication vs Overall rating",
     x = "Nurse Communication",
     y = "Overall Rating"
   )+theme(plot.title = element_text(size = 7))+ theme(
@@ -195,7 +195,7 @@ plot3<-ggplot(data = hmeanc,
               linetype = "dashed", se = FALSE) +
   geom_smooth(method = "loess", color = "darkred", se = FALSE) +
   labs(
-    title = "Explanatory vs Overall rating",
+    title = "Doctor Communication vs Overall rating",
     x = "Doctor Communication",
     y = "Overall Rating"
   )+theme(plot.title = element_text(size = 7))+ theme(
@@ -212,7 +212,7 @@ plot4<-ggplot(data = hmeanc,
               linetype = "dashed", se = FALSE) +
   geom_smooth(method = "loess", color = "darkred", se = FALSE) +
   labs(
-    title = "Explanatory vs Overall rating",
+    title = "Medicine Communication vs Overall rating",
     x = "Medicine Communication",
     y = "Overall Rating"
   )+theme(plot.title = element_text(size = 7))+ theme(
@@ -229,7 +229,7 @@ plot5<-ggplot(data = hmeanc,
               linetype = "dashed", se = FALSE) +
   geom_smooth(method = "loess", color = "darkred", se = FALSE) +
   labs(
-    title = "Explanatory vs Overall rating",
+    title = "Discharge Information vs Overall rating",
     x = "Discharge Information",
     y = "Overall Rating"
   )+theme(plot.title = element_text(size = 7))+ theme(
@@ -245,7 +245,7 @@ plot6<-ggplot(data = hmeanc,
               linetype = "dashed", se = FALSE) +
   geom_smooth(method = "loess", color = "darkred", se = FALSE) +
   labs(
-    title = "Explanatory vs Overall rating",
+    title = "Care Transition vs Overall rating",
     x = "Care Transition",
     y = "Overall Rating"
   )+theme(plot.title = element_text(size = 7))+ theme(
@@ -262,7 +262,7 @@ plot7<-ggplot(data = hmeanc,
               linetype = "dashed", se = FALSE) +
   geom_smooth(method = "loess", color = "darkred", se = FALSE) +
   labs(
-    title = "Explanatory vs Overall rating",
+    title = "cleanliness vs Overall rating",
     x = "cleanliness",
     y = "Overall Rating"
   )+theme(plot.title = element_text(size = 7))+ theme(
@@ -300,7 +300,7 @@ plot8<-ggplot(data = hmeanc,
 
 # Model Selection
 
-section explanation
+For my model selection I decided to make some linear models, since the variable track fairly linearly to the overall score. I made 3 models. I made a communication model using doctor and Nurse communication scores. I made another model using all of the variables in the data set (Nurse communication, doctor communication,staff responsiveness, communication about medicine, discharge information, care transition,cleanliness and quietness) and I made a third model which is just my null model.
 
 ```{r}
 set.seed(17)
@@ -333,22 +333,38 @@ lmnull <-glm(
 tidy(lmcomm)
 tidy (lmall)
 tidy(lmnull)
+```
 
+```{r}
 hmeanc_pred1<- lmall |>
   augment( newdata = hmeanc_test
   )
 head(hmeanc_pred1)
 
+
+hmeanc_pred2<- lmcomm |>
+  augment( newdata = hmeanc_test)
+head(hmeanc_pred2)
+
+hmeanc_pred3<- lmnull |>
+  augment( newdata = hmeanc_test)
+head(hmeanc_pred3)
+```
+
+```{r}
+#| label: big chunk2
+
 hmeanc_pred1<-hmeanc_pred1|>
   mutate(.resid=overall_rating-.fitted)
 
+hmeanc_pred2<-hmeanc_pred2|>
+  mutate(.resid=overall_rating-.fitted)
 
-ggplot(
-  data = hmeanc_pred1,
-  mapping= aes(x=.resid)
-)+
-geom_histogram()
+hmeanc_pred3<-hmeanc_pred3|>
+  mutate(.resid=overall_rating-.fitted)
+```
 
+```{r}
 ggplot(data = hmeanc_pred1,
        mapping = aes(
          x = .fitted,
@@ -362,25 +378,8 @@ ggplot(data = hmeanc_pred1,
   labs(
     title = "residual vs fit",
     x = "fitted",
-    y = "resdidual")
-  
-```
-
-```{r}
-#| label: big chunk2
-hmeanc_pred2<- lmcomm |>
-  augment( newdata = hmeanc_test)
-head(hmeanc_pred2)
-
-hmeanc_pred2<-hmeanc_pred2|>
-  mutate(.resid=overall_rating-.fitted)
-
-
-ggplot(
-  data = hmeanc_pred2,
-  mapping= aes(x=.resid)
-)+
-geom_histogram()
+    y = "resdidual"
+  ) 
 
 ggplot(data = hmeanc_pred2,
        mapping = aes(
@@ -397,45 +396,51 @@ ggplot(data = hmeanc_pred2,
     x = "fitted",
     y = "resdidual"
   )
-```
-
-```{r}
-
-hmeanc_pred3<- lmnull |>
-  augment( newdata = hmeanc_test
-  )
-head(hmeanc_pred3)
-
-hmeanc_pred3<-hmeanc_pred3|>
-  mutate(.resid=overall_rating-.fitted)
 
 
-
-```
-
-```{r}
-#| label: bad chunk 1
-ggplot(
-  data = hmeanc_pred3,
-  mapping= aes(x=.resid)
-)+
-geom_histogram()
-```
-
-```{r}
-#| label: bad chunk 2
 ggplot(data = hmeanc_pred3,
        mapping = aes(
-         x = overall_rating,
+         x = .fitted,
          y = .resid
 
        )) +
   geom_point() +
+  geom_smooth(method = "lm", color = "blue", 
+              linetype = "dashed", se = FALSE) +
+  geom_smooth(method = "loess", color = "red", se = FALSE) +
   labs(
     title = "residual vs fit",
-    x = "overall rating",
+    x = "fitted",
     y = "resdidual"
-  ) 
+  )
+```
+
+```{r}
+
+
+ggplot(
+  data = hmeanc_pred1,
+  mapping= aes(x=.resid)
+)+
+geom_histogram()+
+  labs(title = "Histogram with Count Labels") 
+
+ggplot(
+  data = hmeanc_pred2,
+  mapping= aes(x=.resid)
+)+
+geom_histogram() +
+   labs(title = "Histogram with Count Labels") 
+
+ggplot(
+  data = hmeanc_pred3,
+  mapping= aes(x=.resid)
+)+
+geom_histogram()+
+   labs(title = "Histogram with Count Labels") 
+  
+
+
 ```
 
 ```{r}
@@ -447,6 +452,9 @@ ggplot(data = hmeanc_pred3,
   mutate(rmse2 = sqrt(mean(.resid^2)))|>
    select(rmse2)
 
+  hmeanc_pred3 |> 
+  mutate(rmse3 = sqrt(mean(.resid^2)))|>
+   select(rmse3)
 ```
 
 # Project Limitations & Constraints

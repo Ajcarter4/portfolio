@@ -8,4 +8,4 @@ My Github Page: [Github](https://github.com/Ajcarter4/portfolio)
 
 [My Hospital Data Project](Project1.html)
 
-My Encelia Data Project Flower Projec
+My Encelia Data Project Flower Project

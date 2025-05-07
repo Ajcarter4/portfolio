@@ -461,7 +461,7 @@ ggplot(data = hmeanc_pred3,
     title = "residual vs fit",
     x = "overall rating",
     y = "resdidual"
-  )
+  ) 
 ```
 
 ```{r}

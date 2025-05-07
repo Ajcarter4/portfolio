@@ -242,7 +242,7 @@ plot5<-ggplot(data = hmeanc,
   axis.title.y = element_text(size = 7) )
 plot6<-ggplot(data = hmeanc,
        mapping = aes(
-         x = care_trans,
+         x = care_trans, 
          y = overall_rating 
        )) +
   geom_point() +

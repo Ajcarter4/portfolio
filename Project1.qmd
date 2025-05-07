@@ -1,8 +1,6 @@
 ---
-title: "portfoliowebsite"
+title: "Hospital Project"
 ---
-
-I think this works
 
 ```{r}
 #| message: false
@@ -38,9 +36,13 @@ hosp <- read_csv(here::here("HCAHPS-Hospital.csv"),na=c("Not Available","Not App
 
 ```
 
+# Context and Question
+
+The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This inludes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital.
+
 # Data Wrangling
 
-section explanation
+The data set starting off was very messy and hard to work with. To start off looking into this Hospital data set, I took out the unnecessary data for what I was looking into. I used the select function for this taking out columns in my data set such as State, Address and completion Dates. I then separated out the ways of rating the hospitals into their 3 categories/data sets. With the 3 data sets being linear mean scores out of 100 for specific attributes of the hospital, star ratings out of 5 which are rates similarly to linear mean score and answer percent which tracks what percentages of responses tracked to which specific answers.
 
 ```{r}
 
@@ -322,17 +324,17 @@ tidy(lmall)
 
 lmcomm <-glm(
     overall_rating~Nurse_comm + Doctor_comm ,
-    data = hmeanc_test
+    data = hmeanc_training
   )
 
 lmall <-glm(
     overall_rating~Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness  ,
-    data = hmeanc_test
+    data = hmeanc_training
   )
 
 lmnull <-glm(
     overall_rating~1 ,
-    data = hmeanc_test
+    data = hmeanc_training
   )
 
 tidy(lmcomm)

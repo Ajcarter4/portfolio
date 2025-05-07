@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>portfoliowebsite</title>
+<title>Hospital Project – portfoliowebsite</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -153,7 +153,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link active" data-scroll-target="#data-wrangling">Data Wrangling</a></li>
+  <li><a href="#context-and-question" id="toc-context-and-question" class="nav-link active" data-scroll-target="#context-and-question">Context and Question</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">Data Wrangling</a></li>
   <li><a href="#eda" id="toc-eda" class="nav-link" data-scroll-target="#eda">Eda</a></li>
   <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model Selection</a></li>
   <li><a href="#project-limitations-constraints" id="toc-project-limitations-constraints" class="nav-link" data-scroll-target="#project-limitations-constraints">Project Limitations &amp; Constraints</a></li>
@@ -165,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">portfoliowebsite</h1>
+<h1 class="title">Hospital Project</h1>
 </div>
 
 
@@ -182,7 +183,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>I think this works</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -193,9 +193,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">i_am</span>(<span class="st">"Project1.qmd"</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>hosp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"HCAHPS-Hospital.csv"</span>),<span class="at">na=</span><span class="fu">c</span>(<span class="st">"Not Available"</span>,<span class="st">"Not Applicable"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="context-and-question" class="level1">
+<h1>Context and Question</h1>
+<p>The data I looked into in this project is from the Centers for Medicare and Medicaid <a href="https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary">Website</a>. The data set is a listing of various questions and ways of rating hospitals. This inludes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital.</p>
+</section>
 <section id="data-wrangling" class="level1">
 <h1>Data Wrangling</h1>
-<p>section explanation</p>
+<p>The data set starting off was very messy and hard to work with. To start off looking into this Hospital data set, I took out the unnecessary data for what I was looking into. I used the select function for this taking out columns in my data set such as State, Address and completion Dates. I then separated out the ways of rating the hospitals into their 3 categories/data sets. With the 3 data sets being linear mean scores out of 100 for specific attributes of the hospital, star ratings out of 5 which are rates similarly to linear mean score and answer percent which tracks what percentages of responses tracked to which specific answers.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Taking out stuff we don't want</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>hosp2<span class="ot">&lt;-</span>hosp<span class="sc">|&gt;</span></span>
@@ -353,17 +357,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lmcomm <span class="ot">&lt;-</span><span class="fu">glm</span>(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    overall_rating<span class="sc">~</span>Nurse_comm <span class="sc">+</span> Doctor_comm ,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hmeanc_test</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hmeanc_training</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>lmall <span class="ot">&lt;-</span><span class="fu">glm</span>(</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    overall_rating<span class="sc">~</span>Nurse_comm <span class="sc">+</span> Doctor_comm <span class="sc">+</span> Staff_resp <span class="sc">+</span> Med_comm <span class="sc">+</span> disc_info <span class="sc">+</span> care_trans <span class="sc">+</span> cleanliness <span class="sc">+</span> quietness  ,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hmeanc_test</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hmeanc_training</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>lmnull <span class="ot">&lt;-</span><span class="fu">glm</span>(</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    overall_rating<span class="sc">~</span><span class="dv">1</span> ,</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hmeanc_test</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hmeanc_training</span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lmcomm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -371,31 +375,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 3 × 5
   term        estimate std.error statistic   p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)  -29.4      1.51       -19.4 2.10e- 75
-2 Nurse_comm     0.907    0.0278      32.7 7.05e-180
-3 Doctor_comm    0.381    0.0281      13.5 1.33e- 39</code></pre>
+1 (Intercept)  -29.1      1.50       -19.4 3.31e- 75
+2 Nurse_comm     0.891    0.0279      31.9 1.54e-173
+3 Doctor_comm    0.394    0.0285      13.8 4.30e- 41</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span> (lmall)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept) -18.1      1.86        -9.76 6.83e-22
-2 Nurse_comm    0.375    0.0374      10.0  6.31e-23
-3 Doctor_comm   0.132    0.0262       5.03 5.60e- 7
-4 Staff_resp    0.0350   0.0162       2.15 3.16e- 2
-5 Med_comm     -0.0556   0.0166      -3.35 8.34e- 4
-6 disc_info     0.0525   0.0159       3.30 1.00e- 3
-7 care_trans    0.523    0.0268      19.5  7.00e-76
-8 cleanliness   0.0952   0.0103       9.26 6.25e-20
-9 quietness     0.0756   0.00908      8.32 1.83e-16</code></pre>
+1 (Intercept) -16.9      1.79        -9.44 1.25e-20
+2 Nurse_comm    0.376    0.0373      10.1  2.67e-23
+3 Doctor_comm   0.132    0.0269       4.90 1.06e- 6
+4 Staff_resp    0.0268   0.0165       1.63 1.04e- 1
+5 Med_comm     -0.0288   0.0159      -1.81 7.01e- 2
+6 disc_info     0.0260   0.0158       1.65 9.93e- 2
+7 care_trans    0.507    0.0284      17.8  4.54e-65
+8 cleanliness   0.107    0.0107       9.92 1.51e-22
+9 quietness     0.0727   0.00960      7.58 5.82e-14</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lmnull)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 5
   term        estimate std.error statistic p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-1 (Intercept)     87.5    0.0961      911.       0</code></pre>
+1 (Intercept)     87.7    0.0979      896.       0</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>hmeanc_pred1<span class="ot">&lt;-</span> lmall <span class="sc">|&gt;</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>( <span class="at">newdata =</span> hmeanc_test</span>

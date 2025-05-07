@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="context-and-question" class="level1">
 <h1>Context and Question</h1>
-<p>The data I looked into in this project is from the Centers for Medicare and Medicaid <a href="https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary">Website</a>. The data set is a listing of various questions and ways of rating hospitals. This inludes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital. Initially what I wanted to explore with this hospital data set was …</p>
+<p>The data I looked into in this project is from the Centers for Medicare and Medicaid <a href="https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary">Website</a>. The data set is a listing of various questions and ways of rating hospitals. This includes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital. Initially what I wanted to explore with this hospital data set was …………… QUESTION</p>
 </section>
 <section id="data-wrangling" class="level1">
 <h1>Data Wrangling</h1>
@@ -242,13 +242,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Convert to numeric safely</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>hmean<span class="sc">$</span><span class="st">`</span><span class="at">Overall hospital rating - linear mean score</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>(hmean<span class="sc">$</span><span class="st">`</span><span class="at">Overall hospital rating - linear mean score</span><span class="st">`</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Convert to numeric safely</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>hmean<span class="sc">$</span><span class="st">`</span><span class="at">Overall hospital rating - linear mean score</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>(hmean<span class="sc">$</span><span class="st">`</span><span class="at">Overall hospital rating - linear mean score</span><span class="st">`</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cleaning names</span></span>
@@ -283,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="eda" class="level1">
 <h1>Eda</h1>
-<p>Now that I had my data in the form that I wanted it, I could start on Exploratory analysis to see what is going on. After trying some different type of tables and graphs I settled on making scatter plots. I made a scatter plot for each of the 8 variables in my data that contribute to a hospital’s overall linear mean score and mapped them against the overall linear mean score. Each of the graphs showed a positive linear relationship between the variables and the overall linear mean score. This is unsurprising considering the context of the data. If a hospital is good at one area of rating it could be expected that it would be well rated in other areas. Even on a one to one scale it isn’t very shocking. The higher a score a hospital gets in one area, the higher overall score it would get.</p>
+<p>Now that I had my data in the form that I wanted it, I could start on Exploratory data analysis to see what is going on. After trying some different type of tables and graphs I settled on making scatter plots. I made a scatter plot for each of the 8 variables in my data that contribute to a hospital’s overall linear mean score and mapped them against the overall linear mean score. Each of the graphs showed a positive linear relationship between the variables and the overall linear mean score. This is unsurprising considering the context of the data. If a hospital is good at one area of rating it could be expected that it would be well rated in other areas. Even on a one to one scale it isn’t very shocking. The higher a score a hospital gets in one area, the higher overall score it would get.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot1<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> hmeanc, </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(</span>

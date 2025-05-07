@@ -8,9 +8,9 @@ website:
     left: 
       - href: index.qmd
         text: About Section 
-      - href: Project1.qmd
+      - href: Project1.html
         text: Hospital Data Project
-      - href: Project2.qmd 
+      - href: Project2.html
         text: Encelia Data Project
      
 format:

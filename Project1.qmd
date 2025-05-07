@@ -144,6 +144,7 @@ hmeanc$`Recommend hospital - linear mean score` <- NULL
 section explanation
 
 ```{r}
+#| label: plot1 chunk
 plot1<- ggplot(data = hmeanc,
        mapping = aes(
          x = Staff_resp,
@@ -164,8 +165,9 @@ plot1<- ggplot(data = hmeanc,
 
 Made plot 1, repeated same steps for plots 2-8 only changing my y variable, cycling
 
-```{r echo=FALSE}
+```{r}
 #|echo: false
+#| label: plot 2-8 chunk
 plot2<-ggplot(data = hmeanc,
        mapping = aes(
          x = Nurse_comm,
@@ -321,7 +323,7 @@ tidy(lmall)
 ```
 
 ```{r}
-
+#| label: big chunk1
 lmcomm <-glm(
     overall_rating~Nurse_comm + Doctor_comm ,
     data = hmeanc_training
@@ -374,6 +376,7 @@ ggplot(data = hmeanc_pred1,
 ```
 
 ```{r}
+#| label: big chunk2
 hmeanc_pred2<- lmcomm |>
   augment( newdata = hmeanc_test)
 head(hmeanc_pred2)
@@ -416,12 +419,20 @@ hmeanc_pred3<-hmeanc_pred3|>
   mutate(.resid=overall_rating-.fitted)
 
 
+
+```
+
+```{r}
+#| label: bad chunk 1
 ggplot(
   data = hmeanc_pred3,
   mapping= aes(x=.resid)
 )+
 geom_histogram()
+```
 
+```{r}
+#| label: bad chunk 2
 ggplot(data = hmeanc_pred3,
        mapping = aes(
          x = overall_rating,

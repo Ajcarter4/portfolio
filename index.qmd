@@ -6,6 +6,6 @@ I'm Anthony Carter, a budding data scientist, this is my website where I host al
 
 My Github Page: [Github](https://github.com/Ajcarter4/portfolio)
 
-My Hospital Data Project [Hosp Project](https://ajcarter4.github.io/portfolio/Project1.html)
+[My Hospital Data Project](Project1.html)
 
-My Encelia Data Project [Flower Project](https://ajcarter4.github.io/portfolio/Project2.html)
+My Encelia Data Project Flower Project

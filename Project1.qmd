@@ -38,19 +38,6 @@ hosp <- read_csv(here::here("HCAHPS-Hospital.csv"),na=c("Not Available","Not App
 
 ```
 
-|     |     |
-|-----|-----|
-|     |     |
-|     |     |
-|     |     |
-|     |     |
-|     |     |
-|     |     |
-|     |     |
-|     |     |
-
-: Packages used
-
 # Context and Question
 
 The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This inludes star ratings, answers percentages, and mean score which contribute to how well rated patients rate a hospital. Initially what I wanted to explore with this hospital data set was ...

@@ -17,6 +17,7 @@ library(broom)
 library(rsample)
 library(yardstick)
 library(patchwork)
+library(gt)
 
 hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
                     
@@ -330,10 +331,22 @@ lmnull <-glm(
     data = hmeanc_training
   )
 
-tidy(lmcomm)
-tidy (lmall)
-tidy(lmnull)
+
 ```
+
+```{r}
+tidy(lmcomm) |> 
+  gt()
+
+tidy (lmall)|>
+    gt() 
+  
+tidy(lmnull)|>
+  gt()
+
+```
+
+After fitting my linear models
 
 ```{r}
 hmeanc_pred1<- lmall |>
@@ -349,6 +362,8 @@ head(hmeanc_pred2)
 hmeanc_pred3<- lmnull |>
   augment( newdata = hmeanc_test)
 head(hmeanc_pred3)
+
+
 ```
 
 ```{r}
@@ -365,7 +380,7 @@ hmeanc_pred3<-hmeanc_pred3|>
 ```
 
 ```{r}
-ggplot(data = hmeanc_pred1,
+splot1<-ggplot(data = hmeanc_pred1,
        mapping = aes(
          x = .fitted,
          y = .resid
@@ -381,7 +396,7 @@ ggplot(data = hmeanc_pred1,
     y = "resdidual"
   ) 
 
-ggplot(data = hmeanc_pred2,
+splot2<-ggplot(data = hmeanc_pred2,
        mapping = aes(
          x = .fitted,
          y = .resid
@@ -398,7 +413,7 @@ ggplot(data = hmeanc_pred2,
   )
 
 
-ggplot(data = hmeanc_pred3,
+splot3<-ggplot(data = hmeanc_pred3,
        mapping = aes(
          x = .fitted,
          y = .resid
@@ -413,6 +428,8 @@ ggplot(data = hmeanc_pred3,
     x = "fitted",
     y = "resdidual"
   )
+
+
 ```
 
 ```{r}

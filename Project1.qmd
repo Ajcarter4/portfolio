@@ -150,9 +150,9 @@ Now that I had my data in the form that I wanted it, I could start on Explorator
 
 ```{r}
 #| label: plot1 chunk
-plot1<- ggplot(data = hmeanc,
+plot1<- ggplot(data = hmeanc, 
        mapping = aes(
-         x = Staff_resp,
+         x = Staff_resp, 
          y = overall_rating 
        )) +
   geom_point() +

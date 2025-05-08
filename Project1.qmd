@@ -2,53 +2,62 @@
 title: "Hospital Project"
 ---
 
+# Context and Question
+
+The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This includes star ratings, answers percentages, and mean score which contribute to how well patients rate a hospital. Initially what I wanted to explore with this hospital data set was seeing which parts of a hospital contribute the most to patients rating it highly. Along with being on the lookout for any unexpected or shocking relationships between the rating categories.
+
 ```{r}
 #| message: false
 #| warning: false
 #| echo: false
-#remove zip code?, parish, telephone number, number of completed surveys footnote,number of completed surveys footnote, additional footnote, state, end date 
+ 
  
 #label load packages & import data
 library(readr)
 library(tidyverse) 
-library(lubridate)
-library(janitor)
-library(broom)
-library(rsample)
-library(yardstick)
-library(patchwork)
+library(rsample) 
+library(patchwork) 
 library(gt)
-library(knitr)
+library(dplyr) 
+library(broom) 
 
-hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
-                    
+Package_table <- matrix(
+  c("readr", "Load files", 
+    "tidyverse", "Massage data", 
+    "dplyr", " Massage data",
+    "gt","Create tables",
+    "patchwork","Combine plots",
+    "rsample","Split data sets",
+    "broom","Make predictions on models"), 
+  nrow = 7, 
+  byrow = TRUE
+) %>% 
+  as.data.frame()     
+
+         gt(Package_table)|>
+  cols_label(
+   V1 = "Package",   
+   V2 = "Use"   
+  ) %>%
+  tab_header(
+    title = "Packages Used")
+
+
+    
 ```
 
-```{r}
-#| message: false
-#| warning: false
-#| echo: false
-#remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surveys footnote, additional footnote, state, end date 
-
-#label load packages & import data
-library(readr)
-library(tidyverse)
-library(lubridate)
-library(dplyr)
-here::i_am("Project1.qmd")
-hosp <- read_csv(here::here("HCAHPS-Hospital.csv"),na=c("Not Available","Not Applicable"))
-
-```
-
-# Context and Question
-
-The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This includes star ratings, answers percentages, and mean score which contribute to how well patients rate a hospital. Initially what I wanted to explore with this hospital data set was seeing which parts of a hospital contribute the most to patients rating it highly. Along with being on the lookout for any unexpected or shocking relationships between the rating categories.
+Here are the Packages I used for my analysis.
 
 # Data Wrangling
 
 The data set starting off was very messy and hard to work with. To start off looking into this Hospital data set, I took out the unnecessary data for what I was looking into. I used the select function for this, taking out columns in my data set such as State, Address and completion Dates that were unneeded for what I wanted to look into. I then separated out the ways of rating the hospitals into their 3 categories/data sets. With the 3 data sets being linear mean scores out of 100 for specific attributes of the hospital, star ratings out of 5 which are rates similarly to linear mean score and answer percent which tracks what percentages of responses tracked to which specific answers.
 
 ```{r}
+#| message: false
+#| warning: false
+here::i_am("Project1.qmd")
+hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
+
 hosp2<-hosp|>
 select(!(c("State","Telephone Number","Address","County/Parish","Number of Completed Surveys","Number of Completed Surveys Footnote","Survey Response Rate Percent","Start Date","End Date"))) 
 ```
@@ -398,7 +407,7 @@ Plotting the results of .resid against .fitted as both a scatter plot and .resid
 
 I made a similar scatter plot for 2 of my models, only changing the data in my code.
 
-```{r results='hide' }
+```{r results='hide'}
 #| message: false
 #| warning: false
 scatter1<-ggplot(data = hmeanc_pred1,
@@ -519,10 +528,19 @@ gt(my_matrix)|>
   tab_header(
     title = "Linear Model Coefficients",
     subtitle = "Comparison of different models")
+
+my_matrix <- matrix(
+  c("Lmcomm", "1.444126", 
+    "Lmall", "1.751409", 
+    "Lmnull", "3.84769"), 
+  nrow = 3, 
+  byrow = TRUE
+) %>% 
+  as.data.frame()
 ```
 
 I made a table of the resulting Rmse's based on each model. Since the smaller the Rmse the closer the model is to what it's trying to predict the "best" model is the communication model, followed by the all variables model, then the null model. It makes sense our null model predicts the worst as any values under its predicted score of 87 result in a positive residual and the score is out of 100, so 87 shouldn't always be expected.
 
 # Project Limitations & Constraints
 
-Upon inspection this data set is ethical compared to others. It doesn't have any personal information linked to patients while, providing a rating for hospitals so people can choose the best, for their health and wellness. For this project, some limitations I faced that could be expanded on by someone doing future work are scope creep, and time. Much more advanced questions could definitely be asked about this model if a person had more time or resources to tackle it. Working with models and data such as this can be considered important for hospitals. If a hospital needs to improve their overall rating to avoid things such as loss of funding and closure knowing what most positively influences patient experiences can be key factor. Since hospitals don't have infinite time or money, knowing how to improve their facilities effectively, by ranking factors of importance along with other factors is something hospital staff could viably do. The models I made aren't well fitted enough to tackle a problem such as how to improve a hospital, but they do give some insight into what factors of rating predict a hospital's overall rating best.
+Upon inspection this data set is ethical compared to others. It doesn't have any personal information linked to patients while, providing a rating for hospitals so people can choose the best, for their health and wellness. For this project, some limitations I faced that could be expanded on by someone doing future work are scope creep, and time. Much more advanced questions could definitely be asked about this model if a person had more time or resources to tackle it. Working with models and data such as this can be considered important for hospitals. If a hospital needs to improve their overall rating to avoid things such as loss of funding and closure knowing what most positively influences patient experiences can be key factor. Since hospitals don't have infinite time or money, knowing how to improve their facilities effectively, by ranking factors of importance along with other factors is something hospital staff could viably do. The models I made aren't well fitted enough to tackle a problem such as how to improve a hospital, but they do give some insight into what factors of rating predict a hospital's overall rating best. An incorrect prediction, like an overprediction from a model like mine could cause a hospital to expect higher ratings than it actually receives causing it to have less patients because it is lower rated.

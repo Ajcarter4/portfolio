@@ -351,6 +351,13 @@ tidy(lmnull)|>
 
 ```
 
+```{r}
+lmnomed <-glm(
+    overall_rating~Nurse_comm + Doctor_comm + Staff_resp + disc_info + care_trans + cleanliness + quietness  ,
+    data = hmeanc_training
+  )
+```
+
 ```{r echo=FALSE}
 hmeanc_pred1<- lmall |>
   augment( newdata = hmeanc_test
@@ -381,6 +388,8 @@ hmeanc_pred2<-hmeanc_pred2|>
 
 hmeanc_pred3<-hmeanc_pred3|>
   mutate(.resid=overall_rating-.fitted)
+
+
 ```
 
 Plotting the results of .resid against .fitted as both a scatter plot and .resid alone as histogram gives some good insight into how well our models predicted overall score.
@@ -423,6 +432,8 @@ scatter2<-ggplot(data = hmeanc_pred2,
     x = "fitted",
     y = "resdidual"
   )
+
+
 ```
 
 ```{r}
@@ -430,6 +441,7 @@ scatter2<-ggplot(data = hmeanc_pred2,
 #| echo: false
 (scatter1)
 (scatter2)
+
 ```
 
 Comparing the residual scatter plots, the communication model's residuals are closer together and close compared to the all variables model. The all variables model has more variability at most values in its over/under estimates. A scatter plot wouldn't show us much for our null model as it would just be a straight line.
@@ -469,7 +481,7 @@ geom_histogram()+
   
 ```
 
-We can look at the histograms and see similar information to the scatter plot. The communication model is more closely centered at zero than the other two models, but it also has the biggest outlier, with a residual under -10. Our all variable model is less centered at zero, and more spread out between -5 and 5. Our null model has around 5 residual values around -5. This is more than any value on the all variable and communication models.
+We can look at the histograms and see similar information to the scatter plot. The communication model is more closely centered at zero than the other two models, but it also has the biggest outlier, with a residual under -10. Our all variable model is less centered at zero, and more spread out between -5 and 5. Our null model has around 300 residual values around -5. This is more than any value on the all variable and communication models.
 
 ### Rmse
 
@@ -484,6 +496,7 @@ The last and arguably most important step of our model selection in this case is
  
 hmeanc_pred3 |> 
   mutate(rmse = sqrt(mean(.resid^2)))
+
 ```
 
 Here I computed the values of my rmse by taking each of the residual values for the three models by, squaring the residuals,taking the mean value and then square rooting.
@@ -512,8 +525,4 @@ I made a table of the resulting Rmse's based on each model. Since the smaller th
 
 # Project Limitations & Constraints
 
-This subsection should describe potential limitations of the conclusion and/or future work that someone might consider doing to expand on your analysis. Some limitations to discuss might include:
-
--   What are the real-world consequences of using your data or models? What are the consequences of an incorrect conclusion or prediction?
-
--   How appropriate was the data you used to answer your question? Consider aspects of validity (variables actually measure what you think they describe) and reliability (variable values would likely be similar if they were measured again).
+Upon inspection this data set is ethical compared to others. It doesn't have any personal information linked to patients while, providing a rating for hospitals so people can choose the best, for their health and wellness. For this project, some limitations I faced that could be expanded on by someone doing future work are scope creep, and time. Much more advanced questions could definitely be asked about this model if a person had more time or resources to tackle it. Working with models and data such as this can be considered important for hospitals. If a hospital needs to improve their overall rating to avoid things such as loss of funding and closure knowing what most positively influences patient experiences can be key factor. Since hospitals don't have infinite time or money, knowing how to improve their facilities effectively, by ranking factors of importance along with other factors is something hospital staff could viably do. The models I made aren't well fitted enough to tackle a problem such as how to improve a hospital, but they do give some insight into what factors of rating predict a hospital's overall rating best.

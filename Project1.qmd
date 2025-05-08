@@ -571,14 +571,6 @@ gt(my_matrix)|>
     title = "Linear Model Coefficients",
     subtitle = "Comparison of different models")
 
-my_matrix <- matrix(
-  c("Lmcomm", "1.444126", 
-    "Lmall", "1.751409", 
-    "Lmnull", "3.84769"), 
-  nrow = 3, 
-  byrow = TRUE
-) %>% 
-  as.data.frame()
 ```
 
 I made a table of the resulting Rmse's based on each model. Since the smaller the Rmse the closer the model is to what it's trying to predict the "best" model is the communication model, followed by the all variables model, then the null model. It makes sense our null model predicts the worst as any values under its predicted score of 87 result in a positive residual and the score is out of 100, so 87 shouldn't always be expected.

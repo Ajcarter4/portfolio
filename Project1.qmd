@@ -348,7 +348,7 @@ lmnull <-glm(
 
 Looking at the intercept and slope of my models gives interesting results. The slopes of the Nurse_comm and Doctor_comm variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn't make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get is zero., so if a hospital had a zero on Doctor_comm and Nurse_comm it would be expected to have a negative score from our model, which isn't possible. Our 2nd model with all similarly has a negative intercept which doesn't fit our context, along with having a positive slope for most of the variables but our med_comm variable is a bit of an outline. It has a negative slope, meaning holding the other variables constant, in this model as our med_comm score increases the overall hospital rating is actually expected to decrease.
 
-```{r}
+```{r echo=FALSE}
 tidy(lmcomm) |> 
   gt()|> tab_style(
     style = list(
@@ -394,13 +394,6 @@ tidy(lmnull)|>
     locations = cells_body(
       columns = estimate))
 
-```
-
-```{r}
-lmnomed <-glm(
-    overall_rating~Nurse_comm + Doctor_comm + Staff_resp + disc_info + care_trans + cleanliness + quietness  ,
-    data = hmeanc_training
-  )
 ```
 
 ```{r echo=FALSE}

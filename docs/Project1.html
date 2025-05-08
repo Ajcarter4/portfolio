@@ -345,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hmeanc_training</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Looking at the intercept and slope of my models gives interesting results. The slopes of the nurse communication and doctor communication variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn’t make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get is zero. So, if a hospital had a zero on doctor communication and nurse communication it would be expected to have a negative score from our model, which isn’t possible. Our 2nd model with all variables similarly, has a negative intercept which doesn’t fit our context, along with having a positive slope for most of the variables but our communication about medicines variable is a bit of an outlier. It has a negative slope, meaning holding the other variables constant, in this model as our communication about medicines score increases the overall hospital rating is actually expected to decrease.</p>
+<p>Looking at the intercept and slope of my models gives interesting results. The slopes of the Nurse_comm and Doctor_comm variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn’t make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get is zero., so if a hospital had a zero on Doctor_comm and Nurse_comm it would be expected to have a negative score from our model, which isn’t possible. Our 2nd model with all similarly has a negative intercept which doesn’t fit our context, along with having a positive slope for most of the variables but our med_comm variable is a bit of an outline. It has a negative slope, meaning holding the other variables constant, in this model as our med_comm score increases the overall hospital rating is actually expected to decrease.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lmcomm) <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1860,7 +1860,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Plotting the results of .resid against .fitted as both a scatter plot and .resid alone as histogram gives some good insight into how well our models predicted overall score.</p>
 <section id="residual-scatter-plots" class="level3">
 <h3 class="anchored" data-anchor-id="residual-scatter-plots">Residual Scatter plots</h3>
-<p>I made a 2 scatter plots for my models, using ggplot.</p>
+<p>I made a similar scatter plot for 2 of my models, only changing the data in my code.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scatter1<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data =</span> hmeanc_pred1,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
@@ -1910,11 +1910,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Comparing the residual scatter plots, the communication model’s residuals are closer together and closer to zero compared to the all variables model. The all variables model has more variability at most values in its over/under estimates. A scatter plot wouldn’t show us much for our null model as it would just be a straight line.</p>
+<p>Comparing the residual scatter plots, the communication model’s residuals are closer together and close compared to the all variables model. The all variables model has more variability at most values in its over/under estimates. A scatter plot wouldn’t show us much for our null model as it would just be a straight line.</p>
 </section>
 <section id="residual-histograms" class="level3">
 <h3 class="anchored" data-anchor-id="residual-histograms">Residual Histograms</h3>
-<p>I also made 3 similar histograms of my models, only changing the data in my code for each.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> hmeanc_pred1,</span>
@@ -1930,6 +1929,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>I also made 3 similar histograms of my models, only changing the data in my code for each.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1946,7 +1946,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We can look at the histograms and see similar information to the scatter plot. The communication model is more closely centered at zero than the other two models, but it also has the biggest outlier, with a residual under -10. Our all variable model is less centered at zero, and more spread out between -5 and 5. Our null model has around 300 residual values around -5. This is more than any value on the all variables and communication models.</p>
+<p>We can look at the histograms and see similar information to the scatter plot. The communication model is more closely centered at zero than the other two models, but it also has the biggest outlier, with a residual under -10. Our all variable model is less centered at zero, and more spread out between -5 and 5. Our null model has around 5 residual values around -5. This is more than any value on the all variable and communication models.</p>
 </section>
 <section id="rmse" class="level3">
 <h3 class="anchored" data-anchor-id="rmse">Rmse</h3>
@@ -1961,7 +1961,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>hmeanc_pred3 <span class="sc">|&gt;</span> </span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rmse =</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(.resid<span class="sc">^</span><span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here I computed the values of my rmse by taking each of the residual values for the three models, squaring the residuals,taking the mean value and then square rooting.</p>
+<p>Here I computed the values of my rmse by taking each of the residual values for the three models by, squaring the residuals,taking the mean value and then square rooting.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a> my_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Lmcomm"</span>, <span class="st">"1.444126"</span>, </span>
@@ -2463,7 +2463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>I made a table of the resulting Rmse’s based on each model. Since the smaller the Rmse the closer the model is to what it’s trying to predict the “best” model is the communication model, followed by the all variables model, then the null model. It makes sense our null model predicts the worst as any values under its predicted rating of 87 result in a positive residual and the score is out of 100, so 87 shouldn’t always be expected.</p>
+<p>I made a table of the resulting Rmse’s based on each model. Since the smaller the Rmse the closer the model is to what it’s trying to predict the “best” model is the communication model, followed by the all variables model, then the null model. It makes sense our null model predicts the worst as any values under its predicted score of 87 result in a positive residual and the score is out of 100, so 87 shouldn’t always be expected.</p>
 </section>
 </section>
 <section id="project-limitations-constraints" class="level1">

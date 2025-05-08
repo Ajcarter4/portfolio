@@ -6,7 +6,7 @@ title: "Hospital Project"
 #| message: false
 #| warning: false
 #| echo: false
-#remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
+#remove zip code?, parish, telephone number, number of completed surveys footnote,number of completed surveys footnote, additional footnote, state, end date 
  
 #label load packages & import data
 library(readr)
@@ -28,7 +28,7 @@ hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
 #| message: false
 #| warning: false
 #| echo: false
-#remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surverys footnote, additional footnote, state, end date 
+#remove zip code?, parish, telephone number, number of completed surverys footnote,number of completed surveys footnote, additional footnote, state, end date 
 
 #label load packages & import data
 library(readr)
@@ -337,7 +337,7 @@ lmnull <-glm(
 
 ```
 
-Looking at the intercept and slope of my models gives interesting results. The slopes of the nurse communication and doctor communication variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn't make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get is zero. So, if a hospital had a zero on doctor communication and nurse communication it would be expected to have a negative score from our model, which isn't possible. Our 2nd model with all variables similarly, has a negative intercept which doesn't fit our context, along with having a positive slope for most of the variables but our communication about medicines variable is a bit of an outlier. It has a negative slope, meaning holding the other variables constant, in this model as our communication about medicines score increases the overall hospital rating is actually expected to decrease.
+Looking at the intercept and slope of my models gives interesting results. The slopes of the Nurse_comm and Doctor_comm variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn't make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get is zero., so if a hospital had a zero on Doctor_comm and Nurse_comm it would be expected to have a negative score from our model, which isn't possible. Our 2nd model with all similarly has a negative intercept which doesn't fit our context, along with having a positive slope for most of the variables but our med_comm variable is a bit of an outline. It has a negative slope, meaning holding the other variables constant, in this model as our med_comm score increases the overall hospital rating is actually expected to decrease.
 
 ```{r}
 tidy(lmcomm) |> 
@@ -387,7 +387,7 @@ Plotting the results of .resid against .fitted as both a scatter plot and .resid
 
 ### Residual Scatter plots
 
-I made a 2 scatter plots for my models, using ggplot.
+I made a similar scatter plot for 2 of my models, only changing the data in my code.
 
 ```{r results='hide' }
 #| message: false
@@ -432,11 +432,9 @@ scatter2<-ggplot(data = hmeanc_pred2,
 (scatter2)
 ```
 
-Comparing the residual scatter plots, the communication model's residuals are closer together and closer to zero compared to the all variables model. The all variables model has more variability at most values in its over/under estimates. A scatter plot wouldn't show us much for our null model as it would just be a straight line.
+Comparing the residual scatter plots, the communication model's residuals are closer together and close compared to the all variables model. The all variables model has more variability at most values in its over/under estimates. A scatter plot wouldn't show us much for our null model as it would just be a straight line.
 
 ### Residual Histograms
-
-I also made 3 similar histograms of my models, only changing the data in my code for each.
 
 ```{r}
 #| warning: false
@@ -450,6 +448,8 @@ geom_histogram()+
   labs(title = ".resid Historgram Comm Model") 
 ```
 
+I also made 3 similar histograms of my models, only changing the data in my code for each.
+
 ```{r echo=FALSE}
 #| message: false
 #| warning: false
@@ -458,7 +458,7 @@ ggplot(
   mapping= aes(x=.resid)
 )+
 geom_histogram() +
-   labs(title = ".resid Historgram all variables Model") 
+   labs(title = ".resid Historgram all var Model") 
 
 ggplot(
   data = hmeanc_pred3,
@@ -469,7 +469,7 @@ geom_histogram()+
   
 ```
 
-We can look at the histograms and see similar information to the scatter plot. The communication model is more closely centered at zero than the other two models, but it also has the biggest outlier, with a residual under -10. Our all variable model is less centered at zero, and more spread out between -5 and 5. Our null model has around 300 residual values around -5. This is more than any value on the all variables and communication models.
+We can look at the histograms and see similar information to the scatter plot. The communication model is more closely centered at zero than the other two models, but it also has the biggest outlier, with a residual under -10. Our all variable model is less centered at zero, and more spread out between -5 and 5. Our null model has around 5 residual values around -5. This is more than any value on the all variable and communication models.
 
 ### Rmse
 
@@ -486,7 +486,7 @@ hmeanc_pred3 |>
   mutate(rmse = sqrt(mean(.resid^2)))
 ```
 
-Here I computed the values of my rmse by taking each of the residual values for the three models, squaring the residuals,taking the mean value and then square rooting.
+Here I computed the values of my rmse by taking each of the residual values for the three models by, squaring the residuals,taking the mean value and then square rooting.
 
 ```{r}
  my_matrix <- matrix(
@@ -508,7 +508,7 @@ gt(my_matrix)|>
     subtitle = "Comparison of different models")
 ```
 
-I made a table of the resulting Rmse's based on each model. Since the smaller the Rmse the closer the model is to what it's trying to predict the "best" model is the communication model, followed by the all variables model, then the null model. It makes sense our null model predicts the worst as any values under its predicted rating of 87 result in a positive residual and the score is out of 100, so 87 shouldn't always be expected.
+I made a table of the resulting Rmse's based on each model. Since the smaller the Rmse the closer the model is to what it's trying to predict the "best" model is the communication model, followed by the all variables model, then the null model. It makes sense our null model predicts the worst as any values under its predicted score of 87 result in a positive residual and the score is out of 100, so 87 shouldn't always be expected.
 
 # Project Limitations & Constraints
 

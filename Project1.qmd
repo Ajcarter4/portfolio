@@ -334,6 +334,8 @@ lmnull <-glm(
 
 ```
 
+Looking at the intercept and slope of my models gives interesting results. The slopes of the Nurse_comm and Doctor_comm variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn't make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get, so if a hospital had a zero on Doctor_comm and Nurse_comm it would be expected to have a negative score from our model, which isn't possible. Our 2nd model with all similarly has a negative intercept which doesn't fit our context, along with having a positive slope for most of the variables but our med_comm variable is a bit of an outline. It has a negative slope, meaning holding the other variables constant, in this model as our med_comm score increases the overall hospital rating is actually expected to decrease.
+
 ```{r}
 tidy(lmcomm) |> 
   gt()
@@ -345,8 +347,6 @@ tidy(lmnull)|>
   gt()
 
 ```
-
-Looking at the intercept and slope of my models gives interesting results. The slopes of the Nurse_comm and Doctor_comm variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn't make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get, so if a hospital had a zero on Doctor_comm and Nurse_comm it would be expected to have a negative score from our model, which isn't possible. Our 2nd model with all similarly has a negative intercept which doesn't fit our context, along with having a positive slope for most of the variables but our med_comm variable is a bit of an outline. It has a negative slope, meaning holding the other variables constant, in this model as our med_comm score increases the overall hospital rating is actually expected to decrease.
 
 ```{r echo=FALSE}
 hmeanc_pred1<- lmall |>
@@ -382,6 +382,8 @@ hmeanc_pred3<-hmeanc_pred3|>
 
 Plotting the results of .resid against .fitted as both a scatter plot and .resid alone as histogram gives some good insight into how well our models predicted overall score.
 
+I made a similar scatter plot for all 3 over my models, only changing the data in my code.
+
 ```{r}
 ggplot(data = hmeanc_pred1,
        mapping = aes(
@@ -399,12 +401,6 @@ ggplot(data = hmeanc_pred1,
     y = "resdidual"
   ) 
 
-
-```
-
-I made a similar scatter plot for all 3 over my models, only changing the data in my code.
-
-```{r echo=FALSE}
 ggplot(data = hmeanc_pred2,
        mapping = aes(
          x = .fitted,
@@ -420,24 +416,6 @@ ggplot(data = hmeanc_pred2,
     x = "fitted",
     y = "resdidual"
   )
-
-
-ggplot(data = hmeanc_pred3,
-       mapping = aes(
-         x = .fitted,
-         y = .resid
-
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "blue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "red", se = FALSE) +
-  labs(
-    title = "residual vs fit",
-    x = "fitted",
-    y = "resdidual"
-  )
-
 ```
 
 ```{r}
@@ -470,18 +448,40 @@ geom_histogram()+
   
 ```
 
-```{r}
+```{r echo=FALSE }
  hmeanc_pred1 |> 
-  mutate(rmse1 = sqrt(mean(.resid^2)))|>
-   select(rmse1)
+  mutate(rmse = sqrt(mean(.resid^2)))|>
+   select(rmse)
+ 
+
 
  hmeanc_pred2 |> 
-  mutate(rmse2 = sqrt(mean(.resid^2)))|>
-   select(rmse2)
+  mutate(rmse = sqrt(mean(.resid^2)))|>
+   select(rmse)
 
   hmeanc_pred3 |> 
-  mutate(rmse3 = sqrt(mean(.resid^2)))|>
-   select(rmse3)
+  mutate(rmse = sqrt(mean(.resid^2)))|>
+   select(rmse)
+```
+
+```{r}
+ my_matrix <- matrix(
+  c("Lmcomm", "1.444126", 
+    "Lmall", "1.751409", 
+    "Lmnull", "3.84769"), 
+  nrow = 3, 
+  byrow = TRUE
+) %>% 
+  as.data.frame()
+ 
+gt(my_matrix)|>
+  cols_label(
+   V1 = "Model Type",   
+   V2 = "Coefficient"   
+  ) %>%
+  tab_header(
+    title = "Linear Model Coefficients",
+    subtitle = "Comparison of different models")
 ```
 
 # Project Limitations & Constraints

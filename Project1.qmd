@@ -52,12 +52,11 @@ Here are the Packages I used for my analysis.
 
 # Data Wrangling
 
-The data set starting off was very messy and hard to work with. To start off looking into this Hospital data set, I took out the unnecessary data for what I was looking into. I used the select function for this, taking out columns in my data set such as State, Address and completion Dates that were unneeded for what I wanted to look into. I then separated out the ways of rating the hospitals into their 3 categories/data sets. With the 3 data sets being linear mean scores out of 100 for specific attributes of the hospital, star ratings out of 5 which are rates similarly to linear mean score and answer percent which tracks what percentages of responses tracked to which specific answers.
+The data set starting off was very messy and hard to work with. To start off looking into this Hospital data set, I made all NA's the same, took out the unnecessary data for what I was looking into. I used the select function for this, taking out columns in my data set such as State, Address and completion Dates that were unneeded for what I wanted to look into. I then separated out the ways of rating the hospitals into their 3 categories/data sets. With the 3 data sets being linear mean scores out of 100 for specific attributes of the hospital, star ratings out of 5 which are rates similarly to linear mean score and answer percent which tracks what percentages of responses tracked to which specific answers.
 
 ```{r}
 #| message: false
 #| warning: false
-here::i_am("Project1.qmd")
 hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
 
 hosp2<-hosp|>

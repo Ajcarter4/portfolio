@@ -358,7 +358,7 @@ tidy(lmcomm) |>
     locations = cells_body(
       columns = estimate))|>tab_style(
     style = list(
-      cell_fill(color = "#f08080"),  
+      cell_fill(color = "#6495ed"),  
       cell_text(weight = "bold")       
     ),
     locations = cells_body(
@@ -376,19 +376,29 @@ tidy (lmall)|>
     locations = cells_body(
       columns = estimate))|>tab_style(
     style = list(
-      cell_fill(color = "#f08080"),  
+      cell_fill(color = "#6495ed"),  
       cell_text(weight = "bold")       
     ),
     locations = cells_body(
       columns = estimate, 
       rows = 1          
     )
+  )|>
+  tab_style(
+    style = list(
+      cell_fill(color = "#6495ed"),  
+      cell_text(weight = "bold")       
+    ),
+    locations = cells_body(
+      columns = estimate, 
+      rows = 5          
+    )
   )
   
 tidy(lmnull)|>
   gt()|> tab_style(
     style = list(
-      cell_fill(color = "#f08080"),
+      cell_fill(color = "#6495ed"),
       cell_text(weight = "bold", color = "black")
     ),
     locations = cells_body(

@@ -2,6 +2,8 @@
 title: "Hospital Project"
 ---
 
+![](images/hospital.photo.jpg){fig-align="center"}
+
 # Context and Question
 
 The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This includes star ratings, answers percentages, and mean score which contribute to how well patients rate a hospital. Initially what I wanted to explore with this hospital data set was seeing which parts of a hospital contribute the most to patients rating it highly. Along with being on the lookout for any unexpected or shocking relationships between the rating categories.
@@ -298,6 +300,8 @@ plot8<-ggplot(data = hmeanc,
   )+theme(plot.title = element_text(size = 7)) + theme(
   axis.title.x = element_text(size = 7),
   axis.title.y = element_text(size = 7) )
+
+
 ```
 
 ```{r}

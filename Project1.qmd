@@ -421,6 +421,8 @@ ggplot(data = hmeanc_pred2,
   )
 ```
 
+I also made 3 similar histograms of my models, only changing the data in my code for each.
+
 ```{r}
 #| message: false
 
@@ -429,10 +431,8 @@ ggplot(
   mapping= aes(x=.resid)
 )+
 geom_histogram()+
-  labs(title = "Histogram with Count Labels") 
+  labs(title = ".resid Historgram Comm Model") 
 ```
-
-I also made 3 similar histograms of my models, only changing the data in my code for each.
 
 ```{r echo=FALSE}
 #| message: false
@@ -441,18 +441,18 @@ ggplot(
   mapping= aes(x=.resid)
 )+
 geom_histogram() +
-   labs(title = "Histogram with Count Labels") 
+   labs(title = ".resid Historgram all var Model") 
 
 ggplot(
   data = hmeanc_pred3,
   mapping= aes(x=.resid)
 )+
 geom_histogram()+
-   labs(title = "Histogram with Count Labels") 
+   labs(title = ".resid Historgram null Model") 
   
 ```
 
-```{r echo=FALSE }
+```{r results='hide}
  hmeanc_pred1 |> 
   mutate(rmse = sqrt(mean(.resid^2)))|>
    select(rmse)
@@ -468,7 +468,7 @@ geom_histogram()+
    select(rmse)
 ```
 
-```{r}
+```{r echo=FALSE}
  my_matrix <- matrix(
   c("Lmcomm", "1.444126", 
     "Lmall", "1.751409", 

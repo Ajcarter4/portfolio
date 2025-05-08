@@ -350,13 +350,31 @@ Looking at the intercept and slope of my models gives interesting results. The s
 
 ```{r}
 tidy(lmcomm) |> 
-  gt()
+  gt()|> tab_style(
+    style = list(
+      cell_fill(color = "lightyellow"),
+      cell_text(weight = "bold", color = "black")
+    ),
+    locations = cells_body(
+      columns = estimate))
 
 tidy (lmall)|>
-    gt() 
+  gt()|> tab_style(
+    style = list(
+      cell_fill(color = "lightyellow"),
+      cell_text(weight = "bold", color = "black")
+    ),
+    locations = cells_body(
+      columns = estimate))
   
 tidy(lmnull)|>
-  gt()
+  gt()|> tab_style(
+    style = list(
+      cell_fill(color = "lightyellow"),
+      cell_text(weight = "bold", color = "black")
+    ),
+    locations = cells_body(
+      columns = estimate))
 
 ```
 

@@ -356,7 +356,16 @@ tidy(lmcomm) |>
       cell_text(weight = "bold", color = "black")
     ),
     locations = cells_body(
-      columns = estimate))
+      columns = estimate))|>tab_style(
+    style = list(
+      cell_fill(color = "#f08080"),  
+      cell_text(weight = "bold")       
+    ),
+    locations = cells_body(
+      columns = estimate, 
+      rows = 1          
+    )
+  )
 
 tidy (lmall)|>
   gt()|> tab_style(
@@ -365,12 +374,21 @@ tidy (lmall)|>
       cell_text(weight = "bold", color = "black")
     ),
     locations = cells_body(
-      columns = estimate))
+      columns = estimate))|>tab_style(
+    style = list(
+      cell_fill(color = "#f08080"),  
+      cell_text(weight = "bold")       
+    ),
+    locations = cells_body(
+      columns = estimate, 
+      rows = 1          
+    )
+  )
   
 tidy(lmnull)|>
   gt()|> tab_style(
     style = list(
-      cell_fill(color = "lightyellow"),
+      cell_fill(color = "#f08080"),
       cell_text(weight = "bold", color = "black")
     ),
     locations = cells_body(
@@ -404,7 +422,7 @@ hmeanc_pred3<- lmnull |>
 
 Continuing on my model selection, I used the argument function to produce some predictions based off of my testing set, which gave me my .fitted, variable which is my predictions. I then made the .resid variable by subtracting the actual overall score from the predicted overall score to find the difference.
 
-```{r}
+```{r echo=FALSE}
 #| label: big chunk2
 
 hmeanc_pred1<-hmeanc_pred1|>

@@ -1,5 +1,5 @@
 ---
-title: "Hospital Project"
+title: "Hospital Project" 
 ---
 
 ![](images/hospital.photo.jpg){fig-align="center"}

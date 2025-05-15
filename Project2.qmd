@@ -52,7 +52,7 @@ Package_table2 <- matrix(
     "purrr","to run the cross-validation",
     "tidyr","to pivot the data frames",
     "patchwork","combine plots",
-    "broom", "Make predictions on models"), 
+    "broom", "Make predictions on models "), 
   nrow = 9 , 
   byrow = TRUE
 ) %>% 
@@ -154,6 +154,45 @@ flower_cv<-flower_train|>
     v=5,
     repeats=3
   )
+```
+
+```{r}
+#| echo: False
+#| message: False
+#| warning: False
+flower_allglm <- glm (
+  Species~disk_diameter + number_rays + ray_diameter + stem_length, 
+  data= flower_train,
+    family = "binomial"
+) 
+
+
+flower_3glm <- glm (
+  Species~disk_diameter + number_rays + ray_diameter, 
+  data= flower_train,
+    family = "binomial"
+) 
+
+
+flower_2glm <- glm (
+  Species~stem_length + number_rays, 
+  data= flower_train,
+    family = "binomial"
+) 
+
+
+flower_1glm <- glm (
+  Species~ number_rays, 
+  data= flower_train,
+    family = "binomial"
+) 
+
+
+flower_nullglm <- glm (
+  Species~1, 
+  data= flower_train,
+  family = "binomial"
+)
 ```
 
 ```{r}

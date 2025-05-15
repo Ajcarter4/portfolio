@@ -7,7 +7,7 @@ title: "Project 2"
 (California Encelia Flower)
 
 ```{r}
-#| label: do this first
+#| label: do this first 
 #| echo: false
 #| message: false
 #| warning: false

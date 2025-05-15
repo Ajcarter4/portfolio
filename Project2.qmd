@@ -22,6 +22,7 @@ library(yardstick)
 library(tidyr)
 library(gt)
 library(patchwork) 
+library(broom)
 
 here::i_am("Project2.qmd")
 flower <- read_csv("Encelia.csv")
@@ -50,8 +51,9 @@ Package_table2 <- matrix(
     "rsample","to split data into training and test sets",
     "purrr","to run the cross-validation",
     "tidyr","to pivot the data frames",
-    "patchwork","combine plots"), 
-  nrow = 8 , 
+    "patchwork","combine plots",
+    "broom", "Make predictions on models"), 
+  nrow = 9 , 
   byrow = TRUE
 ) %>% 
   as.data.frame()     

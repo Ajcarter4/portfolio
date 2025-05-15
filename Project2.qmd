@@ -2,7 +2,188 @@
 title: "Project 2"
 ---
 
+![](images/clipboard-2820991963.png)
 
-Check Back soon for data.. 
+(California Encelia Flower)
 
-data is cooll
+```{r}
+#| label: do this first
+#| echo: false
+#| message: false
+#| warning: false
+
+library(here)
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(rsample)
+library(purrr)
+library(yardstick)
+library(tidyr)
+library(gt)
+library(broom)
+
+here::i_am("Project2.qmd")
+flower <- read_csv("Encelia.csv")
+```
+
+Write a few sentences about *Encelia californica*, *Encelia farinosa*, and the Fullerton Arboretum. You may also discuss what you learned about the *iris* dataset.
+
+Why should someone care about being able to distinguish between these two species?
+
+## Main Objective
+
+In your own words, describe the goal of this project.
+
+## Packages Used In This Analysis
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+Package_table2 <- matrix(
+  c("here", "to easily load and save data", 
+    "readr", "to import the CSV file data", 
+    "dplyr", " to massage and summarize data",
+    "gt","to create nice-looking and informative graphs",
+    "rsample","to split data into training and test sets",
+    "purrr","to run the cross-validation",
+    "tidyr","to pivot the predictions data frame so that each row represents 1 model",
+    "Broom","Make predictions on models"), 
+  nrow = 8 , 
+  byrow = TRUE
+) %>% 
+  as.data.frame()     
+
+         gt(Package_table2)|>
+  cols_label(
+   V1 = "Package",   
+   V2 = "Use"   
+  ) %>%
+  tab_header(
+    title = "Packages Used")
+         
+```
+
+## Design and Data Collection
+
+In this section, describe how you collected the data. (If you weren't in class that day, ask your classmates how the data was collected.)
+
+Briefly describe the limitations of your data collection method. What difficulties did you (or the class collectively) have collecting the data? What choices did you (or the class collectively) make during the data collection process that someone else might choose differently?
+
+```{r}
+flower$Species <- ifelse(
+  flower$Species == "F", 1,
+  ifelse(flower$Species == "C", 0, flower$Species)
+)
+
+flower$Species <- as.numeric(
+  as.character(flower$Species)
+)
+
+
+#F=1, C=0 
+```
+
+## Training-Test Split
+
+```{r}
+set.seed(14)
+flower_split <- flower |>
+  initial_split(
+    prop=0.80
+  )  
+
+  flower_train<- training(flower_split)
+  flower_test <- testing(flower_split)
+```
+
+There isn't much data massaging we need to do here, because we were very deliberate about how we set up our data sheet and how we recorded the data on it. However, you may need to do things like import the data and change the type of some variables.
+
+At the end of this section, you should write code to randomly split the Encelia data into a training and test set and explain why a training and test set are useful/necessary for this objective.
+
+## Exploratory Data Analysis
+
+Expand on the EDA you did in the Logistic Regression with Encelia activity. Explain what is going on in your graphs and summaries and how those insights relate to the models you will be building in the next section.
+
+## Modeling
+
+```{r}
+
+flower_allglm <- glm (
+  Species~disk_diameter + number_rays + ray_diameter + stem_length, 
+  data= flower_train,
+    family = "binomial"
+) 
+
+
+flower_3glm <- glm (
+  Species~disk_diameter + number_rays + ray_diameter, 
+  data= flower_train,
+    family = "binomial"
+) 
+
+
+flower_2glm <- glm (
+  Species~stem_length + number_rays, 
+  data= flower_train,
+    family = "binomial"
+) 
+
+
+flower_1glm <- glm (
+  Species~ number_rays, 
+  data= flower_train,
+    family = "binomial"
+) 
+
+
+flower_nullglm <- glm (
+  Species~1, 
+  data= flower_train,
+  family = "binomial"
+)
+
+
+```
+
+```{r}
+
+all_pred<-flower_allglm|>
+  augment(newdata = flower_train ,
+          type.predict="response")
+
+null_pred<-flower_nullglm|>
+  augment(newdata = flower_train ,
+          type.predict="response")
+
+pred1<-flower_1glm|>
+  augment(newdata = flower_train ,
+          type.predict="response")
+
+pred2<-flower_2glm|>
+  augment(newdata = flower_train ,
+          type.predict="response")
+
+pred3<-flower_3glm|>
+  augment(newdata = flower_train ,
+          type.predict="response")
+```
+
+Propose several logistic regression models and use cross-validation to select a best model, following the steps in the "Cross-Validation (Part 3)" video and the "Model Selection for Logistic Regression" activity.
+
+Explain what your code is doing:
+
+-   What is logistic regression? Why are you doing it?
+-   Why did you choose each model that you are considering?
+-   Why are you using cross-validation? How does it work?
+-   Which model are you selecting as the best model? Why?
+
+Fit the selected "best" model on the training set and make predictions on the test set. Overall, how accurately is your model making predictions?
+
+## Insights
+
+Think about how you might visualize the model's predictions and the accuracy of those predictions. Then, create and describe one or more visualizations in line with your ideas.
+
+Which flowers (if any) were incorrectly predicted? Why do you suspect that they were incorrectly predicted?

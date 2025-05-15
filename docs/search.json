@@ -2,9 +2,9 @@
   {
     "objectID": "Project2.html",
     "href": "Project2.html",
-    "title": "Project 2",
+    "title": "Project2",
     "section": "",
-    "text": "Check Back soon for data..\ndata is cool"
+    "text": "Write a few sentences about Encelia californica, Encelia farinosa, and the Fullerton Arboretum. You may also discuss what you learned about the iris dataset.\nWhy should someone care about being able to distinguish between these two species?"
   },
   {
     "objectID": "index.html",
@@ -26,5 +26,19 @@
     "title": "Hospital Project",
     "section": "Data Wrangling (Continued)",
     "text": "Data Wrangling (Continued)\nSeparating the rating types wasn’t the end of my data wrangling though. My data was still unworkable in its current state. With each thing being rated, such as doctor communication or staff responsiveness having its own row. I used the pivot wider function, to widen my data set and give each thing being rated its own column. I then had to use the as.numeric function to change the data in my linear mean score data set from characters to numbers. Finally I shortened the names in my linear mean value data set, and deleted the old names to make it easier to code and do my eda/model selection.\n\n#pivot our HCAHPS COL to get less rows \nhstar&lt;-hstar|&gt;\n  pivot_wider(\n    id_cols=`Facility ID`,\n    names_from = `HCAHPS Answer Description`,\n    values_from = `Patient Survey Star Rating`\n  ) \n\nhpercent&lt;-hpercent|&gt;\n  pivot_wider(\n    id_cols=`Facility ID`,\n    names_from = `HCAHPS Answer Description`,\n    values_from = `HCAHPS Answer Percent`\n  ) \n\nhmean&lt;-hmean|&gt;\n  pivot_wider(\n    id_cols=`Facility ID`,\n    names_from = `HCAHPS Answer Description`,\n    values_from = `HCAHPS Linear Mean Value`\n  ) \n\n\n# Step 2: Convert to numeric safely\nhmean$`Overall hospital rating - linear mean score` &lt;- as.numeric(\n  as.character(hmean$`Overall hospital rating - linear mean score`)\n)\n\n\n#Cleaning names\n\nhmeanc&lt;-hmean|&gt;\n  mutate(\n   Nurse_comm =`Nurse communication - linear mean score`,\n   Doctor_comm =`Doctor communication - linear mean score`,\n    Staff_resp =`Staff responsiveness - linear mean score`,\n   Med_comm =`Communication about medicines - linear mean score`,\n   disc_info = `Discharge information - linear mean score`,\n   care_trans =`Care transition - linear mean score`,\n   cleanliness = `Cleanliness - linear mean score`,\n   quietness = `Quietness - linear mean score`,\n   overall_rating = `Overall hospital rating - linear mean score`,\n   rec_rating = `Recommend hospital - linear mean score`\n   \n  )\n\nhmeanc$`Nurse communication - linear mean score` &lt;- NULL\nhmeanc$`Doctor communication - linear mean score` &lt;- NULL\nhmeanc$`Staff responsiveness - linear mean score` &lt;- NULL\nhmeanc$`Communication about medicines - linear mean score` &lt;- NULL\nhmeanc$`Discharge information - linear mean score` &lt;- NULL\nhmeanc$`Care transition - linear mean score` &lt;- NULL\nhmeanc$`Cleanliness - linear mean score` &lt;- NULL\nhmeanc$`Quietness - linear mean score` &lt;- NULL\nhmeanc$`Overall hospital rating - linear mean score` &lt;- NULL\nhmeanc$`Recommend hospital - linear mean score` &lt;- NULL"
+  },
+  {
+    "objectID": "Project2.html#main-objective",
+    "href": "Project2.html#main-objective",
+    "title": "Project2",
+    "section": "Main Objective",
+    "text": "Main Objective\nIn your own words, describe the goal of this project."
+  },
+  {
+    "objectID": "Project2.html#packages-used-in-this-analysis",
+    "href": "Project2.html#packages-used-in-this-analysis",
+    "title": "Project2",
+    "section": "Packages Used In This Analysis",
+    "text": "Packages Used In This Analysis\n\n\n\n\n\n\n\n\nPackages Used\n\n\nPackage\nUse\n\n\n\n\nhere\nto easily load and save data\n\n\nreadr\nto import the CSV file data\n\n\ndplyr\nto massage and summarize data\n\n\ngt\nto create nice-looking and informative graphs\n\n\nrsample\nto split data into training and test sets\n\n\npurrr\nto run the cross-validation\n\n\ntidyr\nto pivot the predictions data frame so that each row represents 1 model"
   }
 ]

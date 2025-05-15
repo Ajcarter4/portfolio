@@ -86,6 +86,11 @@ flower$Species <- as.numeric(
 #F=1, C=0 
 ```
 
+```{r}
+flower<-flower|>
+ filter(!is.na(stem_length))
+```
+
 ## Training-Test Split
 
 ```{r}
@@ -106,6 +111,26 @@ At the end of this section, you should write code to randomly split the Encelia 
 ## Exploratory Data Analysis
 
 Expand on the EDA you did in the Logistic Regression with Encelia activity. Explain what is going on in your graphs and summaries and how those insights relate to the models you will be building in the next section.
+
+```{r}
+ggplot(
+  data=flower_train,
+  mapping=aes(x=number_rays,y=Species)
+) +geom_jitter(height=0.1) 
+ggplot(
+  data=flower_train,
+  mapping=aes(x=disk_diameter,y=Species)
+) +geom_jitter(height=0.1) 
+ggplot(
+  data=flower_train,
+  mapping=aes(x=ray_diameter,y=Species)
+) +geom_jitter(height=0.1) 
+ggplot(
+  data=flower_train,
+  mapping=aes(x=stem_length,y=Species)
+) +geom_jitter(height=0.1) 
+
+```
 
 ## Modeling
 
@@ -148,6 +173,9 @@ flower_nullglm <- glm (
 
 ```
 
+```         
+```
+
 ```{r}
 
 all_pred<-flower_allglm|>
@@ -169,6 +197,113 @@ pred2<-flower_2glm|>
 pred3<-flower_3glm|>
   augment(newdata = flower_train ,
           type.predict="response")
+```
+
+```{r}
+pred1<-pred1|>
+ mutate(
+     .fitted = case_when(
+      .fitted >= 0.5~ 1,
+      .fitted < 0.5 ~ 0,
+    )
+  )
+
+flower$Species <- as.numeric(
+  as.character(flower$Species)
+)
+
+
+
+```
+
+```{r}
+
+flower$Species <- as.numeric(
+  as.character(flower$Species)
+)
+
+null_pred<-null_pred|>
+ mutate(
+     .fitted = case_when(
+      .fitted >= 0.5~ 1,
+      .fitted < 0.5 ~ 0,
+    )
+  )
+
+
+
+all_pred<-all_pred|>
+ mutate(
+     .fitted = case_when(
+      .fitted >= 0.5~ 1,
+      .fitted < 0.5 ~ 0,
+    )
+  )
+
+
+
+pred2<-pred2|>
+ mutate(
+     .fitted= case_when(
+      .fitted >= 0.5~ 1,
+      .fitted < 0.5 ~ 0,
+    )
+  )
+
+pred3<-pred3|>
+ mutate(
+     .fitted = case_when(
+      .fitted >= 0.5~ 1,
+      .fitted < 0.5 ~ 0,
+    )
+  )
+
+
+
+
+
+```
+
+```{r}
+pred1<-pred1|>
+  mutate(.resid= Species-.fitted)
+```
+
+```{r}
+pred2<-pred2|>
+  mutate(.resid= Species-.fitted)
+
+pred3<-pred3|>
+  mutate(.resid= Species-.fitted)
+
+null_pred<-null_pred|>
+  mutate(.resid= Species-.fitted)
+
+all_pred<-all_pred|>
+  mutate(.resid= Species-.fitted)
+```
+
+```{r}
+ggplot(
+  data = pred1,
+  mapping= aes(x=.resid)
+)+
+geom_histogram()
+
+pred1|>
+  count(.resid)
+  
+pred2|>
+  count(.resid)
+
+pred3|>
+  count(.resid)
+
+all_pred|>
+  count(.resid)
+
+null_pred|>
+  count(.resid)
 ```
 
 Propose several logistic regression models and use cross-validation to select a best model, following the steps in the "Cross-Validation (Part 3)" video and the "Model Selection for Logistic Regression" activity.

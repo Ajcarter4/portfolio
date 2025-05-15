@@ -21,7 +21,7 @@ library(purrr)
 library(yardstick)
 library(tidyr)
 library(gt)
-library(broom)
+library(patchwork) 
 
 here::i_am("Project2.qmd")
 flower <- read_csv("Encelia.csv")
@@ -49,8 +49,8 @@ Package_table2 <- matrix(
     "gt","to create nice-looking and informative graphs",
     "rsample","to split data into training and test sets",
     "purrr","to run the cross-validation",
-    "tidyr","to pivot the predictions data frame so that each row represents 1 model",
-    "Broom","Make predictions on models"), 
+    "tidyr","to pivot the data frames",
+    "patchwork","combine plots"), 
   nrow = 8 , 
   byrow = TRUE
 ) %>% 
@@ -73,22 +73,11 @@ In this section, describe how you collected the data. (If you weren't in class t
 Briefly describe the limitations of your data collection method. What difficulties did you (or the class collectively) have collecting the data? What choices did you (or the class collectively) make during the data collection process that someone else might choose differently?
 
 ```{r}
-flower$Species <- ifelse(
-  flower$Species == "F", 1,
-  ifelse(flower$Species == "C", 0, flower$Species)
-)
-
-flower$Species <- as.numeric(
-  as.character(flower$Species)
-)
-
-
-#F=1, C=0 
-```
-
-```{r}
 flower<-flower|>
- filter(!is.na(stem_length))
+  mutate(Species=Species|>
+           as.factor())
+
+contrasts(flower$Species)
 ```
 
 ## Training-Test Split
@@ -96,7 +85,7 @@ flower<-flower|>
 ```{r}
 set.seed(14)
 flower_split <- flower |>
-  initial_split(
+  initial_split( strata= Species,
     prop=0.80
   )  
 
@@ -113,197 +102,294 @@ At the end of this section, you should write code to randomly split the Encelia 
 Expand on the EDA you did in the Logistic Regression with Encelia activity. Explain what is going on in your graphs and summaries and how those insights relate to the models you will be building in the next section.
 
 ```{r}
-ggplot(
+plot1<-ggplot(
   data=flower_train,
   mapping=aes(x=number_rays,y=Species)
 ) +geom_jitter(height=0.1) 
-ggplot(
+
+plot2<-ggplot(
   data=flower_train,
   mapping=aes(x=disk_diameter,y=Species)
 ) +geom_jitter(height=0.1) 
-ggplot(
+
+plot3<-ggplot(
   data=flower_train,
   mapping=aes(x=ray_diameter,y=Species)
 ) +geom_jitter(height=0.1) 
-ggplot(
+
+plot4<-ggplot(
   data=flower_train,
   mapping=aes(x=stem_length,y=Species)
 ) +geom_jitter(height=0.1) 
 
+
+```
+
+```{r}
+#| warning: False
+(plot1+plot2+plot3+plot4)
+```
+
+```{r}
+ggplot(flower, aes(x = number_rays, y = ray_diameter, 
+                  color = Species, shape = Species)) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("F" = "#E69F00", "C" = "#56B4E9")) +
+  labs(title = "Encelia Species Comparison",
+       subtitle = "Ray Flowers Characteristics",
+       x = "Number of Ray Flowers",
+       y = "Ray Diameter ") +
+  theme_bw() +
+  theme(legend.position = "top")
 ```
 
 ## Modeling
 
 ```{r}
+set.seed(453)
+flower_cv<-flower_train|>
+  vfold_cv(
+    v=5,
+    repeats=3
+  )
+```
+
+```{r}
+
+flower_pred <- function(split){
+  
+  train<-analysis(split)
+  valid<-assessment(split)
 
 flower_allglm <- glm (
   Species~disk_diameter + number_rays + ray_diameter + stem_length, 
-  data= flower_train,
+  data= train,
     family = "binomial"
 ) 
 
 
 flower_3glm <- glm (
   Species~disk_diameter + number_rays + ray_diameter, 
-  data= flower_train,
+  data= train,
     family = "binomial"
 ) 
 
 
 flower_2glm <- glm (
   Species~stem_length + number_rays, 
-  data= flower_train,
+  data= train,
     family = "binomial"
 ) 
 
 
 flower_1glm <- glm (
   Species~ number_rays, 
-  data= flower_train,
+  data= train,
     family = "binomial"
 ) 
 
 
 flower_nullglm <- glm (
   Species~1, 
-  data= flower_train,
+  data= train,
   family = "binomial"
 )
 
-
-```
-
-```         
-```
-
-```{r}
-
-all_pred<-flower_allglm|>
-  augment(newdata = flower_train ,
-          type.predict="response")
-
-null_pred<-flower_nullglm|>
-  augment(newdata = flower_train ,
-          type.predict="response")
-
-pred1<-flower_1glm|>
-  augment(newdata = flower_train ,
-          type.predict="response")
-
-pred2<-flower_2glm|>
-  augment(newdata = flower_train ,
-          type.predict="response")
-
-pred3<-flower_3glm|>
-  augment(newdata = flower_train ,
-          type.predict="response")
-```
-
-```{r}
-pred1<-pred1|>
- mutate(
-     .fitted = case_when(
-      .fitted >= 0.5~ 1,
-      .fitted < 0.5 ~ 0,
-    )
+valid_pred <- valid|>
+  mutate(
+    pred_all= predict(flower_allglm, newdata=valid, type = "response" ),
+     pred_null= predict(flower_nullglm, newdata=valid, type = "response" ),
+     pred1= predict(flower_1glm, newdata=valid, type = "response" ),
+    pred2= predict(flower_2glm, newdata=valid, type = "response" ),
+    pred3= predict(flower_3glm, newdata=valid, type = "response" )
   )
 
-flower$Species <- as.numeric(
-  as.character(flower$Species)
+}
+```
+
+```{r}
+mapped_pred<- map(
+  flower_cv$splits,
+  flower_pred
 )
+```
 
+```{r}
+mapped_pred_df <- mapped_pred |>
+  bind_rows(.id = "folds")
+
+```
+
+```{r}
+mapped_pred_df|>
+  select(folds,Species,pred1,pred2,pred3,pred_null,pred_all)
+```
+
+```{r}
+pred_comb<- mapped_pred_df |>
+    pivot_longer(
+    cols = starts_with("pred"),
+    names_to = "model",
+    values_to = ".pred_C"
+    ) %>%
+    mutate(
+    .pred_F = 1 - .pred_C
+    )
+
+pred_comb %>%
+    select(
+    Species, model, folds, .pred_F, .pred_C
+    )
+```
+
+```{r}
+# label: get average brier score
+brier_all_models <- pred_comb |> 
+  group_by(model, folds) |> 
+  brier_class(
+    truth = Species, 
+    .pred_F 
+  )
+
+brier_all_models |> 
+  ungroup() |> 
+  group_by(model) |> 
+  summarise(
+    mean_brier = mean(.estimate), 
+    se_brier = sd(.estimate) / sqrt(4)  # 4 estimates (from 4 folds)
+  ) |> 
+  arrange(mean_brier)
 
 
 ```
 
 ```{r}
-
-flower$Species <- as.numeric(
-  as.character(flower$Species)
+# label: fit final model
+flower_final_glm <- glm(
+  Species ~ disk_diameter + number_rays + ray_diameter + stem_length, 
+  data = flower_train, 
+  family = "binomial"
 )
+```
 
-null_pred<-null_pred|>
- mutate(
-     .fitted = case_when(
-      .fitted >= 0.5~ 1,
-      .fitted < 0.5 ~ 0,
-    )
+```{r}
+flower_class_predictions <- flower_final_glm |> 
+  augment(newdata = flower_test, type.predict = "response") |> 
+  mutate(
+    .pred_F = .fitted,
+    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
+    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
+      as.factor()
   )
 
+flower_class_predictions |> 
+  select(Species, .pred_class, .pred_F, .pred_C)
 
+# label: get confusion matrix
+flower_class_predictions |> 
+  conf_mat(
+    truth = Species,
+    estimate = .pred_class
+  )
+```
 
-all_pred<-all_pred|>
- mutate(
-     .fitted = case_when(
-      .fitted >= 0.5~ 1,
-      .fitted < 0.5 ~ 0,
-    )
+```{r}
+
+flower_class_predictions_null <- flower_nullglm |> 
+  augment(newdata = flower_test, type.predict = "response") |> 
+  mutate(
+    .pred_F = .fitted,
+    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
+    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
+      as.factor()
   )
 
+flower_class_predictions_null |> 
+  select(Species, .pred_class, .pred_F, .pred_C)
 
+# label: get confusion matrix
+#Null just says everything is C
 
-pred2<-pred2|>
- mutate(
-     .fitted= case_when(
-      .fitted >= 0.5~ 1,
-      .fitted < 0.5 ~ 0,
-    )
+flower_class_predictions3 <- flower_3glm |> 
+  augment(newdata = flower_test, type.predict = "response") |> 
+  mutate(
+    .pred_F = .fitted,
+    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
+    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
+      as.factor()
   )
 
-pred3<-pred3|>
- mutate(
-     .fitted = case_when(
-      .fitted >= 0.5~ 1,
-      .fitted < 0.5 ~ 0,
-    )
+flower_class_predictions3 |> 
+  select(Species, .pred_class, .pred_F, .pred_C)
+
+# label: get confusion matrix
+flower_class_predictions3 |> 
+  conf_mat(
+    truth = Species,
+    estimate = .pred_class
   )
 
+flower_class_predictions2 <- flower_2glm |> 
+  augment(newdata = flower_test, type.predict = "response") |> 
+  mutate(
+    .pred_F = .fitted,
+    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
+    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
+      as.factor()
+  )
 
+flower_class_predictions2 |> 
+  select(Species, .pred_class, .pred_F, .pred_C)
 
+# label: get confusion matrix
+flower_class_predictions2 |> 
+  conf_mat(
+    truth = Species,
+    estimate = .pred_class
+  )
+
+flower_class_predictions1 <- flower_1glm |> 
+  augment(newdata = flower_test, type.predict = "response") |> 
+  mutate(
+    .pred_F = .fitted,
+    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
+    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
+      as.factor()
+  )
+
+flower_class_predictions1 |> 
+  select(Species, .pred_class, .pred_F, .pred_C)
+
+# label: get confusion matrix
+flower_class_predictions1 |> 
+  conf_mat(
+    truth = Species,
+    estimate = .pred_class
+  )
 
 
 ```
 
 ```{r}
-pred1<-pred1|>
-  mutate(.resid= Species-.fitted)
-```
+# label: get confusion matrix
+flower_class_predictions1 |> 
+  conf_mat(
+    truth = Species,
+    estimate = .pred_class
+  )
+flower_class_predictions2 |> 
+  conf_mat(
+    truth = Species,
+    estimate = .pred_class
+  )
 
-```{r}
-pred2<-pred2|>
-  mutate(.resid= Species-.fitted)
+flower_class_predictions3 |> 
+  conf_mat(
+    truth = Species,
+    estimate = .pred_class
+  )
 
-pred3<-pred3|>
-  mutate(.resid= Species-.fitted)
-
-null_pred<-null_pred|>
-  mutate(.resid= Species-.fitted)
-
-all_pred<-all_pred|>
-  mutate(.resid= Species-.fitted)
-```
-
-```{r}
-ggplot(
-  data = pred1,
-  mapping= aes(x=.resid)
-)+
-geom_histogram()
-
-pred1|>
-  count(.resid)
-  
-pred2|>
-  count(.resid)
-
-pred3|>
-  count(.resid)
-
-all_pred|>
-  count(.resid)
-
-null_pred|>
-  count(.resid)
+#flower_class_predictions_null null just says everything is a C
 ```
 
 Propose several logistic regression models and use cross-validation to select a best model, following the steps in the "Cross-Validation (Part 3)" video and the "Model Selection for Logistic Regression" activity.

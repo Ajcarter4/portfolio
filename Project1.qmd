@@ -565,10 +565,10 @@ Here I computed the values of my rmse by taking each of the residual values for 
 gt(my_matrix)|>
   cols_label(
    V1 = "Model Type",   
-   V2 = "Coefficient"   
+   V2 = "RMSE Score"   
   ) %>%
   tab_header(
-    title = "Linear Model Coefficients",
+    title = "RMSE Scores",
     subtitle = "Comparison of different models")
 
 ```

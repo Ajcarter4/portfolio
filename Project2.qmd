@@ -155,7 +155,7 @@ flower_cv<-flower_train|>
   )
 ```
 
-Starting off my Modeling I divided my training set into 5 folds , with 3 repeats each to eliminate any randomness in my models and make them more stable.
+Starting off my Modeling I divided my training set into 5 folds , with 3 repeats each to eliminate any randomness in my models and make them more stable. Fir my models I wil be using linear regression since our goal is to get a binary output of the two species.
 
 ```{r}
 #| echo: False
@@ -249,7 +249,7 @@ valid_pred <- valid|>
 }
 ```
 
-Continuing on, I created a prediction function for my flower species, which checks logistic regression models using cross validation. Then I fit 4 models using the function . The 4 models I chose were a model using all the variables, a null model meaning just predicting one species or the other, a model using each variable other than stem length and a model using stem length and number of rays since my exploratory data analysis show some kind of relationship between them.
+Continuing on, I created a prediction function for my flower species, which checks logistic regression models using cross validation. Then I fit 4 models using the function . The 4 models I chose were a model using all the variables, a null model meaning just predicting one species or the other, a model using each variable other than stem length and a model using stem length and number of rays since my exploratory data analysis show some kind of relationship between them. I am using cross validation here to test my models in a sense without exposing them to new data.
 
 ```{r}
 #| results: false
@@ -310,7 +310,7 @@ brier_all_models |>
 
 ```
 
-Since I got my probabilities, I then grouped my data by model and fold to calcuate my brier scores, and the standard error of my brier scores.
+Since I got my probabilities, I then grouped my data by model and fold to calculate my brier scores, and the standard error of my brier scores.
 
 ```{r}
 #| echo: false
@@ -336,7 +336,7 @@ Package_tableB <- matrix(
          
 ```
 
-Since our all model, which uses all variables, has the lowest brier score and standard deviation of brier score it is the most correct model that we have made, so we will use it as our final model and check it against our test data.\
+Since our all model, which uses all variables, has the lowest brier score and standard deviation of brier score it is the best model meaning it is the most confident one that we have made, so we will use it as our final model and check it against our test data.\
 
 ```{r}
 # label: fit final model
@@ -401,7 +401,7 @@ flower_class_predictions2<-flower_class_predictions2|>
 
 ```
 
-To better visualize, how well my model did I made 2 new columns in my final prediction data set. I made score, which is the subtraction of the actual species and the predicted species. I used mutate to categorize these. If the score is zero the prediction is correct, if it is not zero (-1 and 1) then the prediction is wrong. I plotted the number of correct and incorrect predictions below on a bar graph. It shows as previously stated, the final model we chose works very well at predicting flower species.
+To better visualize, how well my model did I made 2 new columns in my final prediction data set. I made score, which is the subtraction of the actual species and the predicted species. I used mutate to categorize these. If the score is zero the prediction is correct, if it is not zero (-1 and 1) then the prediction is wrong. I plotted the number of correct and incorrect predictions below on a bar graph. It shows as previously stated, the final model we chose works very well at predicting flower species. So, the model is very good at distinguishing between the two Encelia species.
 
 ```{r}
 flower_class_predictions2 |>

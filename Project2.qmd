@@ -1,10 +1,8 @@
 ---
-title: "Project 2"
+title: "Encelia Flower Project"
 ---
 
 ![](images/clipboard-2820991963.png)
-
-(California Encelia Flower)
 
 ```{r}
 #| label: do this first 
@@ -28,13 +26,13 @@ here::i_am("Project2.qmd")
 flower <- read_csv("Encelia.csv")
 ```
 
-Write a few sentences about *Encelia californica*, *Encelia farinosa*, and the Fullerton Arboretum. You may also discuss what you learned about the *iris* dataset.
+## Motivation and Context
 
-Why should someone care about being able to distinguish between these two species?
+The Encelia californica and Encelia farinosa are both flowers grown in the Fullerton Arboretum. Although they look similar at a distance they have distinct differences that make them separate species of flower. In botany which is the study of plants it is very important to know which plant you are looking at, so you know its properties and how it works. Knowing the difference between plants especially these two is also very important for anyone who would want to care for/ grow a garden. These plants are grown in different regions and require differing levels of heat, sunlight, and nutrients to properly grow. If a plant isn't properly cared for it can die or not grow to its full potential.
 
 ## Main Objective
 
-In your own words, describe the goal of this project.
+The goal of this data science project is to make a model that can predict which species of Encelia is being observed when given easily measurable things such as the flower's number of rays, ray diameter, disk diameter and stem length.
 
 ## Packages Used In This Analysis
 
@@ -64,23 +62,26 @@ Package_table2 <- matrix(
    V2 = "Use"   
   ) %>%
   tab_header(
-    title = "Packages Used")
+    title = "Packages Project")
          
 ```
 
 ## Design and Data Collection
 
-In this section, describe how you collected the data. (If you weren't in class that day, ask your classmates how the data was collected.)
+To collect the data, my classmates and I went to the Fullerton Arboretum, then took measurements from Encelia californica and Encelia farinosa flowers. We took measured the number of rays, ray diameter, disk diameter ,and stem length from 48 Encelia californica flowers and 52 Encelia farinosa flowers. The values were measured twice for added accurary, There was some missing data on our flowers though, as some of the stem length values weren't collected for some flowers. The biggest issue in this case with data collection was communication what was being observed. and recorded. Another person doing a similar project may have chosen a different unit of measure or different variables which would produce a different model than the ones I made.
 
-Briefly describe the limitations of your data collection method. What difficulties did you (or the class collectively) have collecting the data? What choices did you (or the class collectively) make during the data collection process that someone else might choose differently?
+## Minor Data Wrangling
 
 ```{r}
+#| results: false
 flower<-flower|>
   mutate(Species=Species|>
            as.factor())
 
 contrasts(flower$Species)
 ```
+
+The only data wrangling that needed to be performed on the data set was turning my species of flower variable from a character variable to a numeric. There are only two types of species were are looking at in the data set, Encelia californica which is named C, corresponding to a 1 , numerically, and Encelia farinosa which is an F, corresponding to 0.
 
 ## Training-Test Split
 
@@ -95,13 +96,9 @@ flower_split <- flower |>
   flower_test <- testing(flower_split)
 ```
 
-There isn't much data massaging we need to do here, because we were very deliberate about how we set up our data sheet and how we recorded the data on it. However, you may need to do things like import the data and change the type of some variables.
-
-At the end of this section, you should write code to randomly split the Encelia data into a training and test set and explain why a training and test set are useful/necessary for this objective.
+Here we made the testing/training split for our data set. The split is important so that the models we train can be made on training data, not having access to the testing data. The testing data is only using to benchmark or test how our models fit to new, unknown data. Using a seed for our split is also important so our model is repeatable , and doesn't keep changing.
 
 ## Exploratory Data Analysis
-
-Expand on the EDA you did in the Logistic Regression with Encelia activity. Explain what is going on in your graphs and summaries and how those insights relate to the models you will be building in the next section.
 
 ```{r}
 plot1<-ggplot(
@@ -118,7 +115,6 @@ plot3<-ggplot(
   data=flower_train,
   mapping=aes(x=ray_diameter,y=Species)
 ) +geom_jitter(height=0.1) 
-
 plot4<-ggplot(
   data=flower_train,
   mapping=aes(x=stem_length,y=Species)
@@ -129,18 +125,21 @@ plot4<-ggplot(
 
 ```{r}
 #| warning: False
+#| label: show lightbox
 (plot1+plot2+plot3+plot4)
 ```
 
+For my exploratory data analysis, I made 4 scatter plots, with each comparing the 2 species based on each of the 4 variables measured. We can see the californica has larger stem lengths and a higher number of rays than the farinosa in many cases. With disk diameter and ray diameter also being noticeably larger. I then continued by making a scatter plot comparing the two species by number of rays and stem length With this scatter plot showing a better picture of what my previous scatter plots were showing. With multiple cases where the californica either has more rays and or stem legnth than the farinosa.
+
 ```{r}
-ggplot(flower, aes(x = number_rays, y = ray_diameter, 
+#| warning: False
+ggplot(flower, aes(x = number_rays, y = stem_length, 
                   color = Species, shape = Species)) +
   geom_point(size = 3) +
   scale_color_manual(values = c("F" = "#E69F00", "C" = "#56B4E9")) +
   labs(title = "Encelia Species Comparison",
-       subtitle = "Ray Flowers Characteristics",
-       x = "Number of Ray Flowers",
-       y = "Ray Diameter ") +
+       x = "Number of Ray ",
+       y = "Stem Length ") +
   theme_bw() +
   theme(legend.position = "top")
 ```
@@ -155,6 +154,8 @@ flower_cv<-flower_train|>
     repeats=3
   )
 ```
+
+Starting off my Modeling I divided my training set into 5 folds , with 3 repeats each to eliminate any randomness in my models and make them more stable.
 
 ```{r}
 #| echo: False
@@ -248,25 +249,28 @@ valid_pred <- valid|>
 }
 ```
 
+Continuing on I created a prediction function for my flower species, which checks logistic regression models using cross validation. Then I fit 4 models using the function . The 4 models I chose were a model using all the variables, a null model meaning just predicting one species or the other, a model using each variable other than stem length and a model using stem length and number of rays since my exploratory data analysis show some kind of relationship between them.
+
 ```{r}
-mapped_pred<- map(
+#| results: false
+#| message: false
+#| warning: false
+ mapped_pred<- map(
   flower_cv$splits,
   flower_pred
 )
-```
-
-```{r}
+ 
 mapped_pred_df <- mapped_pred |>
   bind_rows(.id = "folds")
 
-```
-
-```{r}
 mapped_pred_df|>
   select(folds,Species,pred1,pred2,pred3,pred_null,pred_all)
 ```
 
+Since I had all my models, I used the map function make general predictions from the models across my folds. Bind rows to make each row a fold, making my predictions a data frame. Then using the select function I took out everything but my fold numbers, species types and prediction columns.
+
 ```{r}
+#| results: false
 pred_comb<- mapped_pred_df |>
     pivot_longer(
     cols = starts_with("pred"),
@@ -283,8 +287,10 @@ pred_comb %>%
     )
 ```
 
+Here I used pivot longer to combine together my model probability of a flower being a californica, then I used mutate to add a column with each model's probability of a flower being a farinosa by subtracting 1 from the californica probability, Finally I selected out my probability columns, species, and folds from this data frame.
+
 ```{r}
-# label: get average brier score
+#| results: false
 brier_all_models <- pred_comb |> 
   group_by(model, folds) |> 
   brier_class(
@@ -304,6 +310,34 @@ brier_all_models |>
 
 ```
 
+Since I got my probabilities, I then grouped my data by model and fold to calcuate my brier scores, and the standard error of my brier scores.
+
+```{r}
+#| echo: false
+Package_tableB <- matrix(
+  c("pred_all",	"0.05570499"	,"0.016311460",		
+"pred2"	,"0.07756403",	"0.018644748",		
+"pred3"	,"0.14437497",	"0.032917368",		
+"pred1",	"0.18180586",	"0.029404381",		
+"pred_null",	"0.25403577",	"0.004402525"	), 
+  nrow = 5, 
+  byrow = TRUE
+) |>
+  as.data.frame()     
+
+         gt(Package_tableB)|>
+  cols_label(
+   V1 = "Model",   
+   V2 = "Brier Score",
+   V3 = "Standard error"
+  ) |>
+  tab_header(
+    title = "Brier Score Comparisons")
+         
+```
+
+Since our all model, which uses all variables, has the lowest brier score and standard deviation of brier score it is the most correct model that we have made, so we will use it as our final model and check it against our test data.\
+
 ```{r}
 # label: fit final model
 flower_final_glm <- glm(
@@ -314,6 +348,7 @@ flower_final_glm <- glm(
 ```
 
 ```{r}
+#| results: false
 flower_class_predictions <- flower_final_glm |> 
   augment(newdata = flower_test, type.predict = "response") |> 
   mutate(
@@ -323,117 +358,72 @@ flower_class_predictions <- flower_final_glm |>
       as.factor()
   )
 
-flower_class_predictions |> 
+flower_class_predictions<-flower_class_predictions |> 
   select(Species, .pred_class, .pred_F, .pred_C)
-
-# label: get confusion matrix
-flower_class_predictions |> 
-  conf_mat(
-    truth = Species,
-    estimate = .pred_class
-  )
 ```
 
-```{r}
+Once again fitting my all variable model, I used the augment function to test it against the test data it hasn't had access to until this point.
 
-flower_class_predictions_null <- flower_nullglm |> 
-  augment(newdata = flower_test, type.predict = "response") |> 
-  mutate(
-    .pred_F = .fitted,
-    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
-    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
-      as.factor()
-  )
-
-flower_class_predictions_null |> 
-  select(Species, .pred_class, .pred_F, .pred_C)
-
-# label: get confusion matrix
-#Null just says everything is C
-
-flower_class_predictions3 <- flower_3glm |> 
-  augment(newdata = flower_test, type.predict = "response") |> 
-  mutate(
-    .pred_F = .fitted,
-    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
-    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
-      as.factor()
-  )
-
-flower_class_predictions3 |> 
-  select(Species, .pred_class, .pred_F, .pred_C)
-
-# label: get confusion matrix
-flower_class_predictions3 |> 
-  conf_mat(
-    truth = Species,
-    estimate = .pred_class
-  )
-
-flower_class_predictions2 <- flower_2glm |> 
-  augment(newdata = flower_test, type.predict = "response") |> 
-  mutate(
-    .pred_F = .fitted,
-    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
-    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
-      as.factor()
-  )
-
-flower_class_predictions2 |> 
-  select(Species, .pred_class, .pred_F, .pred_C)
-
-# label: get confusion matrix
-flower_class_predictions2 |> 
-  conf_mat(
-    truth = Species,
-    estimate = .pred_class
-  )
-
-flower_class_predictions1 <- flower_1glm |> 
-  augment(newdata = flower_test, type.predict = "response") |> 
-  mutate(
-    .pred_F = .fitted,
-    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
-    .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
-      as.factor()
-  )
-
-flower_class_predictions1 |> 
-  select(Species, .pred_class, .pred_F, .pred_C)
-
-# label: get confusion matrix
-flower_class_predictions1 |> 
-  conf_mat(
-    truth = Species,
-    estimate = .pred_class
-  )
-
-
-```
+## Insights
 
 ```{r}
 # label: get confusion matrix
-flower_class_predictions1 |> 
+flower_class_predictions |> 
   conf_mat(
     truth = Species,
     estimate = .pred_class
   )
-flower_class_predictions2 |> 
-  conf_mat(
-    truth = Species,
-    estimate = .pred_class
-  )
-
-flower_class_predictions3 |> 
-  conf_mat(
-    truth = Species,
-    estimate = .pred_class
-  )
-
-#flower_class_predictions_null null just says everything is a C
 ```
 
-Propose several logistic regression models and use cross-validation to select a best model, following the steps in the "Cross-Validation (Part 3)" video and the "Model Selection for Logistic Regression" activity.
+Looking at the confusion matrix, which compares the predicted species to the actual species, the model performs fairly well. With 14 correct predictions and 2 incorrect predictions. In this case 5 flowers from our data set were with held from this since they don't have all the variables present for the model to predict.
+
+```{r}
+flower_class_predictions2 <- flower_class_predictions |>
+  mutate(
+    Nspecies=as.numeric(Species),
+   Npred=as.numeric(.pred_class),
+  )
+
+flower_class_predictions2<-flower_class_predictions2 |>
+ mutate( score = Nspecies - Npred)
+
+flower_class_predictions2<-flower_class_predictions2 |>
+  drop_na()
+
+flower_class_predictions2<-flower_class_predictions2|>
+  mutate(
+   Correct_If = case_when(
+      score == 0 ~ "Correct",
+      score < 0 ~ "Incorrect",
+      score > 0 ~ "Incorrect",
+   )
+  )
+
+```
+
+To better visualize, how well my model did I made 2 new columns in my final prediction data set. I made score, which is the subtraction of the actual species and the predicted species. I used mutate to categorize these. If the score is zero the prediction is correct, if it is not zero (-1 and 1) then the prediction is wrong. I plotted the number of correct and incorrect predictions below on a bar graph. It shows as previously stated, the final model we chose works very well at predicting flower species.
+
+```{r}
+flower_class_predictions2 |>
+  ggplot(aes(x = Correct_If, fill = Correct_If)) +
+  geom_bar(alpha = 0.8, width = 0.7) +  # Adjust transparency and bar width
+  labs(
+    title = "Prediction Accuracy", 
+    x = "Result", 
+    y = "Count",
+    fill = "Prediction"  # Better legend title
+  ) +
+  scale_fill_manual(
+    values = c("Correct" = "#90EE90",  # Light green (hex code)
+              "Incorrect" = "#FF6B6B"  # Soft red
+    ),
+    labels = c("Correct", "Incorrect")  # Ensures proper legend labels
+  )
+```
+
+Think about how you might visualize the model's predictions and the accuracy of those predictions. Then, create and describe one or more visualizations in line with your ideas.
+
+Which flowers (if any) were incorrectly predicted? Why do you suspect that they were incorrectly predicted?
 
 Explain what your code is doing:
 
@@ -443,9 +433,3 @@ Explain what your code is doing:
 -   Which model are you selecting as the best model? Why?
 
 Fit the selected "best" model on the training set and make predictions on the test set. Overall, how accurately is your model making predictions?
-
-## Insights
-
-Think about how you might visualize the model's predictions and the accuracy of those predictions. Then, create and describe one or more visualizations in line with your ideas.
-
-Which flowers (if any) were incorrectly predicted? Why do you suspect that they were incorrectly predicted?

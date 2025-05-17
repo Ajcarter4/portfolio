@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Project 2 – portfoliowebsite</title>
+<title>Encelia Flower Project – portfoliowebsite</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,9 +150,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#main-objective" id="toc-main-objective" class="nav-link active" data-scroll-target="#main-objective">Main Objective</a></li>
+  <li><a href="#motivation-and-context" id="toc-motivation-and-context" class="nav-link active" data-scroll-target="#motivation-and-context">Motivation and Context</a></li>
+  <li><a href="#main-objective" id="toc-main-objective" class="nav-link" data-scroll-target="#main-objective">Main Objective</a></li>
   <li><a href="#packages-used-in-this-analysis" id="toc-packages-used-in-this-analysis" class="nav-link" data-scroll-target="#packages-used-in-this-analysis">Packages Used In This Analysis</a></li>
   <li><a href="#design-and-data-collection" id="toc-design-and-data-collection" class="nav-link" data-scroll-target="#design-and-data-collection">Design and Data Collection</a></li>
+  <li><a href="#minor-data-wrangling" id="toc-minor-data-wrangling" class="nav-link" data-scroll-target="#minor-data-wrangling">Minor Data Wrangling</a></li>
   <li><a href="#training-test-split" id="toc-training-test-split" class="nav-link" data-scroll-target="#training-test-split">Training-Test Split</a></li>
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
   <li><a href="#modeling" id="toc-modeling" class="nav-link" data-scroll-target="#modeling">Modeling</a></li>
@@ -165,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project 2</h1>
+<h1 class="title">Encelia Flower Project</h1>
 </div>
 
 
@@ -183,34 +185,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><img src="images/clipboard-2820991963.png" class="img-fluid"></p>
-<p>(California Encelia Flower)</p>
-<p>Write a few sentences about <em>Encelia californica</em>, <em>Encelia farinosa</em>, and the Fullerton Arboretum. You may also discuss what you learned about the <em>iris</em> dataset.</p>
-<p>Why should someone care about being able to distinguish between these two species?</p>
+<section id="motivation-and-context" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-and-context">Motivation and Context</h2>
+<p>The Encelia californica and Encelia farinosa are both flowers grown in the Fullerton Arboretum. Although they look similar at a distance they have distinct differences that make them separate species of flower. In botany which is the study of plants it is very important to know which plant you are looking at, so you know its properties and how it works. Knowing the difference between plants especially these two is also very important for anyone who would want to care for/ grow a garden. These plants are grown in different regions and require differing levels of heat, sunlight, and nutrients to properly grow. If a plant isn’t properly cared for it can die or not grow to its full potential.</p>
+</section>
 <section id="main-objective" class="level2">
 <h2 class="anchored" data-anchor-id="main-objective">Main Objective</h2>
-<p>In your own words, describe the goal of this project.</p>
+<p>The goal of this data science project is to make a model that can predict which species of Encelia is being observed when given easily measurable things such as the flower’s number of rays, ray diameter, disk diameter and stem length.</p>
 </section>
 <section id="packages-used-in-this-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="packages-used-in-this-analysis">Packages Used In This Analysis</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="mmjuhryphw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mmjuhryphw table {
+<div id="wjgatmvwgl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wjgatmvwgl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#mmjuhryphw thead, #mmjuhryphw tbody, #mmjuhryphw tfoot, #mmjuhryphw tr, #mmjuhryphw td, #mmjuhryphw th {
+#wjgatmvwgl thead, #wjgatmvwgl tbody, #wjgatmvwgl tfoot, #wjgatmvwgl tr, #wjgatmvwgl td, #wjgatmvwgl th {
   border-style: none;
 }
 
-#mmjuhryphw p {
+#wjgatmvwgl p {
   margin: 0;
   padding: 0;
 }
 
-#mmjuhryphw .gt_table {
+#wjgatmvwgl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -236,12 +239,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_caption {
+#wjgatmvwgl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#mmjuhryphw .gt_title {
+#wjgatmvwgl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -253,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#mmjuhryphw .gt_subtitle {
+#wjgatmvwgl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -265,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#mmjuhryphw .gt_heading {
+#wjgatmvwgl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -277,13 +280,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_bottom_border {
+#wjgatmvwgl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_col_headings {
+#wjgatmvwgl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -298,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_col_heading {
+#wjgatmvwgl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -318,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#mmjuhryphw .gt_column_spanner_outer {
+#wjgatmvwgl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -330,15 +333,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#mmjuhryphw .gt_column_spanner_outer:first-child {
+#wjgatmvwgl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mmjuhryphw .gt_column_spanner_outer:last-child {
+#wjgatmvwgl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mmjuhryphw .gt_column_spanner {
+#wjgatmvwgl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -350,11 +353,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#mmjuhryphw .gt_spanner_row {
+#wjgatmvwgl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#mmjuhryphw .gt_group_heading {
+#wjgatmvwgl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -380,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#mmjuhryphw .gt_empty_group_heading {
+#wjgatmvwgl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -395,15 +398,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#mmjuhryphw .gt_from_md > :first-child {
+#wjgatmvwgl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mmjuhryphw .gt_from_md > :last-child {
+#wjgatmvwgl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mmjuhryphw .gt_row {
+#wjgatmvwgl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -422,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#mmjuhryphw .gt_stub {
+#wjgatmvwgl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -435,7 +438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#mmjuhryphw .gt_stub_row_group {
+#wjgatmvwgl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -449,15 +452,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#mmjuhryphw .gt_row_group_first td {
+#wjgatmvwgl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#mmjuhryphw .gt_row_group_first th {
+#wjgatmvwgl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#mmjuhryphw .gt_summary_row {
+#wjgatmvwgl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -467,16 +470,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#mmjuhryphw .gt_first_summary_row {
+#wjgatmvwgl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_first_summary_row.thick {
+#wjgatmvwgl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#mmjuhryphw .gt_last_summary_row {
+#wjgatmvwgl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -486,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_grand_summary_row {
+#wjgatmvwgl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -496,7 +499,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#mmjuhryphw .gt_first_grand_summary_row {
+#wjgatmvwgl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -506,7 +509,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_last_grand_summary_row_top {
+#wjgatmvwgl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -516,11 +519,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_striped {
+#wjgatmvwgl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mmjuhryphw .gt_table_body {
+#wjgatmvwgl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -529,7 +532,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_footnotes {
+#wjgatmvwgl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -543,7 +546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_footnote {
+#wjgatmvwgl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -552,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#mmjuhryphw .gt_sourcenotes {
+#wjgatmvwgl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -566,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#mmjuhryphw .gt_sourcenote {
+#wjgatmvwgl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -574,72 +577,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#mmjuhryphw .gt_left {
+#wjgatmvwgl .gt_left {
   text-align: left;
 }
 
-#mmjuhryphw .gt_center {
+#wjgatmvwgl .gt_center {
   text-align: center;
 }
 
-#mmjuhryphw .gt_right {
+#wjgatmvwgl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mmjuhryphw .gt_font_normal {
+#wjgatmvwgl .gt_font_normal {
   font-weight: normal;
 }
 
-#mmjuhryphw .gt_font_bold {
+#wjgatmvwgl .gt_font_bold {
   font-weight: bold;
 }
 
-#mmjuhryphw .gt_font_italic {
+#wjgatmvwgl .gt_font_italic {
   font-style: italic;
 }
 
-#mmjuhryphw .gt_super {
+#wjgatmvwgl .gt_super {
   font-size: 65%;
 }
 
-#mmjuhryphw .gt_footnote_marks {
+#wjgatmvwgl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#mmjuhryphw .gt_asterisk {
+#wjgatmvwgl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#mmjuhryphw .gt_indent_1 {
+#wjgatmvwgl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#mmjuhryphw .gt_indent_2 {
+#wjgatmvwgl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#mmjuhryphw .gt_indent_3 {
+#wjgatmvwgl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#mmjuhryphw .gt_indent_4 {
+#wjgatmvwgl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#mmjuhryphw .gt_indent_5 {
+#wjgatmvwgl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#mmjuhryphw .katex-display {
+#wjgatmvwgl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#mmjuhryphw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wjgatmvwgl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -647,7 +650,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Packages Used</th>
+<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Packages Project</th>
 </tr>
 <tr class="gt_col_headings even">
 <th id="V1" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Package</th>
@@ -700,81 +703,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="design-and-data-collection" class="level2">
 <h2 class="anchored" data-anchor-id="design-and-data-collection">Design and Data Collection</h2>
-<p>In this section, describe how you collected the data. (If you weren’t in class that day, ask your classmates how the data was collected.)</p>
-<p>Briefly describe the limitations of your data collection method. What difficulties did you (or the class collectively) have collecting the data? What choices did you (or the class collectively) make during the data collection process that someone else might choose differently?</p>
+<p>To collect the data, my classmates and I went to the Fullerton Arboretum, then took measurements from Encelia californica and Encelia farinosa flowers. We took measured the number of rays, ray diameter, disk diameter ,and stem length from 48 Encelia californica flowers and 52 Encelia farinosa flowers. The values were measured twice for added accurary, There was some missing data on our flowers though, as some of the stem length values weren’t collected for some flowers. The biggest issue in this case with data collection was communication what was being observed. and recorded. Another person doing a similar project may have chosen a different unit of measure or different variables which would produce a different model than the ones I made.</p>
+</section>
+<section id="minor-data-wrangling" class="level2">
+<h2 class="anchored" data-anchor-id="minor-data-wrangling">Minor Data Wrangling</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>flower<span class="ot">&lt;-</span>flower<span class="sc">|&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species=</span>Species<span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">as.factor</span>())</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(flower<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  F
-C 0
-F 1</code></pre>
 </div>
-</div>
+<p>The only data wrangling that needed to be performed on the data set was turning my species of flower variable from a character variable to a numeric. There are only two types of species were are looking at in the data set, Encelia californica which is named C, corresponding to a 1 , numerically, and Encelia farinosa which is an F, corresponding to 0.</p>
 </section>
 <section id="training-test-split" class="level2">
 <h2 class="anchored" data-anchor-id="training-test-split">Training-Test Split</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">14</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>flower_split <span class="ot">&lt;-</span> flower <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">initial_split</span>( <span class="at">strata=</span> Species,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop=</span><span class="fl">0.80</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  flower_train<span class="ot">&lt;-</span> <span class="fu">training</span>(flower_split)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  flower_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(flower_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">14</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>flower_split <span class="ot">&lt;-</span> flower <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">initial_split</span>( <span class="at">strata=</span> Species,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop=</span><span class="fl">0.80</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  flower_train<span class="ot">&lt;-</span> <span class="fu">training</span>(flower_split)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  flower_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(flower_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>There isn’t much data massaging we need to do here, because we were very deliberate about how we set up our data sheet and how we recorded the data on it. However, you may need to do things like import the data and change the type of some variables.</p>
-<p>At the end of this section, you should write code to randomly split the Encelia data into a training and test set and explain why a training and test set are useful/necessary for this objective.</p>
+<p>Here we made the testing/training split for our data set. The split is important so that the models we train can be made on training data, not having access to the testing data. The testing data is only using to benchmark or test how our models fit to new, unknown data. Using a seed for our split is also important so our model is repeatable , and doesn’t keep changing.</p>
 </section>
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
-<p>Expand on the EDA you did in the Logistic Regression with Encelia activity. Explain what is going on in your graphs and summaries and how those insights relate to the models you will be building in the next section.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot1<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span>flower_train,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>number_rays,<span class="at">y=</span>Species)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span><span class="fu">geom_jitter</span>(<span class="at">height=</span><span class="fl">0.1</span>) </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plot2<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span>flower_train,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>disk_diameter,<span class="at">y=</span>Species)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span><span class="fu">geom_jitter</span>(<span class="at">height=</span><span class="fl">0.1</span>) </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plot3<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span>flower_train,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>ray_diameter,<span class="at">y=</span>Species)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span><span class="fu">geom_jitter</span>(<span class="at">height=</span><span class="fl">0.1</span>) </span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plot4<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span>flower_train,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>stem_length,<span class="at">y=</span>Species)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span><span class="fu">geom_jitter</span>(<span class="at">height=</span><span class="fl">0.1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plot1<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span>flower_train,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>number_rays,<span class="at">y=</span>Species)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span><span class="fu">geom_jitter</span>(<span class="at">height=</span><span class="fl">0.1</span>) </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plot2<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span>flower_train,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>disk_diameter,<span class="at">y=</span>Species)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span><span class="fu">geom_jitter</span>(<span class="at">height=</span><span class="fl">0.1</span>) </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plot3<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span>flower_train,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>ray_diameter,<span class="at">y=</span>Species)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span><span class="fu">geom_jitter</span>(<span class="at">height=</span><span class="fl">0.1</span>) </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plot4<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span>flower_train,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>stem_length,<span class="at">y=</span>Species)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span><span class="fu">geom_jitter</span>(<span class="at">height=</span><span class="fl">0.1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(plot1<span class="sc">+</span>plot2<span class="sc">+</span>plot3<span class="sc">+</span>plot4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(plot1<span class="sc">+</span>plot2<span class="sc">+</span>plot3<span class="sc">+</span>plot4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Project2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Project2_files/figure-html/show lightbox-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>For my exploratory data analysis, I made 4 scatter plots, with each comparing the 2 species based on each of the 4 variables measured. We can see the californica has larger stem lengths and a higher number of rays than the farinosa in many cases. With disk diameter and ray diameter also being noticeably larger. I then continued by making a scatter plot comparing the two species by number of rays and stem length With this scatter plot showing a better picture of what my previous scatter plots were showing. With multiple cases where the californica either has more rays and or stem legnth than the farinosa.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flower, <span class="fu">aes</span>(<span class="at">x =</span> number_rays, <span class="at">y =</span> ray_diameter, </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> Species, <span class="at">shape =</span> Species)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"F"</span> <span class="ot">=</span> <span class="st">"#E69F00"</span>, <span class="st">"C"</span> <span class="ot">=</span> <span class="st">"#56B4E9"</span>)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Encelia Species Comparison"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Ray Flowers Characteristics"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Number of Ray Flowers"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ray Diameter "</span>) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flower, <span class="fu">aes</span>(<span class="at">x =</span> number_rays, <span class="at">y =</span> stem_length, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> Species, <span class="at">shape =</span> Species)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"F"</span> <span class="ot">=</span> <span class="st">"#E69F00"</span>, <span class="st">"C"</span> <span class="ot">=</span> <span class="st">"#56B4E9"</span>)) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Encelia Species Comparison"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Number of Ray "</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Stem Length "</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -787,201 +785,643 @@ F 1</code></pre>
 <section id="modeling" class="level2">
 <h2 class="anchored" data-anchor-id="modeling">Modeling</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">453</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>flower_cv<span class="ot">&lt;-</span>flower_train<span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vfold_cv</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">v=</span><span class="dv">5</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">repeats=</span><span class="dv">3</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">453</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>flower_cv<span class="ot">&lt;-</span>flower_train<span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vfold_cv</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">v=</span><span class="dv">5</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">repeats=</span><span class="dv">3</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Starting off my Modeling I divided my training set into 5 folds , with 3 repeats each to eliminate any randomness in my models and make them more stable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>flower_pred <span class="ot">&lt;-</span> <span class="cf">function</span>(split){</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  train<span class="ot">&lt;-</span><span class="fu">analysis</span>(split)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  valid<span class="ot">&lt;-</span><span class="fu">assessment</span>(split)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>flower_allglm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span>disk_diameter <span class="sc">+</span> number_rays <span class="sc">+</span> ray_diameter <span class="sc">+</span> stem_length, </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>flower_3glm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span>disk_diameter <span class="sc">+</span> number_rays <span class="sc">+</span> ray_diameter, </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>flower_2glm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span>stem_length <span class="sc">+</span> number_rays, </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>flower_1glm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span> number_rays, </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>flower_nullglm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>valid_pred <span class="ot">&lt;-</span> valid<span class="sc">|&gt;</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_all=</span> <span class="fu">predict</span>(flower_allglm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> ),</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>     <span class="at">pred_null=</span> <span class="fu">predict</span>(flower_nullglm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> ),</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">pred1=</span> <span class="fu">predict</span>(flower_1glm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> ),</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred2=</span> <span class="fu">predict</span>(flower_2glm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> ),</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred3=</span> <span class="fu">predict</span>(flower_3glm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> )</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Continuing on I created a prediction function for my flower species, which checks logistic regression models using cross validation. Then I fit 4 models using the function . The 4 models I chose were a model using all the variables, a null model meaning just predicting one species or the other, a model using each variable other than stem length and a model using stem length and number of rays since my exploratory data analysis show some kind of relationship between them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a> mapped_pred<span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  flower_cv<span class="sc">$</span>splits,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  flower_pred</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>mapped_pred_df <span class="ot">&lt;-</span> mapped_pred <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">"folds"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>mapped_pred_df<span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(folds,Species,pred1,pred2,pred3,pred_null,pred_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Since I had all my models, I used the map function make general predictions from the models across my folds. Bind rows to make each row a fold, making my predictions a data frame. Then using the select function I took out everything but my fold numbers, species types and prediction columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pred_comb<span class="ot">&lt;-</span> mapped_pred_df <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"pred"</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"model"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">".pred_C"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_F =</span> <span class="dv">1</span> <span class="sc">-</span> .pred_C</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>pred_comb <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    Species, model, folds, .pred_F, .pred_C</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here I used pivot longer to combine together my model probability of a flower being a californica, then I used mutate to add a column with each model’s probability of a flower being a farinosa by subtracting 1 from the californica probability, Finally I selected out my probability columns, species, and folds from this data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>brier_all_models <span class="ot">&lt;-</span> pred_comb <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model, folds) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">brier_class</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .pred_F </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>brier_all_models <span class="sc">|&gt;</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">|&gt;</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_brier =</span> <span class="fu">mean</span>(.estimate), </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_brier =</span> <span class="fu">sd</span>(.estimate) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)  <span class="co"># 4 estimates (from 4 folds)</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mean_brier)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Since I got my probabilities, I then grouped my data by model and fold to calcuate my brier scores, and the standard error of my brier scores.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="stzjqahamr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#stzjqahamr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#stzjqahamr thead, #stzjqahamr tbody, #stzjqahamr tfoot, #stzjqahamr tr, #stzjqahamr td, #stzjqahamr th {
+  border-style: none;
+}
+
+#stzjqahamr p {
+  margin: 0;
+  padding: 0;
+}
+
+#stzjqahamr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#stzjqahamr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#stzjqahamr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#stzjqahamr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#stzjqahamr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#stzjqahamr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#stzjqahamr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#stzjqahamr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#stzjqahamr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#stzjqahamr .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#stzjqahamr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#stzjqahamr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#stzjqahamr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#stzjqahamr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#stzjqahamr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stzjqahamr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#stzjqahamr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#stzjqahamr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#stzjqahamr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stzjqahamr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#stzjqahamr .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stzjqahamr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#stzjqahamr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stzjqahamr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#stzjqahamr .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stzjqahamr .gt_left {
+  text-align: left;
+}
+
+#stzjqahamr .gt_center {
+  text-align: center;
+}
+
+#stzjqahamr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#stzjqahamr .gt_font_normal {
+  font-weight: normal;
+}
+
+#stzjqahamr .gt_font_bold {
+  font-weight: bold;
+}
+
+#stzjqahamr .gt_font_italic {
+  font-style: italic;
+}
+
+#stzjqahamr .gt_super {
+  font-size: 65%;
+}
+
+#stzjqahamr .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#stzjqahamr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#stzjqahamr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#stzjqahamr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#stzjqahamr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#stzjqahamr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#stzjqahamr .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#stzjqahamr .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#stzjqahamr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">Brier Score Comparisons</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="V1" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Model</th>
+<th id="V2" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Brier Score</th>
+<th id="V3" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Standard error</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="V1">pred_all</td>
+<td class="gt_row gt_right" headers="V2">0.05570499</td>
+<td class="gt_row gt_right" headers="V3">0.016311460</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="V1">pred2</td>
+<td class="gt_row gt_right" headers="V2">0.07756403</td>
+<td class="gt_row gt_right" headers="V3">0.018644748</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="V1">pred3</td>
+<td class="gt_row gt_right" headers="V2">0.14437497</td>
+<td class="gt_row gt_right" headers="V3">0.032917368</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="V1">pred1</td>
+<td class="gt_row gt_right" headers="V2">0.18180586</td>
+<td class="gt_row gt_right" headers="V3">0.029404381</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="V1">pred_null</td>
+<td class="gt_row gt_right" headers="V2">0.25403577</td>
+<td class="gt_row gt_right" headers="V3">0.004402525</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Since our all model, which uses all variables, has the lowest brier score and standard deviation of brier score it is the most correct model that we have made, so we will use it as our final model and check it against our test data.<br>
+</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: fit final model</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>flower_final_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  Species <span class="sc">~</span> disk_diameter <span class="sc">+</span> number_rays <span class="sc">+</span> ray_diameter <span class="sc">+</span> stem_length, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> flower_train, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>flower_pred <span class="ot">&lt;-</span> <span class="cf">function</span>(split){</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  train<span class="ot">&lt;-</span><span class="fu">analysis</span>(split)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  valid<span class="ot">&lt;-</span><span class="fu">assessment</span>(split)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>flower_allglm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span>disk_diameter <span class="sc">+</span> number_rays <span class="sc">+</span> ray_diameter <span class="sc">+</span> stem_length, </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>flower_3glm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span>disk_diameter <span class="sc">+</span> number_rays <span class="sc">+</span> ray_diameter, </span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>flower_2glm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span>stem_length <span class="sc">+</span> number_rays, </span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>flower_1glm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span> number_rays, </span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>flower_nullglm <span class="ot">&lt;-</span> <span class="fu">glm</span> (</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  Species<span class="sc">~</span><span class="dv">1</span>, </span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">data=</span> train,</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>valid_pred <span class="ot">&lt;-</span> valid<span class="sc">|&gt;</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_all=</span> <span class="fu">predict</span>(flower_allglm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> ),</span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>     <span class="at">pred_null=</span> <span class="fu">predict</span>(flower_nullglm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> ),</span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">pred1=</span> <span class="fu">predict</span>(flower_1glm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> ),</span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred2=</span> <span class="fu">predict</span>(flower_2glm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> ),</span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred3=</span> <span class="fu">predict</span>(flower_3glm, <span class="at">newdata=</span>valid, <span class="at">type =</span> <span class="st">"response"</span> )</span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions <span class="ot">&lt;-</span> flower_final_glm <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(<span class="at">newdata =</span> flower_test, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_F =</span> .fitted,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_C =</span> <span class="dv">1</span> <span class="sc">-</span> .pred_F,  <span class="co"># Fixed: AD probability should be 1 - MC probability</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_class =</span> <span class="fu">if_else</span>(.fitted <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">"F"</span>, <span class="st">"C"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.factor</span>()</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>flower_class_predictions<span class="ot">&lt;-</span>flower_class_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Species, .pred_class, .pred_F, .pred_C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Once again fitting my all variable model, I used the augment function to test it against the test data it hasn’t had access to until this point.</p>
+</section>
+<section id="insights" class="level2">
+<h2 class="anchored" data-anchor-id="insights">Insights</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mapped_pred<span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  flower_cv<span class="sc">$</span>splits,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  flower_pred</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mapped_pred_df <span class="ot">&lt;-</span> mapped_pred <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">"folds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mapped_pred_df<span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(folds,Species,pred1,pred2,pred3,pred_null,pred_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 237 × 7
-   folds Species  pred1   pred2  pred3 pred_null pred_all
-   &lt;chr&gt; &lt;fct&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1 1     C       0.552   0.314  0.108      0.524  0.0156 
- 2 1     C       0.0242  0.0369 0.0674     0.524  0.155  
- 3 1     C       0.317   0.319  0.276      0.524  0.147  
- 4 1     C       0.0970  0.0104 0.0627     0.524  0.0102 
- 5 1     C       0.552  NA      0.323      0.524 NA      
- 6 1     C       0.317   0.299  0.216      0.524  0.0735 
- 7 1     C       0.149   0.429  0.0700     0.524  0.179  
- 8 1     C       0.552   0.0346 0.153      0.524  0.00113
- 9 1     F       0.552   0.262  0.370      0.524  0.135  
-10 1     F       0.552   0.671  0.688      0.524  0.769  
-# ℹ 227 more rows</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pred_comb<span class="ot">&lt;-</span> mapped_pred_df <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"pred"</span>),</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"model"</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">".pred_C"</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_F =</span> <span class="dv">1</span> <span class="sc">-</span> .pred_C</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>pred_comb <span class="sc">%&gt;%</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    Species, model, folds, .pred_F, .pred_C</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,185 × 5
-   Species model     folds .pred_F .pred_C
-   &lt;fct&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 C       pred_all  1       0.984  0.0156
- 2 C       pred_null 1       0.476  0.524 
- 3 C       pred1     1       0.448  0.552 
- 4 C       pred2     1       0.686  0.314 
- 5 C       pred3     1       0.892  0.108 
- 6 C       pred_all  1       0.845  0.155 
- 7 C       pred_null 1       0.476  0.524 
- 8 C       pred1     1       0.976  0.0242
- 9 C       pred2     1       0.963  0.0369
-10 C       pred3     1       0.933  0.0674
-# ℹ 1,175 more rows</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: get average brier score</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>brier_all_models <span class="ot">&lt;-</span> pred_comb <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model, folds) <span class="sc">|&gt;</span> </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">brier_class</span>(</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species, </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    .pred_F </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>brier_all_models <span class="sc">|&gt;</span> </span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">|&gt;</span> </span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_brier =</span> <span class="fu">mean</span>(.estimate), </span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_brier =</span> <span class="fu">sd</span>(.estimate) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)  <span class="co"># 4 estimates (from 4 folds)</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mean_brier)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
-  model     mean_brier se_brier
-  &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;
-1 pred_all      0.0557  0.0163 
-2 pred2         0.0776  0.0186 
-3 pred3         0.144   0.0329 
-4 pred1         0.182   0.0294 
-5 pred_null     0.254   0.00440</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: fit final model</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>flower_final_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  Species <span class="sc">~</span> disk_diameter <span class="sc">+</span> number_rays <span class="sc">+</span> ray_diameter <span class="sc">+</span> stem_length, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> flower_train, </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions <span class="ot">&lt;-</span> flower_final_glm <span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(<span class="at">newdata =</span> flower_test, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_F =</span> .fitted,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_C =</span> <span class="dv">1</span> <span class="sc">-</span> .pred_F,  <span class="co"># Fixed: AD probability should be 1 - MC probability</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_class =</span> <span class="fu">if_else</span>(.fitted <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">"F"</span>, <span class="st">"C"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.factor</span>()</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>flower_class_predictions <span class="sc">|&gt;</span> </span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Species, .pred_class, .pred_F, .pred_C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 4
-   Species .pred_class  .pred_F  .pred_C
-   &lt;fct&gt;   &lt;fct&gt;          &lt;dbl&gt;    &lt;dbl&gt;
- 1 F       C           0.375    0.625   
- 2 F       F           0.981    0.0190  
- 3 F       F           0.999    0.000982
- 4 F       F           0.981    0.0189  
- 5 C       C           0.175    0.825   
- 6 F       F           0.989    0.0115  
- 7 F       F           0.999    0.00135 
- 8 C       C           0.000105 1.00    
- 9 C       F           0.770    0.230   
-10 C       C           0.491    0.509   
-# ℹ 11 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: get confusion matrix</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>flower_class_predictions <span class="sc">|&gt;</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> .pred_class</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: get confusion matrix</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>flower_class_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> .pred_class</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Truth
 Prediction C F
@@ -989,193 +1429,55 @@ Prediction C F
          F 1 8</code></pre>
 </div>
 </div>
+<p>Looking at the confusion matrix, which compares the predicted species to the actual species, the model performs fairly well. With 14 correct predictions and 2 incorrect predictions. In this case 5 flowers from our data set were with held from this since they don’t have all the variables present for the model to predict.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions_null <span class="ot">&lt;-</span> flower_nullglm <span class="sc">|&gt;</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(<span class="at">newdata =</span> flower_test, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_F =</span> .fitted,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_C =</span> <span class="dv">1</span> <span class="sc">-</span> .pred_F,  <span class="co"># Fixed: AD probability should be 1 - MC probability</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_class =</span> <span class="fu">if_else</span>(.fitted <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">"F"</span>, <span class="st">"C"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.factor</span>()</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>flower_class_predictions_null <span class="sc">|&gt;</span> </span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Species, .pred_class, .pred_F, .pred_C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 4
-   Species .pred_class .pred_F .pred_C
-   &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;
- 1 F       F             0.519   0.481
- 2 F       F             0.519   0.481
- 3 F       F             0.519   0.481
- 4 F       F             0.519   0.481
- 5 C       F             0.519   0.481
- 6 F       F             0.519   0.481
- 7 F       F             0.519   0.481
- 8 C       F             0.519   0.481
- 9 C       F             0.519   0.481
-10 C       F             0.519   0.481
-# ℹ 11 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: get confusion matrix</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Null just says everything is C</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>flower_class_predictions3 <span class="ot">&lt;-</span> flower_3glm <span class="sc">|&gt;</span> </span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(<span class="at">newdata =</span> flower_test, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_F =</span> .fitted,</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_C =</span> <span class="dv">1</span> <span class="sc">-</span> .pred_F,  <span class="co"># Fixed: AD probability should be 1 - MC probability</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_class =</span> <span class="fu">if_else</span>(.fitted <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">"F"</span>, <span class="st">"C"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.factor</span>()</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>flower_class_predictions3 <span class="sc">|&gt;</span> </span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Species, .pred_class, .pred_F, .pred_C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 4
-   Species .pred_class .pred_F .pred_C
-   &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;
- 1 F       C            0.376   0.624 
- 2 F       F            0.902   0.0976
- 3 F       F            0.945   0.0549
- 4 F       F            0.777   0.223 
- 5 C       C            0.270   0.730 
- 6 F       F            0.723   0.277 
- 7 F       F            0.949   0.0515
- 8 C       C            0.0130  0.987 
- 9 C       C            0.297   0.703 
-10 C       C            0.410   0.590 
-# ℹ 11 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: get confusion matrix</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>flower_class_predictions3 <span class="sc">|&gt;</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> .pred_class</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          Truth
-Prediction  C  F
-         C  9  1
-         F  1 10</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2 <span class="ot">&lt;-</span> flower_2glm <span class="sc">|&gt;</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(<span class="at">newdata =</span> flower_test, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_F =</span> .fitted,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_C =</span> <span class="dv">1</span> <span class="sc">-</span> .pred_F,  <span class="co"># Fixed: AD probability should be 1 - MC probability</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_class =</span> <span class="fu">if_else</span>(.fitted <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">"F"</span>, <span class="st">"C"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.factor</span>()</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2 <span class="sc">|&gt;</span> </span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Species, .pred_class, .pred_F, .pred_C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 4
-   Species .pred_class  .pred_F  .pred_C
-   &lt;fct&gt;   &lt;fct&gt;          &lt;dbl&gt;    &lt;dbl&gt;
- 1 F       C           0.487    0.513   
- 2 F       F           0.973    0.0274  
- 3 F       F           0.990    0.0101  
- 4 F       F           0.975    0.0249  
- 5 C       F           0.553    0.447   
- 6 F       F           0.968    0.0318  
- 7 F       F           0.999    0.000946
- 8 C       C           0.000113 1.00    
- 9 C       F           0.972    0.0281  
-10 C       F           0.561    0.439   
-# ℹ 11 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: get confusion matrix</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2 <span class="sc">|&gt;</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> .pred_class</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          Truth
-Prediction C F
-         C 4 1
-         F 3 8</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions1 <span class="ot">&lt;-</span> flower_1glm <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(<span class="at">newdata =</span> flower_test, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_F =</span> .fitted,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_C =</span> <span class="dv">1</span> <span class="sc">-</span> .pred_F,  <span class="co"># Fixed: AD probability should be 1 - MC probability</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.pred_class =</span> <span class="fu">if_else</span>(.fitted <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">"F"</span>, <span class="st">"C"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.factor</span>()</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>flower_class_predictions1 <span class="sc">|&gt;</span> </span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Species, .pred_class, .pred_F, .pred_C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 4
-   Species .pred_class .pred_F .pred_C
-   &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;
- 1 F       F            0.559   0.441 
- 2 F       F            0.795   0.205 
- 3 F       F            0.689   0.311 
- 4 F       F            0.795   0.205 
- 5 C       C            0.421   0.579 
- 6 F       F            0.559   0.441 
- 7 F       F            0.954   0.0463
- 8 C       C            0.0145  0.986 
- 9 C       F            0.689   0.311 
-10 C       C            0.421   0.579 
-# ℹ 11 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: get confusion matrix</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>flower_class_predictions1 <span class="sc">|&gt;</span> </span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species,</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> .pred_class</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          Truth
-Prediction  C  F
-         C  9  1
-         F  1 10</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2 <span class="ot">&lt;-</span> flower_class_predictions <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nspecies=</span><span class="fu">as.numeric</span>(Species),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">Npred=</span><span class="fu">as.numeric</span>(.pred_class),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2<span class="ot">&lt;-</span>flower_class_predictions2 <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>( <span class="at">score =</span> Nspecies <span class="sc">-</span> Npred)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2<span class="ot">&lt;-</span>flower_class_predictions2 <span class="sc">|&gt;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2<span class="ot">&lt;-</span>flower_class_predictions2<span class="sc">|&gt;</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>   <span class="at">Correct_If =</span> <span class="fu">case_when</span>(</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>      score <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Correct"</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>      score <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Incorrect"</span>,</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>      score <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Incorrect"</span>,</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>   )</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label: get confusion matrix</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>flower_class_predictions1 <span class="sc">|&gt;</span> </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> .pred_class</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          Truth
-Prediction  C  F
-         C  9  1
-         F  1 10</code></pre>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2 <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Correct_If, <span class="at">fill =</span> Correct_If)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span>  <span class="co"># Adjust transparency and bar width</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Prediction Accuracy"</span>, </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Result"</span>, </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Prediction"</span>  <span class="co"># Better legend title</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Correct"</span> <span class="ot">=</span> <span class="st">"#90EE90"</span>,  <span class="co"># Light green (hex code)</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Incorrect"</span> <span class="ot">=</span> <span class="st">"#FF6B6B"</span>  <span class="co"># Soft red</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Correct"</span>, <span class="st">"Incorrect"</span>)  <span class="co"># Ensures proper legend labels</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Project2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions2 <span class="sc">|&gt;</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species,</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> .pred_class</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          Truth
-Prediction C F
-         C 4 1
-         F 3 8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>flower_class_predictions3 <span class="sc">|&gt;</span> </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">truth =</span> Species,</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> .pred_class</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          Truth
-Prediction  C  F
-         C  9  1
-         F  1 10</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#flower_class_predictions_null null just says everything is a C</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Propose several logistic regression models and use cross-validation to select a best model, following the steps in the “Cross-Validation (Part 3)” video and the “Model Selection for Logistic Regression” activity.</p>
+<p>Think about how you might visualize the model’s predictions and the accuracy of those predictions. Then, create and describe one or more visualizations in line with your ideas.</p>
+<p>Which flowers (if any) were incorrectly predicted? Why do you suspect that they were incorrectly predicted?</p>
 <p>Explain what your code is doing:</p>
 <ul>
 <li>What is logistic regression? Why are you doing it?</li>
@@ -1184,11 +1486,6 @@ Prediction  C  F
 <li>Which model are you selecting as the best model? Why?</li>
 </ul>
 <p>Fit the selected “best” model on the training set and make predictions on the test set. Overall, how accurately is your model making predictions?</p>
-</section>
-<section id="insights" class="level2">
-<h2 class="anchored" data-anchor-id="insights">Insights</h2>
-<p>Think about how you might visualize the model’s predictions and the accuracy of those predictions. Then, create and describe one or more visualizations in line with your ideas.</p>
-<p>Which flowers (if any) were incorrectly predicted? Why do you suspect that they were incorrectly predicted?</p>
 
 
 </section>

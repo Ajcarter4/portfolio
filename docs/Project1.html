@@ -202,23 +202,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The data I looked into in this project is from the Centers for Medicare and Medicaid <a href="https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary">Website</a>. The data set is a listing of various questions and ways of rating hospitals. This includes star ratings, answers percentages, and mean score which contribute to how well patients rate a hospital. Initially what I wanted to explore with this hospital data set was seeing which parts of a hospital contribute the most to patients rating it highly. Along with being on the lookout for any unexpected or shocking relationships between the rating categories.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="zppxjzoxqo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zppxjzoxqo table {
+<div id="amprwiagov" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#amprwiagov table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zppxjzoxqo thead, #zppxjzoxqo tbody, #zppxjzoxqo tfoot, #zppxjzoxqo tr, #zppxjzoxqo td, #zppxjzoxqo th {
+#amprwiagov thead, #amprwiagov tbody, #amprwiagov tfoot, #amprwiagov tr, #amprwiagov td, #amprwiagov th {
   border-style: none;
 }
 
-#zppxjzoxqo p {
+#amprwiagov p {
   margin: 0;
   padding: 0;
 }
 
-#zppxjzoxqo .gt_table {
+#amprwiagov .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -244,12 +244,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_caption {
+#amprwiagov .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zppxjzoxqo .gt_title {
+#amprwiagov .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#zppxjzoxqo .gt_subtitle {
+#amprwiagov .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#zppxjzoxqo .gt_heading {
+#amprwiagov .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -285,13 +285,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_bottom_border {
+#amprwiagov .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_col_headings {
+#amprwiagov .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -306,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_col_heading {
+#amprwiagov .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -326,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#zppxjzoxqo .gt_column_spanner_outer {
+#amprwiagov .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -338,15 +338,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#zppxjzoxqo .gt_column_spanner_outer:first-child {
+#amprwiagov .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zppxjzoxqo .gt_column_spanner_outer:last-child {
+#amprwiagov .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zppxjzoxqo .gt_column_spanner {
+#amprwiagov .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -358,11 +358,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#zppxjzoxqo .gt_spanner_row {
+#amprwiagov .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zppxjzoxqo .gt_group_heading {
+#amprwiagov .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#zppxjzoxqo .gt_empty_group_heading {
+#amprwiagov .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -403,15 +403,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#zppxjzoxqo .gt_from_md > :first-child {
+#amprwiagov .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zppxjzoxqo .gt_from_md > :last-child {
+#amprwiagov .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zppxjzoxqo .gt_row {
+#amprwiagov .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -430,7 +430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#zppxjzoxqo .gt_stub {
+#amprwiagov .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -443,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zppxjzoxqo .gt_stub_row_group {
+#amprwiagov .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -457,15 +457,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#zppxjzoxqo .gt_row_group_first td {
+#amprwiagov .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zppxjzoxqo .gt_row_group_first th {
+#amprwiagov .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zppxjzoxqo .gt_summary_row {
+#amprwiagov .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -475,16 +475,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zppxjzoxqo .gt_first_summary_row {
+#amprwiagov .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_first_summary_row.thick {
+#amprwiagov .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zppxjzoxqo .gt_last_summary_row {
+#amprwiagov .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -494,7 +494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_grand_summary_row {
+#amprwiagov .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -504,7 +504,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zppxjzoxqo .gt_first_grand_summary_row {
+#amprwiagov .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -514,7 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_last_grand_summary_row_top {
+#amprwiagov .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -524,11 +524,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_striped {
+#amprwiagov .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zppxjzoxqo .gt_table_body {
+#amprwiagov .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -537,7 +537,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_footnotes {
+#amprwiagov .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -551,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_footnote {
+#amprwiagov .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -560,7 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zppxjzoxqo .gt_sourcenotes {
+#amprwiagov .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -574,7 +574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#zppxjzoxqo .gt_sourcenote {
+#amprwiagov .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -582,72 +582,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zppxjzoxqo .gt_left {
+#amprwiagov .gt_left {
   text-align: left;
 }
 
-#zppxjzoxqo .gt_center {
+#amprwiagov .gt_center {
   text-align: center;
 }
 
-#zppxjzoxqo .gt_right {
+#amprwiagov .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zppxjzoxqo .gt_font_normal {
+#amprwiagov .gt_font_normal {
   font-weight: normal;
 }
 
-#zppxjzoxqo .gt_font_bold {
+#amprwiagov .gt_font_bold {
   font-weight: bold;
 }
 
-#zppxjzoxqo .gt_font_italic {
+#amprwiagov .gt_font_italic {
   font-style: italic;
 }
 
-#zppxjzoxqo .gt_super {
+#amprwiagov .gt_super {
   font-size: 65%;
 }
 
-#zppxjzoxqo .gt_footnote_marks {
+#amprwiagov .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zppxjzoxqo .gt_asterisk {
+#amprwiagov .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zppxjzoxqo .gt_indent_1 {
+#amprwiagov .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zppxjzoxqo .gt_indent_2 {
+#amprwiagov .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zppxjzoxqo .gt_indent_3 {
+#amprwiagov .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zppxjzoxqo .gt_indent_4 {
+#amprwiagov .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zppxjzoxqo .gt_indent_5 {
+#amprwiagov .gt_indent_5 {
   text-indent: 25px;
 }
 
-#zppxjzoxqo .katex-display {
+#amprwiagov .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#zppxjzoxqo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#amprwiagov div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

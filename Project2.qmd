@@ -367,7 +367,6 @@ Once again fitting my all variable model, I used the augment function to test it
 ## Insights
 
 ```{r}
-# label: get confusion matrix
 flower_class_predictions |> 
   conf_mat(
     truth = Species,
@@ -406,17 +405,17 @@ To better visualize, how well my model did I made 2 new columns in my final pred
 ```{r}
 flower_class_predictions2 |>
   ggplot(aes(x = Correct_If, fill = Correct_If)) +
-  geom_bar(alpha = 0.8, width = 0.7) +  # Adjust transparency and bar width
+  geom_bar(alpha = 0.8, width = 0.7) +  
   labs(
     title = "Prediction Accuracy", 
     x = "Result", 
     y = "Count",
-    fill = "Prediction"  # Better legend title
+    fill = "Prediction" 
   ) +
   scale_fill_manual(
-    values = c("Correct" = "lightgreen",  # Light green (hex code)
-              "Incorrect" = "brown1"  # Soft red
+    values = c("Correct" = "lightgreen", 
+              "Incorrect" = "brown1"  
     ),
-    labels = c("Correct", "Incorrect")  # Ensures proper legend labels
+    labels = c("Correct", "Incorrect")
   )
 ```

@@ -34,7 +34,7 @@ The Encelia californica and Encelia farinosa are both flowers grown in the Fulle
 
 The goal of this data science project is to make a model that can predict which species of Encelia is being observed when given easily measurable things such as the flower's number of rays, ray diameter, disk diameter and stem length.
 
-## Packages Used In This Analysis
+## Packages Used In This Project
 
 ```{r}
 #| echo: false
@@ -53,14 +53,14 @@ Package_table2 <- matrix(
     "broom", "Make predictions on models "), 
   nrow = 9 , 
   byrow = TRUE
-) %>% 
+) |>
   as.data.frame()     
 
          gt(Package_table2)|>
   cols_label(
    V1 = "Package",   
    V2 = "Use"   
-  ) %>%
+  ) |>
   tab_header(
     title = "Packages Project")
          
@@ -68,7 +68,7 @@ Package_table2 <- matrix(
 
 ## Design and Data Collection
 
-To collect the data, my classmates and I went to the Fullerton Arboretum, then took measurements from Encelia californica and Encelia farinosa flowers. We took measured the number of rays, ray diameter, disk diameter ,and stem length from 48 Encelia californica flowers and 52 Encelia farinosa flowers. The values were measured twice for added accurary, There was some missing data on our flowers though, as some of the stem length values weren't collected for some flowers. The biggest issue in this case with data collection was communication what was being observed. and recorded. Another person doing a similar project may have chosen a different unit of measure or different variables which would produce a different model than the ones I made.
+To collect the data, my classmates and I went to the Fullerton Arboretum, then took measurements from Encelia californica and Encelia farinosa flowers. We took measured the number of rays, ray diameter, disk diameter ,and stem length from 48 Encelia californica flowers and 52 Encelia farinosa flowers. The values were measured twice for added accurary, There was some missing data on our flowers though, as some of the stem length values weren't collected for some flowers. The biggest issue in this case with data collection was communication what was being observed.and recorded. Another person doing a similar project may have chosen a different unit of measure or different variables which would produce a different model than the ones I made.
 
 ## Minor Data Wrangling
 
@@ -81,7 +81,7 @@ flower<-flower|>
 contrasts(flower$Species)
 ```
 
-The only data wrangling that needed to be performed on the data set was turning my species of flower variable from a character variable to a numeric. There are only two types of species were are looking at in the data set, Encelia californica which is named C, corresponding to a 1 , numerically, and Encelia farinosa which is an F, corresponding to 0.
+The only data wrangling that needed to be performed on the data set was turning my species of flower variable from a character variable to a numeric. There are only two types of species we are looking at in the data set, Encelia californica which is named C, corresponding to a 1 , numerically, and Encelia farinosa which is an F, corresponding to 0.
 
 ## Training-Test Split
 
@@ -249,7 +249,7 @@ valid_pred <- valid|>
 }
 ```
 
-Continuing on I created a prediction function for my flower species, which checks logistic regression models using cross validation. Then I fit 4 models using the function . The 4 models I chose were a model using all the variables, a null model meaning just predicting one species or the other, a model using each variable other than stem length and a model using stem length and number of rays since my exploratory data analysis show some kind of relationship between them.
+Continuing on, I created a prediction function for my flower species, which checks logistic regression models using cross validation. Then I fit 4 models using the function . The 4 models I chose were a model using all the variables, a null model meaning just predicting one species or the other, a model using each variable other than stem length and a model using stem length and number of rays since my exploratory data analysis show some kind of relationship between them.
 
 ```{r}
 #| results: false
@@ -276,12 +276,12 @@ pred_comb<- mapped_pred_df |>
     cols = starts_with("pred"),
     names_to = "model",
     values_to = ".pred_C"
-    ) %>%
+    ) |>
     mutate(
     .pred_F = 1 - .pred_C
     )
 
-pred_comb %>%
+pred_comb|>
     select(
     Species, model, folds, .pred_F, .pred_C
     )
@@ -353,7 +353,7 @@ flower_class_predictions <- flower_final_glm |>
   augment(newdata = flower_test, type.predict = "response") |> 
   mutate(
     .pred_F = .fitted,
-    .pred_C = 1 - .pred_F,  # Fixed: AD probability should be 1 - MC probability
+    .pred_C = 1 - .pred_F,  
     .pred_class = if_else(.fitted >= 0.5, "F", "C") |> 
       as.factor()
   )
@@ -375,7 +375,7 @@ flower_class_predictions |>
   )
 ```
 
-Looking at the confusion matrix, which compares the predicted species to the actual species, the model performs fairly well. With 14 correct predictions and 2 incorrect predictions. In this case 5 flowers from our data set were with held from this since they don't have all the variables present for the model to predict.
+Looking at the confusion matrix, which compares the predicted species to the actual species, the model performs fairly well. With 14 correct predictions and 2 incorrect predictions. In this case 5 flowers from our data set were withheld from this since they don't have all the variables present for the model to predict.
 
 ```{r}
 flower_class_predictions2 <- flower_class_predictions |>
@@ -414,22 +414,9 @@ flower_class_predictions2 |>
     fill = "Prediction"  # Better legend title
   ) +
   scale_fill_manual(
-    values = c("Correct" = "#90EE90",  # Light green (hex code)
-              "Incorrect" = "#FF6B6B"  # Soft red
+    values = c("Correct" = "lightgreen",  # Light green (hex code)
+              "Incorrect" = "brown1"  # Soft red
     ),
     labels = c("Correct", "Incorrect")  # Ensures proper legend labels
   )
 ```
-
-Think about how you might visualize the model's predictions and the accuracy of those predictions. Then, create and describe one or more visualizations in line with your ideas.
-
-Which flowers (if any) were incorrectly predicted? Why do you suspect that they were incorrectly predicted?
-
-Explain what your code is doing:
-
--   What is logistic regression? Why are you doing it?
--   Why did you choose each model that you are considering?
--   Why are you using cross-validation? How does it work?
--   Which model are you selecting as the best model? Why?
-
-Fit the selected "best" model on the training set and make predictions on the test set. Overall, how accurately is your model making predictions?

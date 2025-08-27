@@ -413,7 +413,7 @@ flower_class_predictions2 |>
     fill = "Prediction" 
   ) +
   scale_fill_manual(
-    values = c("Correct" = "lightgreen", 
+    values = c("Correct" = "green", 
               "Incorrect" = "brown1"  
     ),
     labels = c("Correct", "Incorrect")

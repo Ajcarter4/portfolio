@@ -3,21 +3,28 @@ project:
   output-dir: docs
 
 website:
-  title: "portfoliowebsite"
-  navbar: 
-    left: 
+  title: "Anthony Carter"
+  navbar:
+    left:
       - href: index.qmd
-        text: About Section 
-      - href: Project1.html
-        text: Hospital Data Project
-      - href: Project2.html
-        text: Encelia Data Project
-     
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: Project1.qmd
+        text: Project 1
+      - href: Project2.qmd
+        text: Project 2
+  page-footer:
+    left: "© 2026 Anthony Carter"
+    right:
+      - text: GitHub
+        href: https://github.com/YOUR-USERNAME
+      - text: LinkedIn
+        href: https://www.linkedin.com/in/YOUR-PROFILE
+      - text: Email
+        href: mailto:YOUR-EMAIL
+
 format:
   html:
-    theme:  sandstone
-    backgroundcolor: "lightblue"
+    theme: cosmo
     css: styles.css
-    toc: true
-editor: visual
-

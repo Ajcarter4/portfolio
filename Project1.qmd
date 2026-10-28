@@ -1,6 +1,36 @@
 ---
-title: "Hospital Project" 
+title: "Hospital Project"
+format:
+  html:
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+    toc: true
+    toc-title: "On this page"
+    smooth-scroll: true
+execute:
+  message: false
+  warning: false
 ---
+
+```{=html}
+<style>
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .fade-in { opacity: 1; transform: none; transition: none; } }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var els = document.querySelectorAll("#quarto-document-content section > :is(h1,h2,h3,p,.cell,.quarto-figure,.panel-tabset,div.sourceCode)");
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { el.classList.add("fade-in"); io.observe(el); });
+});
+</script>
+```
 
 ![](images/hospital.photo.jpg){fig-align="center"}
 
@@ -9,43 +39,31 @@ title: "Hospital Project"
 The data I looked into in this project is from the Centers for Medicare and Medicaid [Website](https://data.cms.gov/provider-data/dataset/dgck-syfz#data-dictionary). The data set is a listing of various questions and ways of rating hospitals. This includes star ratings, answers percentages, and mean score which contribute to how well patients rate a hospital. Initially what I wanted to explore with this hospital data set was seeing which parts of a hospital contribute the most to patients rating it highly. Along with being on the lookout for any unexpected or shocking relationships between the rating categories.
 
 ```{r}
-#| message: false
-#| warning: false
 #| echo: false
- 
- 
-#label load packages & import data
 library(readr)
-library(tidyverse) 
-library(rsample) 
-library(patchwork) 
+library(tidyverse)
+library(rsample)
+library(patchwork)
 library(gt)
-library(dplyr) 
-library(broom) 
+library(dplyr)
+library(broom)
 
 Package_table <- matrix(
-  c("readr", "Load files", 
-    "tidyverse", "Massage data", 
-    "dplyr", " Massage data",
-    "gt","Create tables",
-    "patchwork","Combine plots",
-    "rsample","Split data sets",
-    "broom","Make predictions on models"), 
-  nrow = 7, 
+  c("readr", "Load files",
+    "tidyverse", "Massage data",
+    "dplyr", "Massage data",
+    "gt", "Create tables",
+    "patchwork", "Combine plots",
+    "rsample", "Split data sets",
+    "broom", "Make predictions on models"),
+  nrow = 7,
   byrow = TRUE
-) %>% 
-  as.data.frame()     
+) |>
+  as.data.frame()
 
-         gt(Package_table)|>
-  cols_label(
-   V1 = "Package",   
-   V2 = "Use"   
-  ) %>%
-  tab_header(
-    title = "Packages Used")
-
-
-    
+gt(Package_table) |>
+  cols_label(V1 = "Package", V2 = "Use") |>
+  tab_header(title = "Packages Used")
 ```
 
 Here are the Packages I used for my analysis.
@@ -55,100 +73,103 @@ Here are the Packages I used for my analysis.
 The data set starting off was very messy and hard to work with. To start off looking into this Hospital data set, I made all NA's the same, took out the unnecessary data for what I was looking into. I used the select function for this, taking out columns in my data set such as State, Address and completion Dates that were unneeded for what I wanted to look into. I then separated out the ways of rating the hospitals into their 3 categories/data sets. With the 3 data sets being linear mean scores out of 100 for specific attributes of the hospital, star ratings out of 5 which are rates similarly to linear mean score and answer percent which tracks what percentages of responses tracked to which specific answers.
 
 ```{r}
-#| message: false
-#| warning: false
-hosp <- read_csv("HCAHPS-Hospital.csv",na=c("Not Available","Not Applicable"))
+hosp <- read_csv("HCAHPS-Hospital.csv", na = c("Not Available", "Not Applicable"))
 
-hosp2<-hosp|>
-select(!(c("State","Telephone Number","Address","County/Parish","Number of Completed Surveys","Number of Completed Surveys Footnote","Survey Response Rate Percent","Start Date","End Date"))) 
+hosp2 <- hosp |>
+  select(!c("State", "Telephone Number", "Address", "County/Parish",
+            "Number of Completed Surveys", "Number of Completed Surveys Footnote",
+            "Survey Response Rate Percent", "Start Date", "End Date"))
 ```
+
+::: {.panel-tabset}
+
+## Star ratings
 
 ```{r}
-#patient star rating 
-hstar<-hosp2|>
-select(!(c("HCAHPS Answer Percent","HCAHPS Linear Mean Value")))|>
- filter(!is.na(`Patient Survey Star Rating`))
+hstar <- hosp2 |>
+  select(!c("HCAHPS Answer Percent", "HCAHPS Linear Mean Value")) |>
+  filter(!is.na(`Patient Survey Star Rating`))
+```
 
+## Answer percent
 
-#Answer percent
-hpercent<-hosp2|>
-select(!(c("Patient Survey Star Rating","HCAHPS Linear Mean Value")))|>
+```{r}
+hpercent <- hosp2 |>
+  select(!c("Patient Survey Star Rating", "HCAHPS Linear Mean Value")) |>
   filter(!is.na(`HCAHPS Answer Percent`))
-  
+```
 
-#linear mean value
-hmean<-hosp2|>
-select(!(c("HCAHPS Answer Percent","Patient Survey Star Rating")))|>
+## Linear mean value
+
+```{r}
+hmean <- hosp2 |>
+  select(!c("HCAHPS Answer Percent", "Patient Survey Star Rating")) |>
   filter(!is.na(`HCAHPS Linear Mean Value`))
 ```
+
+:::
 
 ## Data Wrangling (Continued)
 
 Separating the rating types wasn't the end of my data wrangling though. My data was still unworkable in its current state. With each thing being rated, such as doctor communication or staff responsiveness having its own row. I used the pivot wider function, to widen my data set and give each thing being rated its own column. I then had to use the as.numeric function to change the data in my linear mean score data set from characters to numbers. Finally I shortened the names in my linear mean value data set, and deleted the old names to make it easier to code and do my eda/model selection.
 
+::: {.panel-tabset}
+
+## Star ratings
+
 ```{r}
-#pivot our HCAHPS COL to get less rows 
-hstar<-hstar|>
+hstar <- hstar |>
   pivot_wider(
-    id_cols=`Facility ID`,
+    id_cols = `Facility ID`,
     names_from = `HCAHPS Answer Description`,
     values_from = `Patient Survey Star Rating`
-  ) 
-
-hpercent<-hpercent|>
-  pivot_wider(
-    id_cols=`Facility ID`,
-    names_from = `HCAHPS Answer Description`,
-    values_from = `HCAHPS Answer Percent`
-  ) 
-
-hmean<-hmean|>
-  pivot_wider(
-    id_cols=`Facility ID`,
-    names_from = `HCAHPS Answer Description`,
-    values_from = `HCAHPS Linear Mean Value`
-  ) 
-
- 
+  )
 ```
 
+## Answer percent
+
 ```{r}
-# Step 2: Convert to numeric safely
+hpercent <- hpercent |>
+  pivot_wider(
+    id_cols = `Facility ID`,
+    names_from = `HCAHPS Answer Description`,
+    values_from = `HCAHPS Answer Percent`
+  )
+```
+
+## Linear mean value
+
+```{r}
+hmean <- hmean |>
+  pivot_wider(
+    id_cols = `Facility ID`,
+    names_from = `HCAHPS Answer Description`,
+    values_from = `HCAHPS Linear Mean Value`
+  )
+```
+
+:::
+
+```{r}
+# Convert to numeric safely
 hmean$`Overall hospital rating - linear mean score` <- as.numeric(
   as.character(hmean$`Overall hospital rating - linear mean score`)
 )
 
-
-```
-
-```{r}
-#Cleaning names
-
-hmeanc<-hmean|>
-  mutate(
-   Nurse_comm =`Nurse communication - linear mean score`,
-   Doctor_comm =`Doctor communication - linear mean score`,
-    Staff_resp =`Staff responsiveness - linear mean score`,
-   Med_comm =`Communication about medicines - linear mean score`,
-   disc_info = `Discharge information - linear mean score`,
-   care_trans =`Care transition - linear mean score`,
-   cleanliness = `Cleanliness - linear mean score`,
-   quietness = `Quietness - linear mean score`,
-   overall_rating = `Overall hospital rating - linear mean score`,
-   rec_rating = `Recommend hospital - linear mean score`
-   
+# Shorten the column names (rename keeps every other column as it is)
+hmeanc <- hmean |>
+  rename(
+    Nurse_comm     = `Nurse communication - linear mean score`,
+    Doctor_comm    = `Doctor communication - linear mean score`,
+    Staff_resp     = `Staff responsiveness - linear mean score`,
+    Med_comm       = `Communication about medicines - linear mean score`,
+    disc_info      = `Discharge information - linear mean score`,
+    care_trans     = `Care transition - linear mean score`,
+    cleanliness    = `Cleanliness - linear mean score`,
+    quietness      = `Quietness - linear mean score`,
+    overall_rating = `Overall hospital rating - linear mean score`,
+    rec_rating     = `Recommend hospital - linear mean score`
   )
-
-hmeanc$`Nurse communication - linear mean score` <- NULL
-hmeanc$`Doctor communication - linear mean score` <- NULL
-hmeanc$`Staff responsiveness - linear mean score` <- NULL
-hmeanc$`Communication about medicines - linear mean score` <- NULL
-hmeanc$`Discharge information - linear mean score` <- NULL
-hmeanc$`Care transition - linear mean score` <- NULL
-hmeanc$`Cleanliness - linear mean score` <- NULL
-hmeanc$`Quietness - linear mean score` <- NULL
-hmeanc$`Overall hospital rating - linear mean score` <- NULL
-hmeanc$`Recommend hospital - linear mean score` <- NULL
 ```
 
 # Exploratory Data Analysis
@@ -156,162 +177,62 @@ hmeanc$`Recommend hospital - linear mean score` <- NULL
 Now that I had my data in the form that I wanted it, I could start on Exploratory data analysis to see what is going on. After trying some different type of tables and graphs I settled on making scatter plots. I made a scatter plot for each of the 8 variables in my data that contribute to a hospital's overall linear mean score and mapped them against the overall linear mean score. Each of the graphs showed a positive linear relationship between the variables and the overall linear mean score. This is unsurprising considering the context of the data. If a hospital is good at one area of rating it could be expected that it would be well rated in other areas. Even on a one to one scale it isn't very shocking. The higher a score a hospital gets in one area, the higher overall score it would get.
 
 ```{r}
-#| message: false
-#| label: plot1 chunk
-plot1<- ggplot(data = hmeanc, 
+#| label: plot1-chunk
+plot1 <- ggplot(data = hmeanc,
        mapping = aes(
-         x = Staff_resp, 
-         y = overall_rating 
+         x = Staff_resp,
+         y = overall_rating
        )) +
   geom_point() +
-  geom_smooth(method = "lm", color = "darkblue", 
+  geom_smooth(method = "lm", color = "darkblue",
               linetype = "dashed", se = FALSE) +
   geom_smooth(method = "loess", color = "darkred", se = FALSE) +
   labs(
     title = "Staff Responsiveness vs Overall rating",
     x = "Staff Responsiveness",
     y = "Overall Rating"
-  )+theme(plot.title = element_text(size = 7))+ theme(
-  axis.title.x = element_text(size = 7),
-  axis.title.y = element_text(size = 7) )
+  ) +
+  theme(plot.title = element_text(size = 7),
+        axis.title.x = element_text(size = 7),
+        axis.title.y = element_text(size = 7))
 ```
 
 This is the code for my first plot. I repeated the same steps for plots 2-8 only changing my x variable and graph name.
 
 ```{r}
-#| message: false
-#| label: plot 2-8 chunk
+#| label: plots-2-8
 #| echo: false
-plot2<-ggplot(data = hmeanc,
-       mapping = aes(
-         x = Nurse_comm,
-         y = overall_rating 
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "darkblue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "darkred",se = FALSE) +
-  labs(
-    title = "Nurse Communication vs Overall rating",
-    x = "Nurse Communication",
-    y = "Overall Rating"
-  )+theme(plot.title = element_text(size = 7))+ theme(
-  axis.title.x = element_text(size = 7),
-  axis.title.y = element_text(size = 7) )
+eda_plot <- function(xvar, xlab) {
+  ggplot(data = hmeanc,
+         mapping = aes(x = .data[[xvar]], y = overall_rating)) +
+    geom_point() +
+    geom_smooth(method = "lm", color = "darkblue",
+                linetype = "dashed", se = FALSE) +
+    geom_smooth(method = "loess", color = "darkred", se = FALSE) +
+    labs(
+      title = paste(xlab, "vs Overall rating"),
+      x = xlab,
+      y = "Overall Rating"
+    ) +
+    theme(plot.title = element_text(size = 7),
+          axis.title.x = element_text(size = 7),
+          axis.title.y = element_text(size = 7))
+}
 
-plot3<-ggplot(data = hmeanc,
-       mapping = aes(
-         x = Doctor_comm,
-         y = overall_rating 
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "darkblue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
-  labs(
-    title = "Doctor Communication vs Overall rating",
-    x = "Doctor Communication",
-    y = "Overall Rating"
-  )+theme(plot.title = element_text(size = 7))+ theme(
-  axis.title.x = element_text(size = 7),
-  axis.title.y = element_text(size = 7) )
-
-plot4<-ggplot(data = hmeanc,
-       mapping = aes(
-         x = Med_comm,
-         y = overall_rating 
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "darkblue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
-  labs(
-    title = "Medicine Communication vs Overall rating",
-    x = "Medicine Communication",
-    y = "Overall Rating"
-  )+theme(plot.title = element_text(size = 7))+ theme(
-  axis.title.x = element_text(size = 7),
-  axis.title.y = element_text(size = 7) )
-
-plot5<-ggplot(data = hmeanc,
-       mapping = aes(
-         x = disc_info,
-         y = overall_rating 
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "darkblue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
-  labs(
-    title = "Discharge Information vs Overall rating",
-    x = "Discharge Information",
-    y = "Overall Rating"
-  )+theme(plot.title = element_text(size = 7))+ theme(
-  axis.title.x = element_text(size = 7),
-  axis.title.y = element_text(size = 7) )
-plot6<-ggplot(data = hmeanc,
-       mapping = aes(
-         x = care_trans, 
-         y = overall_rating 
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "darkblue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
-  labs(
-    title = "Care Transition vs Overall rating",
-    x = "Care Transition",
-    y = "Overall Rating"
-  )+theme(plot.title = element_text(size = 7))+ theme(
-  axis.title.x = element_text(size = 7),
-  axis.title.y = element_text(size = 7) )
-
-plot7<-ggplot(data = hmeanc,
-       mapping = aes(
-         x = cleanliness,
-         y = overall_rating 
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "darkblue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
-  labs(
-    title = "cleanliness vs Overall rating",
-    x = "cleanliness",
-    y = "Overall Rating"
-  )+theme(plot.title = element_text(size = 7))+ theme(
-  axis.title.x = element_text(size = 7),
-  axis.title.y = element_text(size = 7) )
-
-plot8<-ggplot(data = hmeanc,
-       mapping = aes(
-         x = quietness,
-         y = overall_rating 
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "darkblue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "darkred", se = FALSE) +
-  labs(
-    title = "Explanatory vs Overall rating",
-    x = "Medicine Communication",
-    y = "Overall Rating"
-  )+theme(plot.title = element_text(size = 7)) + theme(
-  axis.title.x = element_text(size = 7),
-  axis.title.y = element_text(size = 7) )
-
-
+plot2 <- eda_plot("Nurse_comm", "Nurse Communication")
+plot3 <- eda_plot("Doctor_comm", "Doctor Communication")
+plot4 <- eda_plot("Med_comm", "Medicine Communication")
+plot5 <- eda_plot("disc_info", "Discharge Information")
+plot6 <- eda_plot("care_trans", "Care Transition")
+plot7 <- eda_plot("cleanliness", "Cleanliness")
+plot8 <- eda_plot("quietness", "Quietness")
 ```
 
 ```{r}
-#| message: false
-#| warning: false
-#| label: show lightbox
-#| lightbox: 
+#| label: show-lightbox
+#| lightbox:
 #|   match: auto
-
-(plot1+plot2+plot3+plot4+plot5+plot6+plot7+plot8)
-
+(plot1 + plot2 + plot3 + plot4 + plot5 + plot6 + plot7 + plot8)
 ```
 
 # Model Selection
@@ -321,126 +242,91 @@ For my model selection I decided to make some linear models, since the variables
 ```{r}
 set.seed(17)
 hmeanc_split <- hmeanc |>
-  initial_split(
-    prop=0.50
-  )  
+  initial_split(prop = 0.50)
 
-  hmeanc_training<- training(hmeanc_split)
-  hmeanc_test <- testing(hmeanc_split)
+hmeanc_training <- training(hmeanc_split)
+hmeanc_test <- testing(hmeanc_split)
 ```
 
 ```{r}
-#| label: big chunk1
-lmcomm <-glm(
-    overall_rating~Nurse_comm + Doctor_comm ,
-    data = hmeanc_training
-  )
+#| label: fit-models
+lmcomm <- glm(
+  overall_rating ~ Nurse_comm + Doctor_comm,
+  data = hmeanc_training
+)
 
-lmall <-glm(
-    overall_rating~Nurse_comm + Doctor_comm + Staff_resp + Med_comm + disc_info + care_trans + cleanliness + quietness  ,
-    data = hmeanc_training
-  )
+lmall <- glm(
+  overall_rating ~ Nurse_comm + Doctor_comm + Staff_resp + Med_comm +
+    disc_info + care_trans + cleanliness + quietness,
+  data = hmeanc_training
+)
 
-lmnull <-glm(
-    overall_rating~1 ,
-    data = hmeanc_training
-  )
-
-
+lmnull <- glm(
+  overall_rating ~ 1,
+  data = hmeanc_training
+)
 ```
 
 Looking at the intercept and slope of my models gives interesting results. The slopes of the Nurse_comm and Doctor_comm variables are positive which is expected as when either score increases the overall rating increases, but the intercept doesn't make much sense in the context of our hospital scores. Rounding our intercept it is around -29.144 and the lowest score a hospital can get is zero., so if a hospital had a zero on Doctor_comm and Nurse_comm it would be expected to have a negative score from our model, which isn't possible. Our 2nd model with all similarly has a negative intercept which doesn't fit our context, along with having a positive slope for most of the variables but our med_comm variable is a bit of an outline. It has a negative slope, meaning holding the other variables constant, in this model as our med_comm score increases the overall hospital rating is actually expected to decrease.
 
-```{r echo=FALSE}
-tidy(lmcomm) |> 
-  gt()|> tab_style(
-    style = list(
-      cell_fill(color = "lightyellow"),
-      cell_text(weight = "bold", color = "black")
-    ),
-    locations = cells_body(
-      columns = estimate))|>tab_style(
-    style = list(
-      cell_fill(color = "#6495ed"),  
-      cell_text(weight = "bold")       
-    ),
-    locations = cells_body(
-      columns = estimate, 
-      rows = 1          
+```{r}
+#| echo: false
+coef_table <- function(model, flag_rows = 1) {
+  tidy(model) |>
+    gt() |>
+    tab_style(
+      style = list(cell_fill(color = "lightyellow"),
+                   cell_text(weight = "bold", color = "black")),
+      locations = cells_body(columns = estimate)
+    ) |>
+    tab_style(
+      style = list(cell_fill(color = "#6495ed"),
+                   cell_text(weight = "bold")),
+      locations = cells_body(columns = estimate, rows = flag_rows)
     )
-  )
-
-tidy (lmall)|>
-  gt()|> tab_style(
-    style = list(
-      cell_fill(color = "lightyellow"),
-      cell_text(weight = "bold", color = "black")
-    ),
-    locations = cells_body(
-      columns = estimate))|>tab_style(
-    style = list(
-      cell_fill(color = "#6495ed"),  
-      cell_text(weight = "bold")       
-    ),
-    locations = cells_body(
-      columns = estimate, 
-      rows = 1          
-    )
-  )|>
-  tab_style(
-    style = list(
-      cell_fill(color = "#6495ed"),  
-      cell_text(weight = "bold")       
-    ),
-    locations = cells_body(
-      columns = estimate, 
-      rows = 5          
-    )
-  )
-  
-tidy(lmnull)|>
-  gt()|> tab_style(
-    style = list(
-      cell_fill(color = "#6495ed"),
-      cell_text(weight = "bold", color = "black")
-    ),
-    locations = cells_body(
-      columns = estimate))
-
+}
 ```
 
-```{r echo=FALSE}
-hmeanc_pred1<- lmall |>
-  augment( newdata = hmeanc_test
-  )
+::: {.panel-tabset}
 
+## Communication model
 
+```{r}
+#| echo: false
+coef_table(lmcomm)
+```
 
-hmeanc_pred2<- lmcomm |>
-  augment( newdata = hmeanc_test)
+## All-variable model
 
+```{r}
+#| echo: false
+coef_table(lmall, flag_rows = c(1, 5))
+```
 
-hmeanc_pred3<- lmnull |>
-  augment( newdata = hmeanc_test)
+## Null model
 
+```{r}
+#| echo: false
+coef_table(lmnull)
+```
 
+:::
+
+```{r}
+#| echo: false
+hmeanc_pred1 <- lmall |> augment(newdata = hmeanc_test)
+hmeanc_pred2 <- lmcomm |> augment(newdata = hmeanc_test)
+hmeanc_pred3 <- lmnull |> augment(newdata = hmeanc_test)
 ```
 
 Continuing on my model selection, I used the argument function to produce some predictions based off of my testing set, which gave me my .fitted, variable which is my predictions. I then made the .resid variable by subtracting the actual overall score from the predicted overall score to find the difference.
 
-```{r echo=FALSE}
-#| label: big chunk2
-
-hmeanc_pred1<-hmeanc_pred1|>
-  mutate(.resid=overall_rating-.fitted)
-
-hmeanc_pred2<-hmeanc_pred2|>
-  mutate(.resid=overall_rating-.fitted)
-
-hmeanc_pred3<-hmeanc_pred3|>
-  mutate(.resid=overall_rating-.fitted)
-
-
+```{r}
+#| echo: false
+#| label: add-resid
+hmeanc_pred1 <- hmeanc_pred1 |> mutate(.resid = overall_rating - .fitted)
+hmeanc_pred2 <- hmeanc_pred2 |> mutate(.resid = overall_rating - .fitted)
+hmeanc_pred3 <- hmeanc_pred3 |> mutate(.resid = overall_rating - .fitted)
 ```
 
 Plotting the results of .resid against .fitted as both a scatter plot and .resid alone as histogram gives some good insight into how well our models predicted overall score.
@@ -449,88 +335,68 @@ Plotting the results of .resid against .fitted as both a scatter plot and .resid
 
 I made a similar scatter plot for 2 of my models, only changing the data in my code.
 
-```{r results='hide'}
-#| message: false
-#| warning: false
-scatter1<-ggplot(data = hmeanc_pred1,
-       mapping = aes(
-         x = .fitted,
-         y = .resid
-
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "blue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "red", se = FALSE) +
-  labs(
-    title = "residual vs fit (communication model)",
-    x = "fitted",
-    y = "resdidual"
-  ) 
-
-scatter2<-ggplot(data = hmeanc_pred2,
-       mapping = aes(
-         x = .fitted,
-         y = .resid
-
-       )) +
-  geom_point() +
-  geom_smooth(method = "lm", color = "blue", 
-              linetype = "dashed", se = FALSE) +
-  geom_smooth(method = "loess", color = "red", se = FALSE) +
-  labs(
-    title = "residual vs fit (all variable model)",
-    x = "fitted",
-    y = "resdidual"
-  )
-
-
+```{r}
+resid_scatter <- function(d, ttl) {
+  ggplot(data = d, mapping = aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    geom_smooth(method = "lm", color = "blue",
+                linetype = "dashed", se = FALSE) +
+    geom_smooth(method = "loess", color = "red", se = FALSE) +
+    labs(title = ttl, x = "fitted", y = "residual")
+}
 ```
+
+::: {.panel-tabset}
+
+#### Communication model
 
 ```{r}
-#| message: false
-#| echo: false
-(scatter1)
-(scatter2)
-
+resid_scatter(hmeanc_pred2, "residual vs fit (communication model)")
 ```
+
+#### All-variable model
+
+```{r}
+resid_scatter(hmeanc_pred1, "residual vs fit (all variable model)")
+```
+
+:::
 
 Comparing the residual scatter plots, the communication model's residuals are closer together and close compared to the all variables model. The all variables model has more variability at most values in its over/under estimates. A scatter plot wouldn't show us much for our null model as it would just be a straight line.
 
 ### Residual Histograms
 
 ```{r}
-#| warning: false
-#| message: false
-
-ggplot(
-  data = hmeanc_pred1,
-  mapping= aes(x=.resid)
-)+
-geom_histogram()+
-  labs(title = ".resid Historgram Comm Model") 
+resid_hist <- function(d, ttl) {
+  ggplot(data = d, mapping = aes(x = .resid)) +
+    geom_histogram() +
+    labs(title = ttl)
+}
 ```
+
+::: {.panel-tabset}
+
+#### Communication model
+
+```{r}
+resid_hist(hmeanc_pred2, ".resid Histogram Comm Model")
+```
+
+#### All-variable model
+
+```{r}
+resid_hist(hmeanc_pred1, ".resid Histogram all var Model")
+```
+
+#### Null model
+
+```{r}
+resid_hist(hmeanc_pred3, ".resid Histogram null Model")
+```
+
+:::
 
 I also made 3 similar histograms of my models, only changing the data in my code for each.
-
-```{r echo=FALSE}
-#| message: false
-#| warning: false
-ggplot(
-  data = hmeanc_pred2,
-  mapping= aes(x=.resid)
-)+
-geom_histogram() +
-   labs(title = ".resid Historgram all var Model") 
-
-ggplot(
-  data = hmeanc_pred3,
-  mapping= aes(x=.resid)
-)+
-geom_histogram()+
-   labs(title = ".resid Historgram null Model") 
-  
-```
 
 We can look at the histograms and see similar information to the scatter plot. The communication model is more closely centered at zero than the other two models, but it also has the biggest outlier, with a residual under -10. Our all variable model is less centered at zero, and more spread out between -5 and 5. Our null model has around 300 residual values around -5. This is more than any value on the all variable and communication models.
 
@@ -538,40 +404,48 @@ We can look at the histograms and see similar information to the scatter plot. T
 
 The last and arguably most important step of our model selection in this case is checking our Rmse values. The lower Rmse value a model has the closer its predictions are to the actual value the model is trying to predict.
 
-```{r results='hide'}
- hmeanc_pred1 |> 
-  mutate(rmse = sqrt(mean(.resid^2)))
+```{r}
+rmse <- function(d) sqrt(mean(d$.resid^2))
 
- hmeanc_pred2 |> 
-  mutate(rmse = sqrt(mean(.resid^2)))
- 
-hmeanc_pred3 |> 
-  mutate(rmse = sqrt(mean(.resid^2)))
-
+rmse_vals <- c(
+  Lmcomm = rmse(hmeanc_pred2),
+  Lmall  = rmse(hmeanc_pred1),
+  Lmnull = rmse(hmeanc_pred3)
+)
 ```
 
 Here I computed the values of my rmse by taking each of the residual values for the three models by, squaring the residuals,taking the mean value and then square rooting.
 
+::: {.panel-tabset}
+
+#### Table
+
 ```{r}
- my_matrix <- matrix(
-  c("Lmcomm", "1.444126", 
-    "Lmall", "1.751409", 
-    "Lmnull", "3.84769"), 
-  nrow = 3, 
-  byrow = TRUE
-) %>% 
-  as.data.frame()
- 
-gt(my_matrix)|>
-  cols_label(
-   V1 = "Model Type",   
-   V2 = "RMSE Score"   
-  ) %>%
+rmse_tbl <- data.frame(
+  `Model Type` = names(rmse_vals),
+  `RMSE Score` = unname(rmse_vals),
+  check.names = FALSE
+)
+
+gt(rmse_tbl) |>
+  fmt_number(columns = `RMSE Score`, decimals = 4) |>
   tab_header(
     title = "RMSE Scores",
-    subtitle = "Comparison of different models")
-
+    subtitle = "Comparison of different models"
+  )
 ```
+
+#### Chart
+
+```{r}
+ggplot(rmse_tbl, aes(x = reorder(`Model Type`, `RMSE Score`), y = `RMSE Score`)) +
+  geom_col(fill = "#0F6B63", width = 0.6) +
+  geom_text(aes(label = round(`RMSE Score`, 3)), vjust = -0.4) +
+  labs(x = "Model", y = "RMSE (lower is better)") +
+  theme_minimal()
+```
+
+:::
 
 I made a table of the resulting Rmse's based on each model. Since the smaller the Rmse the closer the model is to what it's trying to predict the "best" model is the communication model, followed by the all variables model, then the null model. It makes sense our null model predicts the worst as any values under its predicted score of 87 result in a positive residual and the score is out of 100, so 87 shouldn't always be expected.
 

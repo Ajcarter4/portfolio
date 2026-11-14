@@ -13,25 +13,6 @@ execute:
   warning: false
 ---
 
-```{=html}
-<style>
-.fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-in.visible { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .fade-in { opacity: 1; transform: none; transition: none; } }
-</style>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  var els = document.querySelectorAll("#quarto-document-content section > :is(h1,h2,h3,p,.cell,.quarto-figure,.panel-tabset,div.sourceCode)");
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  els.forEach(function (el) { el.classList.add("fade-in"); io.observe(el); });
-});
-</script>
-```
-
 ![](images/hospital.photo.jpg){fig-align="center"}
 
 # Context and Question

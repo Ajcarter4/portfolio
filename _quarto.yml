@@ -5,26 +5,26 @@ project:
 website:
   title: "Anthony Carter"
   navbar:
-    left:
+    right:
       - href: index.qmd
         text: Home
       - href: about.qmd
         text: About
-      - href: Project1.qmd
-        text: Project 1
-      - href: Project2.qmd
-        text: Project 2
+      - href: projects.qmd
+        text: Projects
   page-footer:
     left: "© 2026 Anthony Carter"
     right:
       - text: GitHub
-        href: https://github.com/YOUR-USERNAME
+        href: https://github.com/Ajcarter4
       - text: LinkedIn
-        href: https://www.linkedin.com/in/YOUR-PROFILE
+        href: https://www.linkedin.com/in/anthony-carter-225b71375
       - text: Email
-        href: mailto:YOUR-EMAIL
+        href: mailto:anthonyjc834@gmail.com
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: [cosmo, theme.scss]
+    body-classes: project-page
+    include-after-body: _motion.html
+    highlight-style: github

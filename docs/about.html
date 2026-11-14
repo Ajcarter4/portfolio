@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-91c2c63b81b6e6c681b0d18941634f6a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-eee9216bab459867d004a5942ad1ec1a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,10 +70,9 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed project-page fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -91,7 +90,7 @@ ul.task-list li input[type="checkbox"] {
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
@@ -101,12 +100,8 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Project1.html"> 
-<span class="menu-text">Project 1</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Project2.html"> 
-<span class="menu-text">Project 2</span></a>
+    <a class="nav-link" href="./projects.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -146,6 +141,58 @@ ul.task-list li input[type="checkbox"] {
 
 
 </main> <!-- /main -->
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // No motion: leave everything in its finished state.
+  if (reduce || !("IntersectionObserver" in window)) return;
+
+  root.classList.add("js-motion");
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { root.classList.add("is-loaded"); });
+  });
+
+  // ---- one observer for everything that animates on entry ----
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      el.classList.add("in-view");
+      io.unobserve(el);
+      if (el.matches('[data-motion="scatter"]')) runScatter(el);
+    });
+  }, { threshold: 0.35 });
+
+  document.querySelectorAll('[data-motion="scatter"], .work-fig').forEach(function (el) { io.observe(el); });
+
+  // ---- hero scatter: points (CSS batches) -> outlier snaps -> fit draws ----
+  function runScatter(fig) {
+    var batches = 10, batchMs = 60, pointMs = 260;
+    var pointsDone = (batches - 1) * batchMs + pointMs;
+    setTimeout(function () { fig.classList.add("outlier-in"); }, pointsDone + 80);
+    setTimeout(function () { fig.classList.add("fit-drawn"); }, pointsDone + 520);
+
+    // hover / keyboard focus redraws the fit
+    var svg = fig.querySelector("svg");
+    var busy = false;
+    function redraw() {
+      if (busy || !fig.classList.contains("fit-drawn")) return;
+      busy = true;
+      var line = fig.querySelector(".fit");
+      line.style.transition = "none";          // jump back to undrawn instantly
+      fig.classList.remove("fit-drawn");
+      void line.getBoundingClientRect();
+      line.style.transition = "";
+      requestAnimationFrame(function () { fig.classList.add("fit-drawn"); });
+      setTimeout(function () { busy = false; }, 800);
+    }
+    svg.addEventListener("pointerenter", redraw);
+    svg.addEventListener("focus", redraw);
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -558,17 +605,17 @@ ul.task-list li input[type="checkbox"] {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="https://github.com/YOUR-USERNAME">
+    <a class="nav-link" href="https://github.com/Ajcarter4">
 <p>GitHub</p>
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="https://www.linkedin.com/in/YOUR-PROFILE">
+    <a class="nav-link" href="https://www.linkedin.com/in/anthony-carter-225b71375">
 <p>LinkedIn</p>
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="mailto:YOUR-EMAIL">
+    <a class="nav-link" href="mailto:anthonyjc834@gmail.com">
 <p>Email</p>
 </a>
   </li>  

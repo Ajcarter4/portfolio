@@ -1,0 +1,58 @@
+---
+title: "Projects"
+subtitle: "Analyses built in R and written up in Quarto, with the code behind each one."
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+```{r}
+#| include: false
+source("_homepage-figures.R")
+```
+
+```{=html}
+<ul class="work-list">
+  <li>
+    <a class="work-row" href="Project1.html">
+      <span class="work-num">01</span>
+      <div>
+        <h2 class="work-title">What makes patients rate a hospital highly?</h2>
+        <p class="work-text">Linear models on CMS patient-survey scores for 3,197 U.S. hospitals, comparing which parts of a stay best predict the overall rating.</p>
+        <p class="work-meta">R · Linear regression · tidyverse</p>
+      </div>
+      <div class="work-fig">
+```
+
+```{r}
+#| output: asis
+raw_html(preview_hospital())
+```
+
+```{=html}
+      </div>
+    </a>
+  </li>
+  <li>
+    <a class="work-row" href="Project2.html">
+      <span class="work-num">02</span>
+      <div>
+        <h2 class="work-title">Telling two Encelia species apart</h2>
+        <p class="work-text">Field measurements from the Fullerton Arboretum and logistic regression with repeated cross-validation, to predict whether a flower is <em>E. californica</em> or <em>E. farinosa</em>.</p>
+        <p class="work-meta">R · Logistic regression · Cross-validation</p>
+      </div>
+      <div class="work-fig">
+```
+
+```{r}
+#| output: asis
+raw_html(preview_encelia())
+```
+
+```{=html}
+      </div>
+    </a>
+  </li>
+</ul>
+```

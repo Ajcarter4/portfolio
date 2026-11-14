@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+/.quarto/
+
+**/*.quarto_ipynb
+
+# too big for GitHub (141 MB); kept locally for rendering
+HCAHPS-Hospital.csv
+.RDataTmp*
+portfolio2/
